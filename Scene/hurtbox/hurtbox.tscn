@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://csdocmgutw60h"]
+
+[ext_resource type="Script" path="res://Scene/hurtbox/hurtbox.gd" id="1_cykms"]
+
+[node name="HurtBox" type="Area3D"]
+script = ExtResource("1_cykms")
+damage = 25

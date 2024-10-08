@@ -1,0 +1,249 @@
+[gd_scene load_steps=32 format=3 uid="uid://contpan4e10nt"]
+
+[ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_qirt4"]
+[ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/enemy_melee.tscn" id="2_joxgx"]
+[ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_piicx"]
+[ext_resource type="PackedScene" uid="uid://b374fbrm6lwsx" path="res://Scene/projectile/projectile_enemy.tscn" id="3_kw0gp"]
+[ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="4_i3pkl"]
+[ext_resource type="Script" path="res://addons/3dEnemyToolkit/FollowTarget.gd" id="5_dke2u"]
+[ext_resource type="Script" path="res://Scripts/States/chase_state_AI.gd" id="6_jraiy"]
+[ext_resource type="Script" path="res://Scripts/States/attack_state_ai.gd" id="7_i8rqv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x5d64"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceh3n"]
+albedo_color = Color(0.128403, 0.996094, 0.284316, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vqtlc"]
+material = SubResource("StandardMaterial3D_ceh3n")
+
+[sub_resource type="BoxMesh" id="BoxMesh_g7mtp"]
+size = Vector3(0.5, 0.2, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8oqrb"]
+albedo_color = Color(0.933594, 0.756721, 0.226105, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3qyip"]
+material = SubResource("StandardMaterial3D_8oqrb")
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_glnog"]
+radius = 0.534932
+
+[sub_resource type="Animation" id="Animation_li08v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_etlts"]
+resource_name = "attack"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1.5, 1), Vector3(1, 0.6, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/Gun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_218db"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1.1, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_74iv4"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1.2, 0.9), Vector3(1, 1, 1), Vector3(1, 1.2, 0.9), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qs1iq"]
+_data = {
+"RESET": SubResource("Animation_li08v"),
+"attack": SubResource("Animation_etlts"),
+"idle": SubResource("Animation_218db"),
+"walk": SubResource("Animation_74iv4")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5o415"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykre5"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sxfnp"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ow4do"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yu4gy"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_v7yna"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_5o415")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ykre5")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_sxfnp")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_ow4do")
+blend_point_3/pos = Vector2(0, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_yu4gy")
+blend_point_4/pos = Vector2(0, 0)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u8mbg"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cg2mt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u8hsu"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mrhju"]
+states/Movement/node = SubResource("AnimationNodeBlendSpace2D_v7yna")
+states/Movement/position = Vector2(368, 100)
+states/attack/node = SubResource("AnimationNodeAnimation_u8mbg")
+states/attack/position = Vector2(543, 100)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_cg2mt"), "Movement", "attack", SubResource("AnimationNodeStateMachineTransition_u8hsu")]
+
+[sub_resource type="Curve3D" id="Curve3D_h8nn8"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -3.56059, 0.00146484, -2.3333, 0, 0, 0, 0, 0, 0, 3.1182, 0.000854492, -2.34757, 0, 0, 0, 0, 0, 0, 3.1182, -0.00158691, 2.93267, 0, 0, 0, 0, 0, 0, -3.7033, -0.000976562, 2.90413, 0, 0, 0, 0, 0, 0, -3.74612, 0.00134277, -2.29048),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Enemy_spawner" type="CharacterBody3D" node_paths=PackedStringArray("model", "health", "animation_tree", "navigation_agent", "spawn_position", "hsm", "chase_state", "attack_state")]
+collision_layer = 9
+script = ExtResource("1_qirt4")
+model = NodePath("model")
+speed = 150
+health = NodePath("Health_System")
+animation_tree = NodePath("AnimationTree")
+navigation_agent = NodePath("FollowTarget3D")
+can_spawn_minion = true
+minions = Array[PackedScene]([ExtResource("2_joxgx")])
+spawn_position = NodePath("Path3D/PathFollow3D")
+hsm = NodePath("LimboHSM")
+chase_state = NodePath("LimboHSM/chase_state")
+attack_state = NodePath("LimboHSM/attack_state")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_x5d64")
+
+[node name="model" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, -0.342658, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="model"]
+mesh = SubResource("SphereMesh_vqtlc")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="model"]
+transform = Transform3D(1, 0, 0, 0, 0.712355, 0, 0, 0, 1, 5.42333e-08, 0.198535, 0.359171)
+mesh = SubResource("BoxMesh_g7mtp")
+
+[node name="Gun" parent="model" instance=ExtResource("2_piicx")]
+transform = Transform3D(1, 0, 0, 0, 0.944079, 0, 0, 0, 1, 7.75875e-08, 0, 0.513839)
+bullet_scene = ExtResource("3_kw0gp")
+bullet_speed = 10.0
+is_ai = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="model/Gun"]
+mesh = SubResource("BoxMesh_3qyip")
+
+[node name="Health_System" type="Area3D" parent="."]
+collision_layer = 16
+script = ExtResource("4_i3pkl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health_System"]
+shape = SubResource("CapsuleShape3D_glnog")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qs1iq")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_mrhju")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Movement/blend_position = Vector2(0, 0)
+
+[node name="FollowTarget3D" type="NavigationAgent3D" parent="."]
+script = ExtResource("5_dke2u")
+Speed = 2.0
+ReachTargetMinDistance = 9.0
+
+[node name="LimboHSM" type="LimboHSM" parent="."]
+
+[node name="chase_state" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("followtarget")]
+script = ExtResource("6_jraiy")
+followtarget = NodePath("../../FollowTarget3D")
+
+[node name="attack_state" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("followtarget")]
+script = ExtResource("7_i8rqv")
+followtarget = NodePath("../../FollowTarget3D")
+attack_range = 12.0
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_h8nn8")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.00213678, 9.13861e-05, -0.999996, 0, 1, 9.13861e-05, 0.999996, -1.95273e-07, 0.00213678, -3.56059, 0.00146484, -2.3333)
+
+[connection signal="ReachedTarget" from="FollowTarget3D" to="." method="_on_follow_target_3d_reached_target"]

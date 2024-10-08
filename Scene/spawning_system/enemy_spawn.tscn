@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3l10ygdgxhh0"]
+
+[ext_resource type="Script" path="res://Scene/spawning_system/enemy_spawn.gd" id="1_dlawo"]
+
+[sub_resource type="Curve3D" id="Curve3D_02yr6"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -12.9955, 0, -13.1507, 0, 0, 0, 0, 0, 0, 13.1507, 0, -13.0731, 0, 0, 0, 0, 0, 0, 13.2283, 0, 12.918, 0, 0, 0, 0, 0, 0, -13.3835, 0, 12.9955, 0, 0, 0, 0, 0, 0, -13.3059, 0, -12.2973),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Enemy_spawn" type="Path3D" node_paths=PackedStringArray("spawn_timer")]
+curve = SubResource("Curve3D_02yr6")
+script = ExtResource("1_dlawo")
+spawn_timer = NodePath("spawn_timer")
+
+[node name="spawn_timer" type="Timer" parent="."]
+
+[node name="wave_time" type="Timer" parent="."]

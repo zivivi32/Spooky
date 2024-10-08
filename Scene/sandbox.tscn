@@ -1,0 +1,164 @@
+[gd_scene load_steps=23 format=3 uid="uid://b33qdb870ijou"]
+
+[ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_7cyyn"]
+[ext_resource type="PackedScene" uid="uid://q6hivk3hm8xn" path="res://Scene/Enemy/enemy_base.tscn" id="2_odpd5"]
+[ext_resource type="PackedScene" uid="uid://c3l10ygdgxhh0" path="res://Scene/spawning_system/enemy_spawn.tscn" id="3_dyo3c"]
+[ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/enemy_melee.tscn" id="4_bl28x"]
+[ext_resource type="PackedScene" uid="uid://hpndn3ok4t3j" path="res://Scene/Difficulty_manager/difficulty_manager.tscn" id="4_ucx3h"]
+[ext_resource type="PackedScene" uid="uid://contpan4e10nt" path="res://Scene/Enemy/enemy_breakdown.tscn" id="5_mynpd"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
+vertices = PackedVector3Array(-14, 0.481918, -14, -14, 0.481918, 14, 14, 0.481918, 14, 14, 0.481918, -14)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whae5"]
+albedo_color = Color(0.489622, 0.489622, 0.489622, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ys3hh"]
+material = SubResource("StandardMaterial3D_whae5")
+size = Vector3(30, 0.2, 30)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xppof"]
+points = PackedVector3Array(-15, -0.1, -15, -15, 0.1, -15, 15, -0.1, -15, -15, -0.1, 15, -15, 0.1, 15, 15, 0.1, -15, 15, -0.1, 15, 15, 0.1, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tapme"]
+albedo_color = Color(0.162066, 0.162066, 0.162066, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ykxfl"]
+material = SubResource("StandardMaterial3D_tapme")
+size = Vector3(0.3, 2, 30)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lxhnb"]
+points = PackedVector3Array(0.324684, 1.18354, 15.0949, -0.244937, -1.09494, -15.0949, 0.324684, -1.09494, -15.0949, -0.244937, -1.09494, 15.0949, -0.244937, 1.18354, -15.0949, 0.324684, 1.18354, -15.0949, 0.324684, -1.09494, 15.0949, -0.244937, 1.18354, 15.0949)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gci62"]
+points = PackedVector3Array(0.324684, 1.18354, 15.0949, -0.244937, -1.09494, -15.0949, 0.324684, -1.09494, -15.0949, -0.244937, -1.09494, 15.0949, -0.244937, 1.18354, -15.0949, 0.324684, 1.18354, -15.0949, 0.324684, -1.09494, 15.0949, -0.244937, 1.18354, 15.0949)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2x3sn"]
+points = PackedVector3Array(0.324684, 1.18354, 15.0949, -0.244937, -1.09494, -15.0949, 0.324684, -1.09494, -15.0949, -0.244937, -1.09494, 15.0949, -0.244937, 1.18354, -15.0949, 0.324684, 1.18354, -15.0949, 0.324684, -1.09494, 15.0949, -0.244937, 1.18354, 15.0949)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mek44"]
+points = PackedVector3Array(0.324684, 1.18354, 15.0949, -0.244937, -1.09494, -15.0949, 0.324684, -1.09494, -15.0949, -0.244937, -1.09494, 15.0949, -0.244937, 1.18354, -15.0949, 0.324684, 1.18354, -15.0949, 0.324684, -1.09494, 15.0949, -0.244937, 1.18354, 15.0949)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdf3s"]
+
+[sub_resource type="Sky" id="Sky_5whrq"]
+sky_material = SubResource("ProceduralSkyMaterial_xdf3s")
+
+[sub_resource type="Environment" id="Environment_lifd2"]
+background_mode = 2
+sky = SubResource("Sky_5whrq")
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_cu4sg"]
+size = Vector3(100, 0.05, 100)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xyddh"]
+points = PackedVector3Array(50.7837, 0.768651, 50.7837, -50.7837, -0.818651, -50.7837, -50.7837, 0.768651, -50.7837, 50.7837, -0.818651, -50.7837, -50.7837, -0.818651, 50.7837, -50.7837, 0.768651, 50.7837, 50.7837, 0.768651, -50.7837, 50.7837, -0.818651, 50.7837)
+
+[sub_resource type="Curve" id="Curve_ffr2r"]
+min_value = 0.5
+_data = [Vector2(0.00279329, 1), 0.0, -0.501406, 0, 1, Vector2(0.99999, 0.5), -0.501406, 0.0, 1, 0]
+point_count = 2
+
+[node name="Sandbox" type="Node3D" groups=["world"]]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_qedyx")
+
+[node name="Node3D" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="floor" type="StaticBody3D" parent="NavigationRegion3D/Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Node3D/floor"]
+mesh = SubResource("BoxMesh_ys3hh")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/floor"]
+shape = SubResource("ConvexPolygonShape3D_xppof")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7924, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Node3D/StaticBody3D2"]
+mesh = SubResource("BoxMesh_ykxfl")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/StaticBody3D2"]
+shape = SubResource("ConvexPolygonShape3D_lxhnb")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7972, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Node3D/StaticBody3D3"]
+mesh = SubResource("BoxMesh_ykxfl")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/StaticBody3D3"]
+shape = SubResource("ConvexPolygonShape3D_gci62")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.62939e-06, 0, -14.7131)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Node3D/StaticBody3D4"]
+mesh = SubResource("BoxMesh_ykxfl")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/StaticBody3D4"]
+shape = SubResource("ConvexPolygonShape3D_2x3sn")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.62939e-06, 0, 14.8775)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Node3D/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0098238, -0.0180818, -0.0158958)
+mesh = SubResource("BoxMesh_ykxfl")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0098238, -0.0180818, -0.0158958)
+shape = SubResource("ConvexPolygonShape3D_mek44")
+
+[node name="Player" parent="." instance=ExtResource("1_7cyyn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.545156, 1.14384, 9.47695)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lifd2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.665999, -0.603351, 0.438649, 0, 0.588039, 0.808833, -0.745953, -0.538682, 0.391633, 0, 5.74262, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+layers = 524288
+mesh = SubResource("BoxMesh_cu4sg")
+
+[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+collision_layer = 524288
+collision_mask = 4294967295
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+shape = SubResource("ConvexPolygonShape3D_xyddh")
+
+[node name="Enemy" parent="." instance=ExtResource("2_odpd5")]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 3)
+visible = false
+
+[node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
+medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
+hard_enemies = Array[PackedScene]([ExtResource("5_mynpd")])
+boss_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
+spawn_pos = NodePath("PathFollow3D")
+difficulty_manager = NodePath("Difficulty_manager")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Enemy_spawn"]
+transform = Transform3D(-0.00296786, 0, -0.999992, 0, 1, 0, 0.999992, 0, -0.00296786, -12.9955, 0, -13.1507)
+
+[node name="Difficulty_manager" parent="Enemy_spawn" instance=ExtResource("4_ucx3h")]
+spawn_time_curve = SubResource("Curve_ffr2r")

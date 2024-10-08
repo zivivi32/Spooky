@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjlu11elklpnl"]
+
+[ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="1_dopvw"]
+
+[node name="Health_System" type="Area3D"]
+script = ExtResource("1_dopvw")
