@@ -27,6 +27,8 @@ var is_alive: bool :
 	get:
 		return is_alive
 
+var can_hurt: bool = true
+
 signal health_changed(changed_health)
 signal death
 
@@ -35,5 +37,11 @@ func _ready() -> void:
 		health_bar.init_health(max_health)
 	health = max_health
 
+func immune(time): 
+	can_hurt = false
+	await get_tree().create_timer(time).timeout
+	can_hurt = true
+
 func damage(amount):
-	health -= amount
+	if can_hurt:
+		health -= amount

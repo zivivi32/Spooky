@@ -244,6 +244,6 @@ attack_range = 12.0
 curve = SubResource("Curve3D_h8nn8")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.00213678, 9.13861e-05, -0.999996, 0, 1, 9.13861e-05, 0.999996, -1.95273e-07, 0.00213678, -3.56059, 0.00146484, -2.3333)
+transform = Transform3D(0.00213666, 9.13856e-05, -0.999996, -7.27595e-12, 1, 9.13856e-05, 0.999996, -1.95253e-07, 0.00213666, -3.56059, 0.00146484, -2.3333)
 
 [connection signal="ReachedTarget" from="FollowTarget3D" to="." method="_on_follow_target_3d_reached_target"]

@@ -112,8 +112,6 @@ func pick_enemy_type() -> PackedScene:
 		else:
 			return hard_enemies.pick_random()  # 30% chance for hard
 
-
-## NEED another call back for Boss to end the Wave!
 # Callback when an enemy dies
 func _on_enemy_died(enemy) -> void:
 	current_wave_enemies.erase(enemy) # Remove enemy from the list

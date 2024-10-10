@@ -6,6 +6,7 @@ class_name Enemy
 @export var speed: int = 5
 @export var health: Health_System
 @export var animation_tree: AnimationTree
+@export var is_spawned: bool = false
 @export var navigation_agent: FollowTarget3D
 
 @export_subgroup("Minion spawner")
@@ -36,6 +37,9 @@ func _ready() -> void:
 	
 	playback = animation_tree["parameters/playback"]
 	initialise_state_machine()
+
+	if is_spawned: 
+		health.immune(0.5)
 
 func handle_rotation(delta) -> void : 
 	if Vector2(velocity.z, velocity.x).length() > 0:
@@ -101,6 +105,7 @@ func spawn_minions() -> void:
 		)
 		# Calculate spawn position relative to the current enemy's position
 		var spawn_position = global_position + random_offset
+		spawn.is_spawned = true
 		# Defer adding the minion to the scene
 		get_parent().add_child(spawn)
 		# Set the calculated spawn position

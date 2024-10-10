@@ -1,15 +1,21 @@
 extends Area3D
-
-var direction := Vector3.FORWARD
-var rotated_direction
-var is_spread: bool = false
-var rotate_on_y: float
+@export_subgroup("Projectile properties")
 @export var damage: int = 50
 @export var speed: float = 25
 @export var max_pierced: int = 1
 @export var life_time: float = 3
 @export var life_timer: Timer
+
+@export_subgroup("Explosive projectile properties")
+@export var is_explosive: bool = false
+@export var explosion_scene: PackedScene
+@export var vfx: Array[PackedScene]
+
 var bodies_pierced: int = 0
+var direction := Vector3.FORWARD
+var rotated_direction
+var is_spread: bool = false
+var rotate_on_y: float
 
 func _ready():
 	life_timer.start(life_time)
@@ -23,4 +29,9 @@ func _on_body_entered(body):
 		body.damage(damage)
 		bodies_pierced += 1
 	if bodies_pierced >= max_pierced:
+		if is_explosive: 
+			var explosion = explosion_scene.instantiate()
+			get_tree().root.add_child(explosion)
+			explosion.global_position = global_position
+		
 		queue_free()
