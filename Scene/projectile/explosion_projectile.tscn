@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c683ibtqarr83"]
+
+[ext_resource type="Script" path="res://Scene/projectile/projectile.gd" id="1_71h14"]
+[ext_resource type="PackedScene" uid="uid://b4wc2byb502pr" path="res://Scene/explosion/explosion.tscn" id="2_vuwbl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t7gmp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0byn"]
+albedo_color = Color(0.783227, 0.477279, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.328064, 0.148438, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_rvxcs"]
+material = SubResource("StandardMaterial3D_u0byn")
+radius = 0.25
+height = 0.5
+
+[node name="projectile" type="Area3D" node_paths=PackedStringArray("life_timer")]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_71h14")
+speed = 75.0
+life_timer = NodePath("lifeTimer")
+is_explosive = true
+explosion_scene = ExtResource("2_vuwbl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_t7gmp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_rvxcs")
+
+[node name="lifeTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

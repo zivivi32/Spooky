@@ -1,5 +1,7 @@
 extends Node3D
 
+class_name Gun_Weapon
+
 @export_subgroup("Gun Properties")
 @export var bullet_scene: PackedScene
 @export var bullet_count: int = 1
@@ -53,3 +55,6 @@ func shoot() -> void:
 
 		#await get_tree().create_timer(1/fire_rate).timeout
 		can_shoot = true
+
+func change_bullet(new_bullet: PackedScene) -> void:
+	bullet_scene = new_bullet

@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4wc2byb502pr"]
+
+[ext_resource type="Script" path="res://Scene/explosion/explosion.gd" id="1_xyscc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p6rb8"]
+radius = 3.0
+
+[sub_resource type="Curve" id="Curve_agw7h"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.081571, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hyqeg"]
+curve = SubResource("Curve_agw7h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cptc0"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
+scale_curve = SubResource("CurveTexture_hyqeg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ntwyf"]
+radius = 0.25
+height = 0.5
+
+[node name="Explosion" type="Area3D" node_paths=PackedStringArray("gpu_particle", "timer")]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_xyscc")
+damage = 50
+gpu_particle = NodePath("GPUParticles3D")
+time_life = 0.1
+timer = NodePath("Timer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_p6rb8")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_cptc0")
+draw_pass_1 = SubResource("SphereMesh_ntwyf")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -27,14 +27,14 @@ size = Vector3(0.2, 0.2, 0.7)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ybp8h"]
 radius = 0.579505
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "model", "gun", "health") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "model", "health", "gun") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14384, 0)
 script = ExtResource("1_rbcik")
 movement_speed = 10
 camera = NodePath("Camera3D")
 model = NodePath("Model")
-gun = NodePath("Model/Gun")
 health = NodePath("Health_System")
+gun = NodePath("Model/Gun")
 
 [node name="Model" type="Node3D" parent="."]
 

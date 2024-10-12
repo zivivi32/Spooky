@@ -4,11 +4,20 @@ class_name Player
 @export var movement_speed = 250
 @export var camera : Camera3D
 @export var model: Node3D
-@export var gun: Node3D
 @export_subgroup("Health")
 @export var health: Health_System
-
 @export var damage_rate: int = 2
+
+@export_subgroup("Weapon properties")
+@export var default_bullet: PackedScene
+@export var gun: Gun_Weapon
+@export var weapon1: Weapon_Resource
+@export var weapon1_timer: Timer
+@export var weapon2: Weapon_Resource
+@export var weapon2_timer: Timer
+@export var weapon3: Weapon_Resource
+@export var weapon3_timer: Timer
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -20,6 +29,10 @@ var plane = Plane(Vector3(0, 1, 0), 0)  # A plane at y = 0 (assuming the ground 
 
 func _ready() -> void:
 	health.connect("death", death)
+	
+	weapon1_timer.connect("timeout", set_default_bullet)
+	weapon2_timer.connect("timeout", set_default_bullet)
+	weapon3_timer.connect("timeout", set_default_bullet)
 	
 func death(): 
 	queue_free()
@@ -137,3 +150,27 @@ func handle_controls(delta):
 		input = input.normalized()
 
 	movement_velocity = to_isometric(input) 
+
+func set_default_bullet(): 
+	gun.change_bullet(default_bullet)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("weapon1"):
+		## Create a node Scene with a script Alternatives/Abilities
+		## Scene will contain timers for cooldown and duration
+		## Script for that scene will change bullet scene for weapon and launch 
+		## duration timer and when that times out, launch cool down timer.
+		## Script will contain the function to do that. and exports weapon resorce.
+		gun.change_bullet(weapon1.bullet)
+		if weapon1_timer.is_stopped():
+			weapon1_timer.start(weapon1.duration)
+
+	if event.is_action_pressed("weapon2"): 
+		gun.change_bullet(weapon2.bullet)
+		if weapon2_timer.is_stopped():
+			weapon2_timer.start(weapon2.duration)
+
+	if event.is_action_pressed("weapon3"): 
+		gun.change_bullet(weapon3.bullet)
+		if weapon3_timer.is_stopped():
+			weapon3_timer.start(weapon3.duration)
