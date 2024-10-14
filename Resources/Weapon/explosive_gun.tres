@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon_Resource" load_steps=3 format=3 uid="uid://bb87ov36sx4go"]
+
+[ext_resource type="Script" path="res://Resources/Weapon/Weapon_Resource.gd" id="1_8dtmq"]
+[ext_resource type="PackedScene" uid="uid://c683ibtqarr83" path="res://Scene/projectile/explosion_projectile.tscn" id="1_x4yms"]
+
+[resource]
+script = ExtResource("1_8dtmq")
+bullet = ExtResource("1_x4yms")
+cooldown = 10.0
+duration = 3.0

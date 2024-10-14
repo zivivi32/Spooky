@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1vacxwpfsim6"]
+
+[ext_resource type="Script" path="res://Scene/Ability/ability.gd" id="1_schal"]
+
+[node name="Ability" type="Node" node_paths=PackedStringArray("duration_timer", "cool_down_timer")]
+script = ExtResource("1_schal")
+duration_timer = NodePath("Duration")
+cool_down_timer = NodePath("Cooldown")
+
+[node name="Duration" type="Timer" parent="."]
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true

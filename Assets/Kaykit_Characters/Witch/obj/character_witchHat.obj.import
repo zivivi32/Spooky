@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dneqdm40yi7wr"
+path="res://.godot/imported/character_witchHat.obj-1b17086e65a21479861ef10be6d90c80.mesh"
+
+[deps]
+
+files=["res://.godot/imported/character_witchHat.obj-1b17086e65a21479861ef10be6d90c80.mesh"]
+
+source_file="res://Assets/Kaykit_Characters/Witch/obj/character_witchHat.obj"
+dest_files=["res://.godot/imported/character_witchHat.obj-1b17086e65a21479861ef10be6d90c80.mesh", "res://.godot/imported/character_witchHat.obj-1b17086e65a21479861ef10be6d90c80.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

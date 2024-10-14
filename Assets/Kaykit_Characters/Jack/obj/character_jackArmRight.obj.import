@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://crl3ecpga3h4s"
+path="res://.godot/imported/character_jackArmRight.obj-7c5ffd069bc6eca6879aaa3ec99f3e31.mesh"
+
+[deps]
+
+files=["res://.godot/imported/character_jackArmRight.obj-7c5ffd069bc6eca6879aaa3ec99f3e31.mesh"]
+
+source_file="res://Assets/Kaykit_Characters/Jack/obj/character_jackArmRight.obj"
+dest_files=["res://.godot/imported/character_jackArmRight.obj-7c5ffd069bc6eca6879aaa3ec99f3e31.mesh", "res://.godot/imported/character_jackArmRight.obj-7c5ffd069bc6eca6879aaa3ec99f3e31.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
