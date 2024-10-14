@@ -10,7 +10,7 @@ func _enter() -> void:
 	#agent.velocity = Vector3.ZERO
 	player = agent.player
 	
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	if is_instance_valid(player):
 		if player.global_position.distance_to(agent.global_position) <= attack_range:
 			agent.look_at(player.global_position)

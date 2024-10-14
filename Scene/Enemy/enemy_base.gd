@@ -9,13 +9,17 @@ class_name Enemy
 @export var is_spawned: bool = false
 @export var navigation_agent: FollowTarget3D
 
+@export_subgroup("VFX")
+@export var walking_particles: GPUParticles3D
+@export var death_particles: GPUParticles3D
+
 @export_subgroup("Minion spawner")
 @export var can_spawn_minion: bool = false
 @export var spawn_radius: float = 3
 @export var minions: Array[PackedScene]
 @export var min_spawn: int = 3
 @export var max_spawn: int = 5
-@export var spawn_position: PathFollow3D
+@export var spawn_position: Vector3
 
 @export_subgroup("State Machine")
 @export var hsm: LimboHSM
@@ -50,8 +54,11 @@ func handle_rotation(delta) -> void :
 func handle_animation() -> void: 
 	var animation_velocity = Vector2(velocity.x,velocity.z)
 	animation_tree.set("parameters/Movement/blend_position", animation_velocity)
-
-func _physics_process(delta: float) -> void:
+	
+	if walking_particles:
+		walking_particles.emitting = (animation_velocity != Vector2.ZERO)
+	
+func _physics_process(_delta: float) -> void:
 	handle_animation()
 	#handle_gravity(delta)
 	
@@ -104,7 +111,7 @@ func spawn_minions() -> void:
 			randf_range(-spawn_radius, spawn_radius)   # Z offset
 		)
 		# Calculate spawn position relative to the current enemy's position
-		var spawn_position = global_position + random_offset
+		spawn_position = global_position + random_offset
 		spawn.is_spawned = true
 		# Defer adding the minion to the scene
 		get_parent().add_child(spawn)
@@ -112,5 +119,5 @@ func spawn_minions() -> void:
 		spawn.global_position = spawn_position
 		
 
-func _on_follow_target_3d_reached_target(target: Node3D) -> void:
+func _on_follow_target_3d_reached_target(_target: Node3D) -> void:
 	hsm.dispatch("attack")
