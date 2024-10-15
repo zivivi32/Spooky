@@ -3,6 +3,7 @@ extends Area3D
 @export var gpu_particle: GPUParticles3D
 @export var time_life: float = 0.5
 @export var timer: Timer
+@export var explosion_visual: PackedScene
 
 func _ready() -> void:
 	
@@ -14,9 +15,14 @@ func _ready() -> void:
 		gpu_particle.connect("finished", queue_free)
 		gpu_particle.emitting = true
 		
+
 func no_monitoring():
 	monitoring = false
 
 func _on_body_entered(body):
 	if body is Health_System:
 		body.damage(damage)
+
+
+func _on_vfx_explosion_explosion_done() -> void:
+	queue_free()

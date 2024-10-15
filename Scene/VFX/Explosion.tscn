@@ -1,17 +1,15 @@
-[gd_scene load_steps=34 format=3 uid="uid://b4wc2byb502pr"]
+[gd_scene load_steps=31 format=3 uid="uid://d2e8ews6wiwdp"]
 
-[ext_resource type="Script" path="res://Scene/explosion/explosion.gd" id="1_xyscc"]
-[ext_resource type="PackedScene" uid="uid://d2e8ews6wiwdp" path="res://Scene/VFX/Explosion.tscn" id="2_y6gn8"]
-[ext_resource type="Script" path="res://Scene/VFX/explosion.gd" id="3_bg7gc"]
-[ext_resource type="Texture2D" uid="uid://4m4hhvu3tiwn" path="res://Assets/Explosions_textures/T_vfx_hit122.jpg" id="4_a5lv0"]
-[ext_resource type="Shader" uid="uid://d06whgyoqxi2d" path="res://Shaders/Material_Explosive_Cloud.tres" id="5_7xibq"]
-[ext_resource type="Shader" uid="uid://87qmx785q3jo" path="res://Shaders/Explosion_streaks.tres.res" id="6_qxa6f"]
+[ext_resource type="Shader" uid="uid://d06whgyoqxi2d" path="res://Shaders/Material_Explosive_Cloud.tres" id="1_2wtvh"]
+[ext_resource type="Script" path="res://Scene/VFX/explosion.gd" id="1_6hiuk"]
+[ext_resource type="Texture2D" uid="uid://4m4hhvu3tiwn" path="res://Assets/Explosions_textures/T_vfx_hit122.jpg" id="1_hxa65"]
+[ext_resource type="Shader" uid="uid://87qmx785q3jo" path="res://Shaders/Explosion_streaks.tres.res" id="2_alkdw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qg6nw"]
 blend_mode = 1
 shading_mode = 0
 albedo_color = Color(2, 0.6, 0.3, 1)
-albedo_texture = ExtResource("4_a5lv0")
+albedo_texture = ExtResource("1_hxa65")
 billboard_mode = 1
 billboard_keep_scale = true
 proximity_fade_enabled = true
@@ -32,7 +30,7 @@ scale_curve = SubResource("CurveTexture_dv0ww")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6gqjj"]
 render_priority = 0
-shader = ExtResource("5_7xibq")
+shader = ExtResource("1_2wtvh")
 shader_parameter/Cloud_Speed = Vector2(0, 1)
 shader_parameter/Cloud_Intensity = 0.25
 shader_parameter/Emission_Color = Color(0.578125, 0.222284, 0.0293579, 1)
@@ -83,7 +81,7 @@ alpha_curve = SubResource("CurveTexture_f7lu4")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q4cke"]
 render_priority = -1
-shader = ExtResource("6_qxa6f")
+shader = ExtResource("2_alkdw")
 shader_parameter/Streaks_Color = Color(4, 0.8, 0.2, 1)
 
 [sub_resource type="Curve" id="Curve_spo6x"]
@@ -228,23 +226,11 @@ _data = {
 "explosion": SubResource("Animation_vshy4")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_p6rb8"]
-radius = 3.0
-
-[node name="Explosion" type="Area3D" node_paths=PackedStringArray("timer")]
-collision_layer = 0
-collision_mask = 16
-script = ExtResource("1_xyscc")
-damage = 50
-time_life = 0.1
-timer = NodePath("Timer")
-explosion_visual = ExtResource("2_y6gn8")
-
-[node name="vfx_Explosion" type="Node3D" parent="." node_paths=PackedStringArray("animation")]
-script = ExtResource("3_bg7gc")
+[node name="vfx_Explosion" type="Node3D" node_paths=PackedStringArray("animation")]
+script = ExtResource("1_6hiuk")
 animation = NodePath("AnimationPlayer")
 
-[node name="Flare" type="GPUParticles3D" parent="vfx_Explosion"]
+[node name="Flare" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_qg6nw")
 emitting = false
 amount = 1
@@ -255,7 +241,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_mk607")
 draw_pass_1 = SubResource("QuadMesh_ydd4r")
 
-[node name="vfx_smoke" type="GPUParticles3D" parent="vfx_Explosion"]
+[node name="vfx_smoke" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_6gqjj")
 emitting = false
 lifetime = 0.6
@@ -265,7 +251,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_m1ohi")
 draw_pass_1 = SubResource("SphereMesh_5ayl8")
 
-[node name="vfx_streaks" type="GPUParticles3D" parent="vfx_Explosion"]
+[node name="vfx_streaks" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_q4cke")
 emitting = false
 lifetime = 0.4
@@ -276,22 +262,15 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_58bk5")
 draw_pass_1 = SubResource("QuadMesh_7suo4")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="vfx_Explosion"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_3hqnu")
 }
 
-[node name="OmniLight3D" type="OmniLight3D" parent="vfx_Explosion"]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.583435, 0.179688, 1)
 light_energy = 20.0
+shadow_enabled = true
 omni_range = 10.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_p6rb8")
-
-[node name="Timer" type="Timer" parent="."]
-
-[connection signal="area_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="explosion_done" from="vfx_Explosion" to="." method="_on_vfx_explosion_explosion_done"]
-[connection signal="animation_finished" from="vfx_Explosion/AnimationPlayer" to="vfx_Explosion" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

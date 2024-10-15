@@ -4,6 +4,10 @@ class_name Player
 @export var movement_speed = 10
 @export var camera : Camera3D
 @export var model: Node3D
+@export var animation_tree: AnimationTree
+@export_subgroup("VFX")
+@export var walking_particles: GPUParticles3D
+
 @export_subgroup("Health")
 @export var health: Health_System
 @export var damage_rate: int = 2
@@ -122,7 +126,13 @@ func update_gun_aim(target_position : Vector3):
 	# Optional: Lock gun rotation on x and z axes if necessary
 	gun.rotation.x = 0
 	gun.rotation.z = 0
+	
+func handle_animation(movement_vector: Vector3) -> void: 
+	var animation_velocity = Vector2(movement_vector.x,movement_vector.z)
+	animation_tree.set("parameters/Movement/blend_position", animation_velocity)
 
+	if walking_particles:
+		walking_particles.emitting = (animation_velocity != Vector2.ZERO)
 
 func update_player_rotate(target_position : Vector3):
 	if target_position == Vector3.ZERO:
@@ -157,9 +167,11 @@ func handle_controls(_delta):
 
 	if input.length() > 1:
 		input = input.normalized()
+	
+	handle_animation(input)
 
 	movement_velocity = to_isometric(input) 
-
+	
 func set_default_bullet(): 
 	gun.change_bullet(default_bullet)
 
