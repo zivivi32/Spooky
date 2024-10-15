@@ -40,26 +40,36 @@ points = PackedVector3Array(0.324684, 1.18354, 15.0949, -0.244937, -1.09494, -15
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mek44"]
 points = PackedVector3Array(0.324684, 1.18354, 15.0949, -0.244937, -1.09494, -15.0949, 0.324684, -1.09494, -15.0949, -0.244937, -1.09494, 15.0949, -0.244937, 1.18354, -15.0949, 0.324684, 1.18354, -15.0949, 0.324684, -1.09494, 15.0949, -0.244937, 1.18354, 15.0949)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdf3s"]
-sky_top_color = Color(0.992188, 0.681887, 0.282928, 1)
-sky_horizon_color = Color(0.828125, 0.784454, 0.653442, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6chtt"]
+sky_top_color = Color(0, 0.413281, 0.988281, 1)
+sky_horizon_color = Color(0.467285, 0.549645, 0.679688, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.437286, 0.537337, 0.695312, 1)
+ground_curve = 0.16
 
 [sub_resource type="Sky" id="Sky_5whrq"]
-sky_material = SubResource("ProceduralSkyMaterial_xdf3s")
+sky_material = SubResource("ProceduralSkyMaterial_6chtt")
 
 [sub_resource type="Environment" id="Environment_lifd2"]
 background_mode = 2
 background_energy_multiplier = 0.2
 sky = SubResource("Sky_5whrq")
+ambient_light_source = 1
 ssao_enabled = true
+ssao_radius = 1.5
+ssao_intensity = 5.0
 sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
 glow_normalized = true
 glow_intensity = 1.5
 glow_bloom = 0.5
 glow_blend_mode = 0
+fog_enabled = true
+fog_light_color = Color(0.143555, 0.18495, 0.25, 1)
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.398743, 0.537715, 0.734375, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cu4sg"]
 size = Vector3(100, 0.05, 100)
@@ -138,7 +148,7 @@ environment = SubResource("Environment_lifd2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(-0.331157, -0.533584, 0.778218, -0.0603919, 0.835049, 0.546851, -0.941641, 0.134096, -0.308757, 0, 5.74262, 0)
-light_color = Color(1, 0.899719, 0.792969, 1)
+visible = false
 light_energy = 0.2
 shadow_enabled = true
 
@@ -156,7 +166,7 @@ shape = SubResource("ConvexPolygonShape3D_xyddh")
 
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
+easy_enemies = Array[PackedScene]([ExtResource("5_mynpd")])
 medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
 hard_enemies = Array[PackedScene]([ExtResource("5_mynpd")])
 boss_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
@@ -168,3 +178,42 @@ transform = Transform3D(-0.00296786, 0, -0.999992, 0, 1, 0, 0.999992, 0, -0.0029
 
 [node name="Difficulty_manager" parent="Enemy_spawn" instance=ExtResource("4_ucx3h")]
 spawn_time_curve = SubResource("Curve_ffr2r")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75004, 4.8261, 11.2536)
+light_color = Color(1, 0.782135, 0.527344, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 15.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2799, 4.8261, -7.45972)
+light_color = Color(1, 0.782135, 0.527344, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 15.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4821, 4.8261, 4.33495)
+light_color = Color(1, 0.782135, 0.527344, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 15.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.77288, 4.8261, -2.5678)
+light_color = Color(1, 0.782135, 0.527344, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 15.0
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.77288, 4.8261, -2.5678)
+light_color = Color(1, 0.782135, 0.527344, 1)
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 15.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 21)
+visible = false
