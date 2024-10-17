@@ -3,6 +3,7 @@ class_name Enemy
 
 @export_subgroup("Character properties")
 @export var model: Node3D
+@export var model_mesh: Node3D
 @export var speed: int = 5
 @export var health: Health_System
 @export var animation_tree: AnimationTree
@@ -97,6 +98,21 @@ func death() -> void:
 		spawn_minions()
 	
 	enemy_death.emit(self)
+	
+	if death_particles:
+		
+		model_mesh.visible = false
+		hsm.set_active(false)
+		navigation_agent.ClearTarget()
+		health.set_deferred("monitoring", false)
+		health.set_deferred("monitorable", false)
+		set_collision_layer_value(1, false)
+		set_collision_layer_value(4, false)
+		velocity = Vector3.ZERO
+		
+		death_particles.emitting = true
+		await  death_particles.finished
+		
 	queue_free()
 
 func spawn_minions() -> void:

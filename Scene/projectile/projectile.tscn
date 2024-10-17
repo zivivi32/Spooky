@@ -1,31 +1,76 @@
-[gd_scene load_steps=18 format=4 uid="uid://clm0ya6cpgby5"]
+[gd_scene load_steps=30 format=4 uid="uid://clm0ya6cpgby5"]
 
 [ext_resource type="Script" path="res://Scene/projectile/projectile.gd" id="1_ct8cs"]
+[ext_resource type="Material" uid="uid://d1nm3jquvgrb6" path="res://Scene/VFX/fireball/materials/fireball_mat.tres" id="2_k6wku"]
 [ext_resource type="Script" path="res://Scene/projectile/projectile_spawn_rotate.gd" id="2_pjubg"]
+[ext_resource type="ArrayMesh" uid="uid://bhma7uxtf5nja" path="res://Scene/VFX/fireball/mesh/fireball_shell_mesh.obj" id="3_5otx3"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="3_frcs6"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_core.gdshader" id="4_pc67b"]
 
-[sub_resource type="Curve" id="Curve_yweif"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.254717, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6xqb"]
+render_priority = 0
+shader = ExtResource("4_pc67b")
+shader_parameter/albedo = Color(0.305882, 0.14902, 0.113725, 1)
+shader_parameter/emission = Color(0.984314, 0.301961, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_odhto"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="Gradient" id="Gradient_phdbe"]
+offsets = PackedFloat32Array(0.285714, 0.989796)
+colors = PackedColorArray(0.960784, 0.475368, 0.0470588, 1, 1, 0.65625, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r2aag"]
+gradient = SubResource("Gradient_phdbe")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6b4bg"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0jurf"]
+seamless = true
+noise = SubResource("FastNoiseLite_6b4bg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48x6q"]
+render_priority = 0
+shader = ExtResource("3_frcs6")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_0jurf")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_r2aag")
+
+[sub_resource type="Gradient" id="Gradient_qqi32"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_756wb"]
+gradient = SubResource("Gradient_qqi32")
+
+[sub_resource type="Curve" id="Curve_ibj21"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_iqlgs"]
-curve = SubResource("Curve_yweif")
+[sub_resource type="CurveTexture" id="CurveTexture_suiis"]
+curve = SubResource("Curve_ibj21")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_75u6p"]
-initial_velocity_min = 2.0
-initial_velocity_max = 3.0
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_iqlgs")
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vk12e"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 0, -1)
+spread = 20.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 1, 0)
+scale_min = 2.0
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_suiis")
+color_ramp = SubResource("GradientTexture1D_756wb")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dtgf"]
-albedo_color = Color(0.984375, 0.84054, 0.499878, 1)
-emission_enabled = true
-emission = Color(1, 0.543457, 0.269531, 1)
-emission_energy_multiplier = 2.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_cbcq4"]
-material = SubResource("StandardMaterial3D_2dtgf")
-radius = 0.25
-height = 0.5
+[sub_resource type="QuadMesh" id="QuadMesh_n1tbp"]
+size = Vector2(0.5, 0.5)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3rwx3"]
 load_path = "res://.godot/imported/halloweenbits_texture.png-d288bae80d081a0fe006efb9c776586b.s3tc.ctex"
@@ -72,6 +117,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_drnee")
 
+[sub_resource type="Animation" id="Animation_p8mgn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pumpkin_orange:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_fyxd1"]
 resource_name = "Rotation"
 length = 0.5
@@ -87,21 +147,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_p8mgn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pumpkin_orange:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xib8f"]
@@ -130,18 +175,33 @@ script = ExtResource("1_ct8cs")
 speed = 75.0
 life_timer = NodePath("lifeTimer")
 
+[node name="FireballShellMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.4, 0, 0, 0, -1.74846e-08, -0.4, 0, 0.4, -1.74846e-08, 0, -0.115432, 0.114862)
+material_override = ExtResource("2_k6wku")
+mesh = ExtResource("3_5otx3")
+skeleton = NodePath("../pumpkin_orange2")
+
+[node name="Core" type="MeshInstance3D" parent="FireballShellMesh"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_l6xqb")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_odhto")
+skeleton = NodePath("../../pumpkin_orange2")
+
 [node name="pumpkin_orange2" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.40034, 0)
 script = ExtResource("2_pjubg")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="pumpkin_orange2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40034, 0)
-lifetime = 0.25
-process_material = SubResource("ParticleProcessMaterial_75u6p")
-draw_pass_1 = SubResource("SphereMesh_cbcq4")
+[node name="FireTrail" type="GPUParticles3D" parent="pumpkin_orange2"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40034, -0.13)
+material_override = SubResource("ShaderMaterial_48x6q")
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_vk12e")
+draw_pass_1 = SubResource("QuadMesh_n1tbp")
 
 [node name="pumpkin_orange" type="MeshInstance3D" parent="pumpkin_orange2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_n37ia")
 skeleton = NodePath("")
 

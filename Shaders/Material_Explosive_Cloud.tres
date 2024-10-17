@@ -24,13 +24,13 @@ texture = SubResource("NoiseTexture2D_jeaeq")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_thxxg"]
-size = Vector2(624, 479)
+size = Vector2(624, 118)
 tint_color_enabled = true
 tint_color = Color(0.5625, 0.252686, 0.252686, 0.75)
 attached_nodes = PackedInt32Array(2, 3)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_c2ahq"]
-size = Vector2(1404, 1099)
+size = Vector2(1404, 698)
 title = "Emission"
 tint_color_enabled = true
 attached_nodes = PackedInt32Array(4, 9, 11, 6, 8, 5, 19)
@@ -44,7 +44,7 @@ texture_type = 1
 linked_parent_graph_frame = 17
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_5brvp"]
-size = Vector2(784, 634)
+size = Vector2(784, 398)
 title = "Cloud_Dissolver"
 tint_color_enabled = true
 tint_color = Color(0.707031, 0.680449, 0.281708, 0.75)
@@ -287,7 +287,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-525.035, 126.973)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_0iib8")
 nodes/vertex/2/position = Vector2(-420, 140)
 nodes/vertex/3/node = SubResource("VisualShaderNodeInput_8h5nw")

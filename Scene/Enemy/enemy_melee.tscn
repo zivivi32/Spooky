@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=4 uid="uid://dipitv17rpxuf"]
+[gd_scene load_steps=52 format=4 uid="uid://dipitv17rpxuf"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_okk44"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_tbhu3"]
 [ext_resource type="PackedScene" uid="uid://25qfflttof6h" path="res://Scene/projectile/projectile_melee_enemy.tscn" id="3_dpw62"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="4_bejw7"]
 [ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="4_x5ity"]
 [ext_resource type="Script" path="res://addons/3dEnemyToolkit/FollowTarget.gd" id="5_22hhf"]
 [ext_resource type="Script" path="res://Scripts/States/chase_state_AI.gd" id="6_rn140"]
@@ -82,6 +83,64 @@ albedo_color = Color(0.933594, 0.756721, 0.226105, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_3qyip"]
 material = SubResource("StandardMaterial3D_8oqrb")
 size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="Gradient" id="Gradient_vxonl"]
+offsets = PackedFloat32Array(0.4, 1)
+colors = PackedColorArray(0.960784, 0.411121, 0.0470588, 1, 1, 0.421875, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4ooxb"]
+gradient = SubResource("Gradient_vxonl")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_skjwf"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcf62"]
+seamless = true
+noise = SubResource("FastNoiseLite_skjwf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nkiic"]
+render_priority = 0
+shader = ExtResource("4_bejw7")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_tcf62")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_4ooxb")
+
+[sub_resource type="Gradient" id="Gradient_hftd8"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pykcn"]
+gradient = SubResource("Gradient_hftd8")
+
+[sub_resource type="Curve" id="Curve_rg5v2"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jnqy6"]
+curve = SubResource("Curve_rg5v2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lj1m7"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+spread = 80.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 1, 0)
+damping_min = 0.5
+damping_max = 1.0
+scale_min = 4.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_jnqy6")
+color_ramp = SubResource("GradientTexture1D_pykcn")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_e0oy8"]
+size = Vector2(0.5, 0.5)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_glnog"]
 radius = 0.534932
@@ -240,15 +299,17 @@ material = SubResource("StandardMaterial3D_hjn3s")
 radius = 0.25
 height = 0.5
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "health", "animation_tree", "navigation_agent", "walking_particles", "hsm", "chase_state", "attack_state")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state")]
 collision_layer = 9
 script = ExtResource("1_okk44")
 model = NodePath("model")
+model_mesh = NodePath("model/pumpkin_yellow_jackolantern2")
 speed = 300
 health = NodePath("Health_System")
 animation_tree = NodePath("AnimationTree")
 navigation_agent = NodePath("FollowTarget3D")
 walking_particles = NodePath("WalkingParticles")
+death_particles = NodePath("model/FireAmber")
 hsm = NodePath("LimboHSM")
 chase_state = NodePath("LimboHSM/chase_state")
 attack_state = NodePath("LimboHSM/attack_state")
@@ -266,14 +327,15 @@ transform = Transform3D(1, 0, 0, 0, 1.03911, 0, 0, 0, 1, 0, -0.467647, 0)
 mesh = SubResource("ArrayMesh_0j28m")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 1.82691e-08, -1.19427e-09, -1.742e-08, 0.878892, -0.115367, -1.19429e-09, 0.120991, 0.992091, 1.84893e-08, -0.0877406, 0.122449)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="model/pumpkin_yellow_jackolantern2"]
+transform = Transform3D(1, 1.82691e-08, -1.19427e-09, -1.67643e-08, 0.845812, -0.111025, -1.19429e-09, 0.120991, 0.992091, 1.84893e-08, 0.365607, 0.122449)
 mesh = SubResource("CylinderMesh_kf235")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 0.754224, 0, 0, 0, 1, 5.2247e-08, 0.167147, 0.346017)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="model/pumpkin_yellow_jackolantern2"]
+transform = Transform3D(1, 0, 0, 0, 0.725837, 0, 0, 0, 1, 5.2247e-08, 0.610902, 0.346017)
 mesh = SubResource("BoxMesh_g7mtp")
+skeleton = NodePath("../..")
 
 [node name="Gun" parent="model" node_paths=PackedStringArray("spawn_pos") instance=ExtResource("2_tbhu3")]
 transform = Transform3D(1, 0, 0, 0, 0.944079, 0, 0, 0, 1, 7.75875e-08, 0, 0.513839)
@@ -288,6 +350,16 @@ mesh = SubResource("BoxMesh_3qyip")
 
 [node name="Marker3D" type="Marker3D" parent="model/Gun"]
 transform = Transform3D(1, 0, 0, 0, 1.03535, 0, 0, 0, 1, 4.23198e-08, 0, 0.280271)
+
+[node name="FireAmber" type="GPUParticles3D" parent="model"]
+material_override = SubResource("ShaderMaterial_nkiic")
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_lj1m7")
+draw_pass_1 = SubResource("QuadMesh_e0oy8")
 
 [node name="Health_System" type="Area3D" parent="."]
 collision_layer = 16

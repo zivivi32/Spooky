@@ -16,6 +16,9 @@ var can_shoot: bool = true
 @export var attack_timer: Timer
 
 
+@export_subgroup("VFX")
+@export var muzzle_flash : PackedScene
+
 func _ready() -> void:
 	attack_timer.wait_time = timer_count
 	if !is_ai:
@@ -50,7 +53,12 @@ func shoot() -> void:
 			# Add the bullet to the scene
 			get_tree().root.add_child(bullet)
 			bullet.global_position = spawn_pos.global_position
-
+			
+			if muzzle_flash: 
+				var vfx = muzzle_flash.instantiate()
+				get_tree().root.add_child(vfx)
+				vfx.global_position = spawn_pos.global_position
+			
 			#Events.emit_signal("fx_screen_shake")
 
 		#await get_tree().create_timer(1/fire_rate).timeout
