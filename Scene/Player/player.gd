@@ -82,8 +82,8 @@ func _physics_process(delta: float) -> void:
 	model.rotation.y = lerp_angle(model.rotation.y, rotation_direction, delta * 10)
 
 	# Update the gun's rotation based on the mouse position
-	#update_gun_aim(update_player_aim())
-	update_player_rotate(update_player_aim())
+	update_gun_aim(update_player_aim())
+	#update_player_rotate(update_player_aim())
 	
 ##### AIMING WITH MOUSE
 func update_player_aim():
@@ -114,19 +114,11 @@ func update_gun_aim(target_position : Vector3):
 	if target_position == Vector3.ZERO:
 		return  # Don't rotate if no valid target
 
-	# Calculate the direction from the gun to the mouse target
-	var direction_to_mouse = (target_position - gun.global_position).normalized()
-
-	# Compute the rotation angles
-	var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
-
-	# Adjust only the gun's rotation to face the target
-	gun.rotation.y = gun_rotation_angle
-
-	# Optional: Lock gun rotation on x and z axes if necessary
+	target_position.y = 0
+	gun.look_at(target_position, Vector3.UP, true)
 	gun.rotation.x = 0
 	gun.rotation.z = 0
-	
+
 func handle_animation(movement_vector: Vector3) -> void: 
 	var animation_velocity = Vector2(movement_vector.x,movement_vector.z)
 	animation_tree.set("parameters/Movement/blend_position", animation_velocity)
