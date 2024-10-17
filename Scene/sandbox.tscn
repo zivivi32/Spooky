@@ -166,7 +166,7 @@ shape = SubResource("ConvexPolygonShape3D_xyddh")
 
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
+easy_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
 medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
 hard_enemies = Array[PackedScene]([ExtResource("5_mynpd")])
 boss_enemies = Array[PackedScene]([ExtResource("4_bl28x")])

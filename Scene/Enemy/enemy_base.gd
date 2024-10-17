@@ -11,6 +11,7 @@ class_name Enemy
 @export var navigation_agent: FollowTarget3D
 
 @export_subgroup("VFX")
+@export var spawn_particles: GPUParticles3D
 @export var walking_particles: GPUParticles3D
 @export var death_particles: GPUParticles3D
 
@@ -45,6 +46,9 @@ func _ready() -> void:
 
 	if is_spawned: 
 		health.immune(0.5)
+
+	if spawn_particles:
+		spawn_particles.emitting = true
 
 func handle_rotation(delta) -> void : 
 	if Vector2(velocity.z, velocity.x).length() > 0:

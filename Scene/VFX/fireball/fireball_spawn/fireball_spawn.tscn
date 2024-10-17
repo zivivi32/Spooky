@@ -60,8 +60,9 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_cbqbq"]
 size = Vector2(0.5, 0.5)
 
-[node name="fireball_spawn" type="Node3D"]
+[node name="fireball_spawn" type="Node3D" node_paths=PackedStringArray("fire_amber")]
 script = ExtResource("1_ecndc")
+fire_amber = NodePath("Anchor/FireAmber")
 
 [node name="Anchor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -74,5 +75,6 @@ amount = 4
 lifetime = 0.25
 one_shot = true
 explosiveness = 0.8
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_dns2p")
 draw_pass_1 = SubResource("QuadMesh_cbqbq")

@@ -1,0 +1,79 @@
+[gd_scene load_steps=14 format=3 uid="uid://de1h70p5afry2"]
+
+[ext_resource type="Script" path="res://Scene/VFX/fireball/fireball_spawn/fireball_spawn.gd" id="1_axda2"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="2_mocgv"]
+
+[sub_resource type="Gradient" id="Gradient_6p5ws"]
+offsets = PackedFloat32Array(0.510204, 1)
+colors = PackedColorArray(0.525337, 0.960784, 0.0470588, 1, 1, 0.666667, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hvv0e"]
+gradient = SubResource("Gradient_6p5ws")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fd6gc"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h2gy7"]
+seamless = true
+noise = SubResource("FastNoiseLite_fd6gc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ejub"]
+render_priority = 0
+shader = ExtResource("2_mocgv")
+shader_parameter/uv_scale = 0.5
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_h2gy7")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_hvv0e")
+
+[sub_resource type="Gradient" id="Gradient_kc4vf"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pvsq1"]
+gradient = SubResource("Gradient_kc4vf")
+
+[sub_resource type="Curve" id="Curve_uk8s0"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yibi1"]
+curve = SubResource("Curve_uk8s0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g8yrm"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+gravity = Vector3(0, 1, 0)
+damping_min = 0.5
+damping_max = 1.0
+scale_min = 4.0
+scale_max = 4.5
+scale_curve = SubResource("CurveTexture_yibi1")
+color_ramp = SubResource("GradientTexture1D_pvsq1")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_cbqbq"]
+size = Vector2(0.5, 0.5)
+
+[node name="fireball_spawn" type="Node3D" node_paths=PackedStringArray("fire_amber")]
+script = ExtResource("1_axda2")
+fire_amber = NodePath("Anchor/FireAmber")
+
+[node name="Anchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="FireAmber" type="GPUParticles3D" parent="Anchor"]
+material_override = SubResource("ShaderMaterial_3ejub")
+emitting = false
+amount = 4
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_g8yrm")
+draw_pass_1 = SubResource("QuadMesh_cbqbq")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=4 uid="uid://b62weqcdg3t3y"]
+[gd_scene load_steps=85 format=4 uid="uid://b62weqcdg3t3y"]
 
 [ext_resource type="Script" path="res://Scene/Player/player.gd" id="1_rbcik"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_68ncm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cq8au55vnfwdt" path="res://Scene/Health_bar/health_bar.tscn" id="4_40gmr"]
 [ext_resource type="Shader" path="res://Shaders/outline_shader.gdshader" id="5_pi02d"]
 [ext_resource type="PackedScene" uid="uid://c3cpjdmtyyu4m" path="res://Scene/VFX/fireball/fireball_spawn/fireball_spawn.tscn" id="5_sdh45"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="6_j8xfa"]
 [ext_resource type="PackedScene" uid="uid://c1vacxwpfsim6" path="res://Scene/Ability/ability.tscn" id="6_p0r13"]
 [ext_resource type="Resource" uid="uid://bb87ov36sx4go" path="res://Resources/Weapon/explosive_gun.tres" id="7_14ee3"]
 [ext_resource type="PackedScene" uid="uid://dke8l0w4qgcy4" path="res://Scene/Ability/Dash.tscn" id="8_2kbe5"]
@@ -2823,6 +2824,61 @@ states/Movement/node = SubResource("AnimationNodeBlendSpace2D_ssvyi")
 states/Movement/position = Vector2(362, 100)
 transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_3f7dj")]
 
+[sub_resource type="Gradient" id="Gradient_25ebp"]
+offsets = PackedFloat32Array(0.285714, 0.989796)
+colors = PackedColorArray(0.632812, 0.632812, 0.632812, 1, 0.589844, 0.589844, 0.589844, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ix1ok"]
+gradient = SubResource("Gradient_25ebp")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oebpp"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_20nsa"]
+seamless = true
+noise = SubResource("FastNoiseLite_oebpp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63r87"]
+render_priority = 0
+shader = ExtResource("6_j8xfa")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_20nsa")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_ix1ok")
+
+[sub_resource type="Gradient" id="Gradient_njrt8"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_itgst"]
+gradient = SubResource("Gradient_njrt8")
+
+[sub_resource type="Curve" id="Curve_knxgd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eofn8"]
+curve = SubResource("Curve_knxgd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fok1n"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 0, -1)
+spread = 20.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 1, 0)
+scale_min = 3.0
+scale_max = 3.5
+scale_curve = SubResource("CurveTexture_eofn8")
+color_ramp = SubResource("GradientTexture1D_itgst")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_lfe40"]
+size = Vector2(0.5, 0.5)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8kxpl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o242l"]
@@ -2848,12 +2904,13 @@ size = Vector2(2, 2)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ybp8h"]
 radius = 0.579505
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "model", "animation_tree", "health", "dash", "gun", "weapon1", "weapon2", "weapon3") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "model", "animation_tree", "walking_particles", "health", "dash", "gun", "weapon1", "weapon2", "weapon3") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14384, 0)
 script = ExtResource("1_rbcik")
 camera = NodePath("Camera3D")
 model = NodePath("Model")
 animation_tree = NodePath("Model/AnimationTree")
+walking_particles = NodePath("Model/walking_particles")
 health = NodePath("Health_System")
 dash = NodePath("Abilities/Dash")
 default_bullet = ExtResource("3_bkk3v")
@@ -2896,28 +2953,28 @@ bones/3/parent = 0
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44382e-15, 0.17625, -0.02875)
 bones/3/enabled = true
 bones/3/position = Vector3(-1.44382e-15, 0.17625, -0.02875)
-bones/3/rotation = Quaternion(0.0428338, 0, 0, 0.999082)
+bones/3/rotation = Quaternion(-0.0406851, 0, 0, 0.999172)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "arm-left"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0998968, 0.1115, 0.0115)
 bones/4/enabled = true
 bones/4/position = Vector3(0.0998968, 0.1115, 0.0115)
-bones/4/rotation = Quaternion(0, 0, -0.262358, 0.964971)
+bones/4/rotation = Quaternion(0, 0, -0.267319, 0.963608)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "arm-right"
 bones/5/parent = 3
 bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0998968, 0.1115, 0.0115)
 bones/5/enabled = true
 bones/5/position = Vector3(-0.0998968, 0.1115, 0.0115)
-bones/5/rotation = Quaternion(0, 0, 0.262358, 0.964971)
+bones/5/rotation = Quaternion(0, 0, 0.267319, 0.963608)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "head"
 bones/6/parent = 3
 bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81969e-09, 0.167, 0.0263888)
 bones/6/enabled = true
 bones/6/position = Vector3(1.81969e-09, 0.167, 0.0263888)
-bones/6/rotation = Quaternion(0, -0.0428338, 0, 0.999082)
+bones/6/rotation = Quaternion(0, 0.0406851, 0, 0.999172)
 bones/6/scale = Vector3(1, 1, 1)
 
 [node name="body-mesh" type="MeshInstance3D" parent="Model/character-female-e2/character-female-e/Skeleton3D"]
@@ -2968,6 +3025,14 @@ root_node = NodePath("../character-female-e2")
 tree_root = SubResource("AnimationNodeStateMachine_e6ew8")
 anim_player = NodePath("../character-female-e2/AnimationPlayer")
 parameters/Movement/blend_position = Vector2(0, 0.0265486)
+
+[node name="walking_particles" type="GPUParticles3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.744877, -0.13)
+material_override = SubResource("ShaderMaterial_63r87")
+amount = 4
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_fok1n")
+draw_pass_1 = SubResource("QuadMesh_lfe40")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_8kxpl")

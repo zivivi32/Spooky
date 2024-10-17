@@ -39,28 +39,28 @@ shader_parameter/Emission_Color = Color(0.578125, 0.222284, 0.0293579, 1)
 _data = [Vector2(0.424528, 0), 0.0, 0.54359, 0, 0, Vector2(0.839623, 1), 4.65934, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_f7lu4"]
+[sub_resource type="CurveTexture" id="CurveTexture_uf30l"]
 texture_mode = 1
 curve = SubResource("Curve_71nd0")
 
 [sub_resource type="Gradient" id="Gradient_pxyx7"]
 offsets = PackedFloat32Array(0.36413, 0.646739)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jwo2v"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kdhya"]
 gradient = SubResource("Gradient_pxyx7")
 
 [sub_resource type="Curve" id="Curve_j8snt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.353774, 0.186813), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_kpoi5"]
+[sub_resource type="CurveTexture" id="CurveTexture_oofnd"]
 curve = SubResource("Curve_j8snt")
 
 [sub_resource type="Curve" id="Curve_l1a2w"]
 _data = [Vector2(0, 0.175824), 0.0, 2.98198, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_3syey"]
+[sub_resource type="CurveTexture" id="CurveTexture_1kruj"]
 curve = SubResource("Curve_l1a2w")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1ohi"]
@@ -69,13 +69,13 @@ emission_shape = 1
 emission_sphere_radius = 0.2
 radial_velocity_min = 6.49998
 radial_velocity_max = 7.49998
-radial_velocity_curve = SubResource("CurveTexture_kpoi5")
+radial_velocity_curve = SubResource("CurveTexture_oofnd")
 gravity = Vector3(0, 0, 0)
 scale_min = 1.7
 scale_max = 1.8
-scale_curve = SubResource("CurveTexture_3syey")
-color_ramp = SubResource("GradientTexture1D_jwo2v")
-alpha_curve = SubResource("CurveTexture_f7lu4")
+scale_curve = SubResource("CurveTexture_1kruj")
+color_ramp = SubResource("GradientTexture1D_kdhya")
+alpha_curve = SubResource("CurveTexture_uf30l")
 
 [sub_resource type="SphereMesh" id="SphereMesh_5ayl8"]
 
