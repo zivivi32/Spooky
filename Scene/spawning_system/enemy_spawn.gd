@@ -34,13 +34,10 @@ func start_new_wave() -> void:
 			spawn_timer.start(0.1)  # Boss spawns immediately
 		else:
 			spawn_timer.start(difficulty_manager.get_spawn_time())
-
-		print("New wave started: Wave ", wave_number)
 		is_in_wave = true
 
 # Stop spawning when wave is over
 func stop_spawn() -> void: 
-	print_debug("Wave done!")
 	spawn_timer.stop()
 	is_in_wave = false
 
@@ -117,6 +114,5 @@ func _on_enemy_died(enemy) -> void:
 	current_wave_enemies.erase(enemy) # Remove enemy from the list
 	if ! is_in_wave:
 		if current_wave_enemies.size() == 0:
-			print("All enemies defeated, starting next wave.")
 			wave_number += 1
 			start_new_wave() # Start a new wave if all enemies are defeated

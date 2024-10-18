@@ -88,14 +88,14 @@ size = Vector3(0.2, 0.2, 1)
 offsets = PackedFloat32Array(0.4, 1)
 colors = PackedColorArray(0.960784, 0.411121, 0.0470588, 1, 1, 0.421875, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_28d4h"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xu4ic"]
 gradient = SubResource("Gradient_vxonl")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_skjwf"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdesf"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dymq7"]
 seamless = true
 noise = SubResource("FastNoiseLite_skjwf")
 
@@ -103,21 +103,21 @@ noise = SubResource("FastNoiseLite_skjwf")
 render_priority = 0
 shader = ExtResource("4_bejw7")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_tdesf")
-shader_parameter/gradient_sampler = SubResource("GradientTexture1D_28d4h")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_dymq7")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_xu4ic")
 
 [sub_resource type="Gradient" id="Gradient_hftd8"]
 offsets = PackedFloat32Array(0, 0.2, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xmu76"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykc35"]
 gradient = SubResource("Gradient_hftd8")
 
 [sub_resource type="Curve" id="Curve_rg5v2"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_wrx8v"]
+[sub_resource type="CurveTexture" id="CurveTexture_v4sy6"]
 curve = SubResource("Curve_rg5v2")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lj1m7"]
@@ -133,8 +133,8 @@ damping_min = 0.5
 damping_max = 1.0
 scale_min = 4.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_wrx8v")
-color_ramp = SubResource("GradientTexture1D_xmu76")
+scale_curve = SubResource("CurveTexture_v4sy6")
+color_ramp = SubResource("GradientTexture1D_ykc35")
 anim_speed_min = 0.1
 anim_speed_max = 0.1
 anim_offset_max = 1.0
@@ -146,14 +146,14 @@ size = Vector2(0.5, 0.5)
 offsets = PackedFloat32Array(0.418367, 1)
 colors = PackedColorArray(0.960784, 0.389706, 0.0470588, 1, 0.453125, 1, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_k5n0f"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5x7f2"]
 gradient = SubResource("Gradient_uoegy")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_61v55"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cnndt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fft4a"]
 seamless = true
 noise = SubResource("FastNoiseLite_61v55")
 
@@ -161,21 +161,21 @@ noise = SubResource("FastNoiseLite_61v55")
 render_priority = 0
 shader = ExtResource("4_bejw7")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_cnndt")
-shader_parameter/gradient_sampler = SubResource("GradientTexture1D_k5n0f")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_fft4a")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_5x7f2")
 
 [sub_resource type="Gradient" id="Gradient_78452"]
 offsets = PackedFloat32Array(0, 0.2, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6nag8"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3xfjn"]
 gradient = SubResource("Gradient_78452")
 
 [sub_resource type="Curve" id="Curve_nue4e"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_g1fwv"]
+[sub_resource type="CurveTexture" id="CurveTexture_q3rpu"]
 curve = SubResource("Curve_nue4e")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b5xu8"]
@@ -191,8 +191,8 @@ damping_min = 0.5
 damping_max = 1.0
 scale_min = 4.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_g1fwv")
-color_ramp = SubResource("GradientTexture1D_6nag8")
+scale_curve = SubResource("CurveTexture_q3rpu")
+color_ramp = SubResource("GradientTexture1D_3xfjn")
 anim_speed_min = 0.1
 anim_speed_max = 0.1
 anim_offset_max = 1.0

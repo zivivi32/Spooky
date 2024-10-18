@@ -1,0 +1,195 @@
+[gd_scene load_steps=31 format=3 uid="uid://cfqlti4e1i2i8"]
+
+[ext_resource type="Script" path="res://Scene/Turret/turret.gd" id="1_j2qwq"]
+[ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_shctj"]
+[ext_resource type="PackedScene" uid="uid://clm0ya6cpgby5" path="res://Scene/projectile/projectile.tscn" id="3_g7d5x"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="4_xhelf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5u2a6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j6cxj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd8qm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nw5ic"]
+material = SubResource("StandardMaterial3D_qd8qm")
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h3hmf"]
+radius = 8.0
+
+[sub_resource type="Gradient" id="Gradient_wmmfl"]
+offsets = PackedFloat32Array(0.4, 1)
+colors = PackedColorArray(0.804688, 0.804688, 0.804688, 1, 0.566406, 0.566406, 0.566406, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cpjjv"]
+gradient = SubResource("Gradient_wmmfl")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_73y43"]
+noise_type = 2
+frequency = 0.0118
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_702ho"]
+seamless = true
+noise = SubResource("FastNoiseLite_73y43")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q71tu"]
+render_priority = 0
+shader = ExtResource("4_xhelf")
+shader_parameter/uv_scale = 0.5
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_702ho")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_cpjjv")
+
+[sub_resource type="Gradient" id="Gradient_p50gk"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eoebo"]
+gradient = SubResource("Gradient_p50gk")
+
+[sub_resource type="Curve" id="Curve_rra0i"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hgkyr"]
+curve = SubResource("Curve_rra0i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8m0lj"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 15, 0)
+spread = 80.0
+initial_velocity_min = 5.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, 25, 0)
+damping_min = 0.5
+damping_max = 1.0
+scale_min = 6.0
+scale_max = 7.0
+scale_curve = SubResource("CurveTexture_hgkyr")
+color_ramp = SubResource("GradientTexture1D_eoebo")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_8b8jn"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_a17qn"]
+offsets = PackedFloat32Array(0.4, 1)
+colors = PackedColorArray(0.89917, 0.992188, 0.985647, 1, 0.597656, 0.597656, 0.597656, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_htdb6"]
+gradient = SubResource("Gradient_a17qn")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hday3"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_urhl1"]
+seamless = true
+noise = SubResource("FastNoiseLite_hday3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fti6n"]
+render_priority = 0
+shader = ExtResource("4_xhelf")
+shader_parameter/uv_scale = 0.5
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_urhl1")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_htdb6")
+
+[sub_resource type="Gradient" id="Gradient_ow44e"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vuxux"]
+gradient = SubResource("Gradient_ow44e")
+
+[sub_resource type="Curve" id="Curve_uvyxm"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_klp7k"]
+curve = SubResource("Curve_uvyxm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k6vx4"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+spread = 80.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 5, 0)
+damping_min = 0.5
+damping_max = 1.0
+scale_min = 6.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_klp7k")
+color_ramp = SubResource("GradientTexture1D_vuxux")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[node name="Turret" type="Node3D" node_paths=PackedStringArray("model", "gun", "detection", "timer", "spawn_particles", "death_particles")]
+script = ExtResource("1_j2qwq")
+model = NodePath("Model")
+gun = NodePath("Model/Gun")
+detection = NodePath("Detection")
+turret_lifetime = 25.0
+timer = NodePath("Timer")
+spawn_particles = NodePath("Spawn_Particles")
+death_particles = NodePath("death_particles")
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model/StaticBody3D"]
+mesh = SubResource("BoxMesh_5u2a6")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/StaticBody3D"]
+shape = SubResource("BoxShape3D_j6cxj")
+
+[node name="Gun" parent="Model" instance=ExtResource("2_shctj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554708, 0)
+bullet_scene = ExtResource("3_g7d5x")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Model/Gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.637554)
+mesh = SubResource("BoxMesh_nw5ic")
+
+[node name="Detection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection"]
+shape = SubResource("SphereShape3D_h3hmf")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="death_particles" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_q71tu")
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_8m0lj")
+draw_pass_1 = SubResource("QuadMesh_8b8jn")
+
+[node name="Spawn_Particles" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_fti6n")
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_k6vx4")
+draw_pass_1 = SubResource("QuadMesh_8b8jn")

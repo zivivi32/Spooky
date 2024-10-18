@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b33qdb870ijou"]
+[gd_scene load_steps=29 format=3 uid="uid://b33qdb870ijou"]
 
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_7cyyn"]
 [ext_resource type="PackedScene" uid="uid://q6hivk3hm8xn" path="res://Scene/Enemy/enemy_base.tscn" id="2_odpd5"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/enemy_melee.tscn" id="4_bl28x"]
 [ext_resource type="PackedScene" uid="uid://hpndn3ok4t3j" path="res://Scene/Difficulty_manager/difficulty_manager.tscn" id="4_ucx3h"]
 [ext_resource type="PackedScene" uid="uid://contpan4e10nt" path="res://Scene/Enemy/enemy_breakdown.tscn" id="5_mynpd"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_0o8vc"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_28gmy"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_ymjgf"]
+[ext_resource type="PackedScene" uid="uid://cfqlti4e1i2i8" path="res://Scene/Turret/turret.tscn" id="10_b55ag"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
 vertices = PackedVector3Array(-14, 0.481918, -14, -14, 0.481918, 14, 14, 0.481918, 14, 14, 0.481918, -14)
@@ -82,6 +86,24 @@ min_value = 0.5
 _data = [Vector2(0.00279329, 1), 0.0, -0.501406, 0, 1, Vector2(0.99999, 0.5), -0.501406, 0.0, 1, 0]
 point_count = 2
 
+[sub_resource type="Resource" id="Resource_ygu5n"]
+script = ExtResource("8_28gmy")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_xwaxi"]
+script = ExtResource("9_ymjgf")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
 [node name="Sandbox" type="Node3D" groups=["world"]]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -141,7 +163,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0098238, -0.0180818, -0.01
 shape = SubResource("ConvexPolygonShape3D_mek44")
 
 [node name="Player" parent="." instance=ExtResource("1_7cyyn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.545156, 1.14384, 9.47695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54516, 1.14384, -1.52305)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lifd2")
@@ -214,6 +236,17 @@ light_energy = 2.0
 shadow_enabled = true
 omni_range = 15.0
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 21)
-visible = false
+[node name="Turret" parent="." instance=ExtResource("10_b55ag")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.931764, 0.0999985, -2.79846)
+
+[node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353553, 11.6162, 18.4643, 5.54801)
+script = ExtResource("7_0o8vc")
+follow_mode = 5
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_ygu5n")
+camera_3d_resource = SubResource("Resource_xwaxi")
+follow_damping = true
+follow_damping_value = Vector3(0.5, 0.5, 0.5)
+follow_distance = 20.0
+spring_length = 20.0
