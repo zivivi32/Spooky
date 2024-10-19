@@ -11,6 +11,7 @@ class_name Player
 @export_subgroup("Health")
 @export var health: Health_System
 @export var damage_rate: int = 2
+@export var death_animation_time: float = 1
 
 @export_subgroup("Abilities")
 @export var dash: Dash_Ability
@@ -18,9 +19,7 @@ class_name Player
 @export_subgroup("Weapon properties")
 @export var default_bullet: PackedScene
 @export var gun: Gun_Weapon
-@export var weapon1: Special_Abilities
-@export var weapon2: Special_Abilities
-@export var weapon3: Special_Abilities
+@export var ability_manager: Ability_Manager
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -29,26 +28,45 @@ var rotation_direction: float
 var movement_velocity: Vector3
 var plane = Plane(Vector3(0, 1, 0), 0)  # A plane at y = 0 (assuming the ground is at y = 0)
 
+signal player_death
+
 @onready var world_node = get_tree().get_first_node_in_group("world")
+
+
+@export var test_abilities: Array[PackedScene]
 
 func _ready() -> void:
 	health.connect("death", death)
+	for test_ability in test_abilities:
+		var abil = test_ability.instantiate()
+		ability_manager.add_child(abil)
+		ability_manager.call_deferred("add_ability", abil)
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon1"):
-		weapon1.launch_ability()
+		ability_manager.launch_ability(0)
 
 	if event.is_action_pressed("weapon2"): 
-		weapon2.launch_ability()
+		ability_manager.launch_ability(1)
 		
 	if event.is_action_pressed("weapon3"): 
-		weapon3.launch_ability()
+		ability_manager.launch_ability(2)
 	
 	if event.is_action_pressed("dash"):
 		dash.launch_ability()
 
 func death(): 
-	queue_free()
+	model.visible = false
+	set_collision_layer_value(1, false)
+	set_collision_layer_value(2, false)
+	gun.attack_timer.stop()
+	
+	await get_tree().create_timer(death_animation_time).timeout
+	
+	player_death.emit()
+	
+	get_tree().reload_current_scene()
 	
 func to_isometric(motion_3d):
 	# Rotate the input vector to match the camera's orientation
@@ -167,5 +185,5 @@ func handle_controls(_delta):
 func set_default_bullet(): 
 	gun.change_bullet(default_bullet)
 
-func call_abilities(weapon_bullet) -> void: 
+func change_gun_bullet(weapon_bullet) -> void: 
 	gun.change_bullet(weapon_bullet)

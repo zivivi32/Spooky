@@ -1,0 +1,55 @@
+[gd_scene load_steps=13 format=3 uid="uid://bf23pq0e8h1sa"]
+
+[ext_resource type="Shader" uid="uid://bxmtjd6qdj51r" path="res://Shaders/simple_impact_shader.tres.res" id="1_1wm3t"]
+[ext_resource type="Texture2D" uid="uid://cea4ybwiap1hp" path="res://addons/kenney_particle_pack/magic_03.png" id="2_at7ho"]
+[ext_resource type="Script" path="res://Scene/VFX/particles_script.gd" id="3_def16"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxmbj"]
+render_priority = 15
+shader = ExtResource("1_1wm3t")
+shader_parameter/Hit_Texture = ExtResource("2_at7ho")
+
+[sub_resource type="Curve" id="Curve_1veub"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.140575, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ujh3r"]
+curve = SubResource("Curve_1veub")
+
+[sub_resource type="Gradient" id="Gradient_5bprr"]
+colors = PackedColorArray(8, 0.8, 0, 1, 1, 0.5, 0.2, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fhgj8"]
+gradient = SubResource("Gradient_5bprr")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_882xq"]
+_data = [Vector2(0, 0), 0.0, -0.0381135, 0, 0, Vector2(0.14377, 1), 0.0, 0.0, 0, 0, Vector2(0.833866, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_q5x4k"]
+curve = SubResource("Curve_882xq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n1nu4"]
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_q5x4k")
+color_ramp = SubResource("GradientTexture1D_fhgj8")
+alpha_curve = SubResource("CurveTexture_ujh3r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_egohi"]
+
+[node name="slash" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_vxmbj")
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_n1nu4")
+draw_pass_1 = SubResource("QuadMesh_egohi")
+script = ExtResource("3_def16")

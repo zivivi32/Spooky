@@ -5,6 +5,7 @@ class_name Turret
 @export var gun: Gun_Weapon
 @export var detection: Area3D
 @export var turret_lifetime: float = 15
+@export var turret_cooldown: float = 30
 @export var timer: Timer
 
 @export_subgroup("VFX")
@@ -15,8 +16,8 @@ class_name Turret
 var target: Enemy
 
 func _ready() -> void:
-	timer.start(turret_lifetime)
-	timer.connect("timeout", die)
+	#timer.start(turret_lifetime)
+	#timer.connect("timeout", die)
 	model.scale = Vector3(1.2 ,1.7 ,1.2)
 	play_move_vfx()
 	if spawn_particles:

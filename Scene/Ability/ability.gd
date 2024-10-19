@@ -2,14 +2,24 @@ extends Node
 class_name Special_Abilities
 
 @export_subgroup("Ability configurations")
+@export var player: Player
 @export var duration_timer: Timer
 @export var cool_down_timer: Timer
+@export var icon_image: Texture
+@export var is_available: bool = true
 
 var can_use: bool = true
 
+
+signal ability_used
+signal ability_ready
+
 func _ready() -> void:
+	can_use = is_available
+	
 	duration_timer.connect("timeout", start_cooldown)
 	cool_down_timer.connect("timeout", cool_down_off)
+	
 
 func process_ability(): 
 	pass
@@ -17,6 +27,7 @@ func process_ability():
 func launch_ability(): 
 	if can_use:
 		can_use = false
+		ability_used.emit()
 		process_ability()
 		
 func process_cooldown():
@@ -27,3 +38,4 @@ func start_cooldown():
 
 func cool_down_off(): 
 	can_use = true
+	ability_ready.emit()

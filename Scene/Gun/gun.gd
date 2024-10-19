@@ -18,6 +18,7 @@ var can_shoot: bool = true
 
 @export_subgroup("VFX")
 @export var muzzle_flash : PackedScene
+@export var flash_particles: Array[GPUParticles3D]
 
 func _ready() -> void:
 	attack_timer.wait_time = timer_count
@@ -58,7 +59,10 @@ func shoot() -> void:
 				var vfx = muzzle_flash.instantiate()
 				get_tree().root.add_child(vfx)
 				vfx.global_position = spawn_pos.global_position
-			
+				
+			if flash_particles: 
+				for vfx in flash_particles:
+					vfx.emitting = true
 			#Events.emit_signal("fx_screen_shake")
 
 		#await get_tree().create_timer(1/fire_rate).timeout

@@ -7,7 +7,7 @@
 [node name="Opening" instance=ExtResource("1_tjbcx")]
 size_flags_horizontal = 3
 size_flags_vertical = 3
-next_scene = "res://Game/menu/scenes/menus/main_menu/main_menu_with_animations.tscn"
+next_scene = "res://Scene/Main_BG.tscn"
 images = Array[Texture2D]([ExtResource("2_gnh8t"), ExtResource("3_doj5o")])
 show_loading_screen = true
 

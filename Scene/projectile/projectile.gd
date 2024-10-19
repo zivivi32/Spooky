@@ -10,6 +10,8 @@ extends Area3D
 @export var is_explosive: bool = false
 @export var explosion_scene: PackedScene
 @export var vfx: Array[PackedScene]
+@export var visuals: Array[GPUParticles3D]
+
 
 var bodies_pierced: int = 0
 var direction := Vector3.FORWARD
@@ -20,7 +22,9 @@ var rotate_on_y: float
 func _ready():
 	life_timer.start(life_time)
 	life_timer.connect("timeout", queue_free)
-
+	if visuals:
+		for fx in visuals:
+			fx.emitting = true
 func _physics_process(delta):
 	global_position += direction * (delta * speed)
 	

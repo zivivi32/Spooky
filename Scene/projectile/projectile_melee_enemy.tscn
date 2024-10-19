@@ -24,6 +24,7 @@ life_time = 0.2
 life_timer = NodePath("lifeTimer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_2cx8x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -1,19 +1,22 @@
-[gd_scene load_steps=87 format=4 uid="uid://b62weqcdg3t3y"]
+[gd_scene load_steps=90 format=4 uid="uid://b62weqcdg3t3y"]
 
 [ext_resource type="Script" path="res://Scene/Player/player.gd" id="1_rbcik"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_68ncm"]
 [ext_resource type="Texture2D" uid="uid://bchqbsyvgy4ta" path="res://Assets/KenneyMiniCharacters/Textures/colormap.png" id="3_1o08n"]
 [ext_resource type="PackedScene" uid="uid://cjlu11elklpnl" path="res://Scene/Health_System/health_system.tscn" id="3_6klh2"]
+[ext_resource type="PackedScene" uid="uid://dnlfj22bcam5f" path="res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn" id="3_35rmk"]
 [ext_resource type="PackedScene" uid="uid://clm0ya6cpgby5" path="res://Scene/projectile/projectile.tscn" id="3_bkk3v"]
 [ext_resource type="PackedScene" uid="uid://cq8au55vnfwdt" path="res://Scene/Health_bar/health_bar.tscn" id="4_40gmr"]
+[ext_resource type="PackedScene" uid="uid://xnijgqipefdv" path="res://Scene/Ability/Abilities_scenes/turret_ability.tscn" id="4_hlwtr"]
 [ext_resource type="Shader" path="res://Shaders/outline_shader.gdshader" id="5_pi02d"]
 [ext_resource type="PackedScene" uid="uid://c3cpjdmtyyu4m" path="res://Scene/VFX/fireball/fireball_spawn/fireball_spawn.tscn" id="5_sdh45"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="6_j8xfa"]
-[ext_resource type="PackedScene" uid="uid://c1vacxwpfsim6" path="res://Scene/Ability/ability.tscn" id="6_p0r13"]
-[ext_resource type="Resource" uid="uid://bb87ov36sx4go" path="res://Resources/Weapon/explosive_gun.tres" id="7_14ee3"]
 [ext_resource type="PackedScene" uid="uid://dke8l0w4qgcy4" path="res://Scene/Ability/Dash.tscn" id="8_2kbe5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_dmq7s"]
-[ext_resource type="Script" path="res://Scene/Ability/Exploding_Pumpkins.gd" id="11_rwgo1"]
+[ext_resource type="PackedScene" uid="uid://uynrjvje41hx" path="res://Scene/UI_Items/UI_Ability.tscn" id="11_hww55"]
+[ext_resource type="Texture2D" uid="uid://dwx3r4isv4pa4" path="res://Assets/Kenney-preview/pumpkin-tall-carved.png" id="12_htp58"]
+[ext_resource type="Texture2D" uid="uid://dius5a470ps5r" path="res://Assets/Kenney-preview/character-digger.png" id="13_lnh8e"]
+[ext_resource type="Script" path="res://Scene/Ability/ability_manager.gd" id="14_2ppjm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ntn7l"]
 resource_name = "colormap"
@@ -2906,20 +2909,21 @@ size = Vector2(2, 2)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ybp8h"]
 radius = 0.579505
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "model", "animation_tree", "walking_particles", "health", "dash", "gun", "weapon1", "weapon2", "weapon3") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "model", "animation_tree", "walking_particles", "health", "dash", "gun", "ability_manager") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14384, 0)
+collision_layer = 3
 script = ExtResource("1_rbcik")
 camera = NodePath("Camera3D")
 model = NodePath("Model")
 animation_tree = NodePath("Model/AnimationTree")
 walking_particles = NodePath("Model/walking_particles")
 health = NodePath("Health_System")
+death_animation_time = 2.0
 dash = NodePath("Abilities/Dash")
 default_bullet = ExtResource("3_bkk3v")
 gun = NodePath("Model/Gun")
-weapon1 = NodePath("Abilities/Ability1")
-weapon2 = NodePath("Abilities/Ability2")
-weapon3 = NodePath("Abilities/Ability3")
+ability_manager = NodePath("Abilities")
+test_abilities = Array[PackedScene]([ExtResource("3_35rmk"), ExtResource("4_hlwtr")])
 
 [node name="Model" type="Node3D" parent="."]
 
@@ -2955,28 +2959,28 @@ bones/3/parent = 0
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44382e-15, 0.17625, -0.02875)
 bones/3/enabled = true
 bones/3/position = Vector3(-1.44382e-15, 0.17625, -0.02875)
-bones/3/rotation = Quaternion(-0.0435687, 0, 0, 0.99905)
+bones/3/rotation = Quaternion(-0.0284569, 0, 0, 0.999595)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "arm-left"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0998968, 0.1115, 0.0115)
 bones/4/enabled = true
 bones/4/position = Vector3(0.0998968, 0.1115, 0.0115)
-bones/4/rotation = Quaternion(0, 0, -0.262358, 0.964971)
+bones/4/rotation = Quaternion(0, 0, -0.302502, 0.953149)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "arm-right"
 bones/5/parent = 3
 bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0998968, 0.1115, 0.0115)
 bones/5/enabled = true
 bones/5/position = Vector3(-0.0998968, 0.1115, 0.0115)
-bones/5/rotation = Quaternion(0, 0, 0.262358, 0.964971)
+bones/5/rotation = Quaternion(0, 0, 0.302502, 0.953149)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "head"
 bones/6/parent = 3
 bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81969e-09, 0.167, 0.0263888)
 bones/6/enabled = true
 bones/6/position = Vector3(1.81969e-09, 0.167, 0.0263888)
-bones/6/rotation = Quaternion(0, 0.0435687, 0, 0.99905)
+bones/6/rotation = Quaternion(0, 0.0284569, 0, 0.999595)
 bones/6/scale = Vector3(1, 1, 1)
 
 [node name="body-mesh" type="MeshInstance3D" parent="Model/character-female-e2/character-female-e/Skeleton3D"]
@@ -3055,7 +3059,7 @@ script = ExtResource("8_dmq7s")
 [node name="Health_System" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_6klh2")]
 collision_layer = 4
 collision_mask = 8
-health_bar = NodePath("../CanvasLayer/MarginContainer/Health_Bar")
+health_bar = NodePath("../CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Health/MarginContainer/Health_Bar")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health_System"]
 shape = SubResource("CapsuleShape3D_ybp8h")
@@ -3063,27 +3067,96 @@ shape = SubResource("CapsuleShape3D_ybp8h")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -157.0
+offset_right = 320.0
+grow_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="Health" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Health"]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Health_Bar" parent="CanvasLayer/MarginContainer" instance=ExtResource("4_40gmr")]
+[node name="Health_Bar" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Health/MarginContainer" instance=ExtResource("4_40gmr")]
 custom_minimum_size = Vector2(250, 15)
 layout_mode = 2
 
-[node name="Abilities" type="Node" parent="."]
+[node name="HealthLable" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Health/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
 
-[node name="Ability1" parent="Abilities" node_paths=PackedStringArray("player") instance=ExtResource("6_p0r13")]
-script = ExtResource("11_rwgo1")
-weapon = ExtResource("7_14ee3")
-player = NodePath("../..")
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Health/MarginContainer/HealthLable"]
+z_index = 15
+layout_mode = 2
+text = "Health"
 
-[node name="Ability2" parent="Abilities" instance=ExtResource("6_p0r13")]
+[node name="Abilities" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
 
-[node name="Ability3" parent="Abilities" instance=ExtResource("6_p0r13")]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer"]
+layout_mode = 2
+
+[node name="Abilities" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/Abilities"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.253906, 0.249939, 0.249939, 1)
+text = "Abilities"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Ui_Ability" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("11_hww55")]
+layout_mode = 2
+image = ExtResource("12_htp58")
+
+[node name="Ui_Ability2" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("11_hww55")]
+layout_mode = 2
+image = ExtResource("13_lnh8e")
+
+[node name="Ui_Ability3" parent="CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("11_hww55")]
+layout_mode = 2
+image = ExtResource("13_lnh8e")
+
+[node name="Abilities" type="Node" parent="." node_paths=PackedStringArray("ability_ui", "player")]
+script = ExtResource("14_2ppjm")
+ability_ui = [NodePath("../CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Ui_Ability"), NodePath("../CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Ui_Ability2"), NodePath("../CanvasLayer/MarginContainer/PanelContainer/VBoxContainer/Abilities/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Ui_Ability3")]
+player = NodePath("..")
 
 [node name="Dash" parent="Abilities" node_paths=PackedStringArray("player") instance=ExtResource("8_2kbe5")]
 player = NodePath("../..")

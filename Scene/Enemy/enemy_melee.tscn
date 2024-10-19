@@ -1,9 +1,10 @@
-[gd_scene load_steps=68 format=4 uid="uid://dipitv17rpxuf"]
+[gd_scene load_steps=69 format=4 uid="uid://dipitv17rpxuf"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_okk44"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_tbhu3"]
 [ext_resource type="PackedScene" uid="uid://25qfflttof6h" path="res://Scene/projectile/projectile_melee_enemy.tscn" id="3_dpw62"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="4_bejw7"]
+[ext_resource type="PackedScene" uid="uid://bf23pq0e8h1sa" path="res://Scene/VFX/slash.tscn" id="4_mlelj"]
 [ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="4_x5ity"]
 [ext_resource type="Script" path="res://addons/3dEnemyToolkit/FollowTarget.gd" id="5_22hhf"]
 [ext_resource type="Script" path="res://Scripts/States/chase_state_AI.gd" id="6_rn140"]
@@ -432,6 +433,7 @@ bullet_scene = ExtResource("3_dpw62")
 bullet_speed = 0.0
 spawn_pos = NodePath("Marker3D")
 is_ai = true
+muzzle_flash = ExtResource("4_mlelj")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="model/Gun"]
 visible = false

@@ -28,6 +28,7 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 [display]
 
 window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
 window/vsync/vsync_mode=0
 
 [editor_plugins]
@@ -38,6 +39,10 @@ enabled=PackedStringArray("res://addons/3dEnemyToolkit/plugin.cfg", "res://addon
 
 world=""
 player=""
+
+[gui]
+
+theme/custom="res://UI_Theme/UI_Theme.tres"
 
 [input]
 
@@ -108,3 +113,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/t
 
 disable_plugin_dialogues=true
 copy_path="res://Game/menu"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

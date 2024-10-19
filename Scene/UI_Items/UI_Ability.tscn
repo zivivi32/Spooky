@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://uynrjvje41hx"]
+
+[ext_resource type="Texture2D" uid="uid://dwx3r4isv4pa4" path="res://Assets/Kenney-preview/pumpkin-tall-carved.png" id="1_dgvi2"]
+[ext_resource type="Script" path="res://Scene/UI_Items/ui_ability.gd" id="1_yncxy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_md6ps"]
+bg_color = Color(0, 0, 0, 0.492)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("icon", "used")]
+script = ExtResource("1_yncxy")
+icon = NodePath("TextureRect")
+used = NodePath("available")
+
+[node name="bg_panel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_dgvi2")
+
+[node name="available" type="Panel" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_md6ps")

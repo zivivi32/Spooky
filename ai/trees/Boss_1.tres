@@ -1,0 +1,38 @@
+[gd_resource type="BehaviorTree" load_steps=11 format=3 uid="uid://teckh0arde2n"]
+
+[ext_resource type="Script" path="res://ai/tasks/Get_player_target.gd" id="1_hxvau"]
+[ext_resource type="Script" path="res://ai/tasks/patrol_phase.gd" id="2_lu04r"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ni651"]
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_ot65p"]
+min_duration = 2.0
+max_duration = 3.0
+
+[sub_resource type="BTAction" id="BTAction_lthbo"]
+script = ExtResource("1_hxvau")
+group = &""
+output_var = &"target"
+
+[sub_resource type="BTSequence" id="BTSequence_aqhdl"]
+custom_name = "Idle"
+children = [SubResource("BTRandomWait_ot65p"), SubResource("BTAction_lthbo")]
+
+[sub_resource type="BTAction" id="BTAction_pmbfq"]
+script = ExtResource("2_lu04r")
+target_var = &"target"
+
+[sub_resource type="BTCooldown" id="BTCooldown_iofrq"]
+duration = 3.0
+children = [SubResource("BTAction_pmbfq")]
+
+[sub_resource type="BTSelector" id="BTSelector_hfn47"]
+custom_name = "Patrol"
+children = [SubResource("BTCooldown_iofrq")]
+
+[sub_resource type="BTSelector" id="BTSelector_c5d3g"]
+children = [SubResource("BTSequence_aqhdl"), SubResource("BTSelector_hfn47")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ni651")
+root_task = SubResource("BTSelector_c5d3g")
