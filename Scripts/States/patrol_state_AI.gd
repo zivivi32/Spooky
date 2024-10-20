@@ -8,14 +8,15 @@ func _ready() -> void:
 	#followtarget.navigation_finished.connect(choose_next_point)
 
 func choose_next_point() -> void:
-	if !agent.player:
-		agent.last_position = Vector3.ZERO
-		randomize()
-		followtarget.SetFixedTarget(random_target_point.GetNextPoint())
+	print_debug("Patrol State")
+	randomize()
+	followtarget.SetFixedTarget(random_target_point.GetNextPoint())
 	
 
 func _enter() -> void:
-	if !agent.last_position:
-		choose_next_point()
-	else: 
-		followtarget.SetFixedTarget(agent.last_position)
+	#choose_next_point()
+	followtarget.ClearTarget()
+	#followtarget.can_move = true
+	followtarget.Speed = agent.speed
+	randomize()
+	followtarget.SetFixedTarget(random_target_point.GetNextPoint())

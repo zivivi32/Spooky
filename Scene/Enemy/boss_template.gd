@@ -6,6 +6,7 @@ class_name Boss
 @export var model: Node3D
 @export var model_mesh: Node3D
 @export var speed: int = 5
+@export var chase_speed: int = 5
 @export var health: Health_System
 @export var animation_tree: AnimationTree
 @export var is_spawned: bool = false
@@ -38,7 +39,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 signal enemy_death
 
 func _ready() -> void:
-	playback = animation_tree["parameters/playback"]
 	health.connect("death", death)
 
 
@@ -46,14 +46,6 @@ func _ready() -> void:
 
 func get_player(): 
 	player = get_tree().get_first_node_in_group("player")
-
-func chase_player():
-	navigation_agent.SetTarget(player)
-
-func patrol(): 
-	navigation_agent.ClearTarget()
-	randomize()
-	navigation_agent.SetFixedTarget(random_target_point.GetNextPoint())
 
 func reached_target(): 
 	velocity = Vector3.ZERO
@@ -69,6 +61,7 @@ func range_attack():
 func switch_bullet(new_bullet: PackedScene):
 	weapon.bullet_scene = new_bullet
 	
+
 func spawn_minions() -> void:
 	var num_spawn : int = randi_range(min_spawn, max_spawn)
 	
@@ -87,25 +80,16 @@ func spawn_minions() -> void:
 		get_parent().add_child(spawn)
 		# Set the calculated spawn position
 		spawn.global_position = spawn_position
-
+		
 ###############################################################
 
-
-func _physics_process(delta: float) -> void:
-	handle_animation()
-	pass
-
-func handle_animation() -> void: 
-	var animation_velocity = Vector2(velocity.x,velocity.z)
-	animation_tree.set("parameters/Movement/blend_position", animation_velocity)
-	
+func _physics_process(_delta: float) -> void:
 	if walking_particles:
+		var animation_velocity = Vector2(velocity.x,velocity.z)
 		walking_particles.emitting = (animation_velocity != Vector2.ZERO)
 
+
 func death() -> void:
-	if can_spawn_minion:
-		spawn_minions()
-	
 	enemy_death.emit(self)
 	
 	if death_particles:

@@ -6,6 +6,7 @@ signal ReachedTarget(target : Node3D)
 @export var Speed : float = 5.0
 @export var TurnSpeed : float = 0.3
 @export var ReachTargetMinDistance : float = 1.3
+var can_move: bool = true
 
 var target : Node3D
 var isTargetSet : bool = false
@@ -19,14 +20,17 @@ func _ready() -> void:
 	velocity_computed.connect(_on_velocity_computed)
 
 func _process(delta: float) -> void:
-	if fixedTarget:
-		go_to_location(targetPosition)	
-	elif is_instance_valid(target):
-		go_to_location(target.global_position)
-		if target and parent.global_position.distance_to(target.global_position) <= ReachTargetMinDistance:
-			emit_signal("ReachedTarget", target)
-	
-	parent.move_and_slide()
+	if can_move:
+		if fixedTarget:
+			go_to_location(targetPosition)	
+		elif is_instance_valid(target):
+			go_to_location(target.global_position)
+			if target and parent.global_position.distance_to(target.global_position) <= ReachTargetMinDistance:
+				emit_signal("ReachedTarget", target)
+
+		parent.move_and_slide()
+	else: 
+		ClearTarget()
 	
 func SetFixedTarget(newTarget : Vector3) -> void:
 	target = null

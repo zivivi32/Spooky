@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=41 format=3 uid="uid://cqluon1y1hnn5"]
+[gd_resource type="BehaviorTree" load_steps=42 format=3 uid="uid://cqluon1y1hnn5"]
 
 [ext_resource type="Script" path="res://demo/ai/tasks/get_first_in_group.gd" id="1_4xk1i"]
 [ext_resource type="Script" path="res://demo/ai/tasks/is_aligned_with_target.gd" id="2_a8qex"]
@@ -170,9 +170,11 @@ metadata/_weight_ = 1.0
 [sub_resource type="BTSelector" id="BTSelector_1rrya"]
 children = [SubResource("BTProbability_6sydk"), SubResource("BTSequence_lhg7f")]
 
+[sub_resource type="BTSelector" id="BTSelector_5uurk"]
+
 [sub_resource type="BTSequence" id="BTSequence_pxl2k"]
 custom_name = "Main"
-children = [SubResource("BTSequence_yhjh1"), SubResource("BTSelector_1rrya")]
+children = [SubResource("BTSequence_yhjh1"), SubResource("BTSelector_1rrya"), SubResource("BTSelector_5uurk")]
 
 [resource]
 description = "Here, the [dec]Probability[/dec] decorator permits the execution of its branch in 30% of cases. This introduces a slight variation to the behavior each time the \"Change flank\" sequence is considered by the [comp]Selector[/comp].

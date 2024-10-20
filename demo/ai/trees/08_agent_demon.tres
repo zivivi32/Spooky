@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=49 format=3 uid="uid://cpcnbi81jqge4"]
+[gd_resource type="BehaviorTree" load_steps=50 format=3 uid="uid://cpcnbi81jqge4"]
 
 [ext_resource type="Script" path="res://demo/ai/tasks/get_first_in_group.gd" id="1_ce4la"]
 [ext_resource type="Script" path="res://demo/ai/tasks/in_range.gd" id="2_atyuj"]
@@ -191,8 +191,10 @@ max_duration = 1.5
 custom_name = "Spit fire"
 children = [SubResource("BTComment_mqte5"), SubResource("BTPlayAnimation_vjtpq"), SubResource("BTAction_4mmh0"), SubResource("BTTimeLimit_jyks2"), SubResource("BTComment_ym6nj"), SubResource("BTAction_fkevy"), SubResource("BTPlayAnimation_vcjeq"), SubResource("BTWait_42smh"), SubResource("BTComment_nbp2b"), SubResource("BTPlayAnimation_214yn"), SubResource("BTCallMethod_lk7i6"), SubResource("BTComment_fndxk"), SubResource("BTPlayAnimation_m7gyp"), SubResource("BTRandomWait_v0el8")]
 
+[sub_resource type="BTSelector" id="BTSelector_6foev"]
+
 [sub_resource type="BTSelector" id="BTSelector_feba6"]
-children = [SubResource("BTCooldown_oms7a"), SubResource("BTSequence_eikr4"), SubResource("BTSequence_wh4dl"), SubResource("BTSequence_djtph")]
+children = [SubResource("BTCooldown_oms7a"), SubResource("BTSequence_eikr4"), SubResource("BTSequence_wh4dl"), SubResource("BTSequence_djtph"), SubResource("BTSelector_6foev")]
 
 [resource]
 description = "Here, we use the [con]InRange[/con] condition task together with [comp]Sequence[/comp] and [comp]Selector[/comp] to create a reactive behavior for this agent. When the player comes close, this agent will attempt to hit them with a melee attack and move away afterward for a better ranged position."

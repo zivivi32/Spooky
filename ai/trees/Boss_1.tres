@@ -1,38 +1,81 @@
-[gd_resource type="BehaviorTree" load_steps=11 format=3 uid="uid://teckh0arde2n"]
+[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://teckh0arde2n"]
 
-[ext_resource type="Script" path="res://ai/tasks/Get_player_target.gd" id="1_hxvau"]
-[ext_resource type="Script" path="res://ai/tasks/patrol_phase.gd" id="2_lu04r"]
+[ext_resource type="Script" path="res://ai/tasks/ChaseAI.gd" id="2_3qq0i"]
+[ext_resource type="Script" path="res://ai/tasks/idle_phase.gd" id="2_fd1i3"]
+[ext_resource type="Script" path="res://ai/tasks/spawn_Minions.gd" id="3_fehff"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ni651"]
 
-[sub_resource type="BTRandomWait" id="BTRandomWait_ot65p"]
-min_duration = 2.0
-max_duration = 3.0
+[sub_resource type="BBNode" id="BBNode_xxwou"]
+saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
+resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
 
-[sub_resource type="BTAction" id="BTAction_lthbo"]
-script = ExtResource("1_hxvau")
-group = &""
-output_var = &"target"
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_bmqjm"]
+animation_player = SubResource("BBNode_xxwou")
+animation_name = &"Idle"
 
-[sub_resource type="BTSequence" id="BTSequence_aqhdl"]
+[sub_resource type="BTAction" id="BTAction_o68bi"]
+script = ExtResource("2_fd1i3")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_unrbr"]
+
+[sub_resource type="BTSequence" id="BTSequence_jp6ju"]
 custom_name = "Idle"
-children = [SubResource("BTRandomWait_ot65p"), SubResource("BTAction_lthbo")]
+children = [SubResource("BTPlayAnimation_bmqjm"), SubResource("BTAction_o68bi"), SubResource("BTRandomWait_unrbr")]
 
-[sub_resource type="BTAction" id="BTAction_pmbfq"]
-script = ExtResource("2_lu04r")
-target_var = &"target"
+[sub_resource type="BTProbability" id="BTProbability_5eb2f"]
+run_chance = 0.1
+children = [SubResource("BTSequence_jp6ju")]
 
-[sub_resource type="BTCooldown" id="BTCooldown_iofrq"]
+[sub_resource type="BBNode" id="BBNode_b5vqn"]
+saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
+resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6rbal"]
+animation_player = SubResource("BBNode_b5vqn")
+animation_name = &"Walk"
+
+[sub_resource type="BTAction" id="BTAction_85v26"]
+script = ExtResource("2_3qq0i")
+chase_speed = 3.0
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_qkl7u"]
+min_duration = 5.0
+max_duration = 7.0
+
+[sub_resource type="BTSequence" id="BTSequence_ru17y"]
+custom_name = "Chase"
+children = [SubResource("BTPlayAnimation_6rbal"), SubResource("BTAction_85v26"), SubResource("BTRandomWait_qkl7u")]
+
+[sub_resource type="BTProbability" id="BTProbability_wsjr6"]
+run_chance = 0.2
+children = [SubResource("BTSequence_ru17y")]
+
+[sub_resource type="BBNode" id="BBNode_or40g"]
+saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
+resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ae5dh"]
+animation_player = SubResource("BBNode_or40g")
+animation_name = &"Cheer"
+
+[sub_resource type="BTAction" id="BTAction_ojhm3"]
+script = ExtResource("3_fehff")
+
+[sub_resource type="BTWait" id="BTWait_357sr"]
 duration = 3.0
-children = [SubResource("BTAction_pmbfq")]
 
-[sub_resource type="BTSelector" id="BTSelector_hfn47"]
-custom_name = "Patrol"
-children = [SubResource("BTCooldown_iofrq")]
+[sub_resource type="BTSequence" id="BTSequence_c53sd"]
+custom_name = "Spawn_Minions"
+children = [SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_ojhm3"), SubResource("BTWait_357sr")]
 
-[sub_resource type="BTSelector" id="BTSelector_c5d3g"]
-children = [SubResource("BTSequence_aqhdl"), SubResource("BTSelector_hfn47")]
+[sub_resource type="BTProbability" id="BTProbability_ojjha"]
+run_chance = 0.4
+children = [SubResource("BTSequence_c53sd")]
+
+[sub_resource type="BTSelector" id="BTSelector_mncpb"]
+children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ni651")
-root_task = SubResource("BTSelector_c5d3g")
+root_task = SubResource("BTSelector_mncpb")
