@@ -249,5 +249,6 @@ follow_damping_value = Vector3(0.5, 0.5, 0.5)
 follow_distance = 20.0
 spring_length = 20.0
 
-[node name="Boss" parent="." instance=ExtResource("10_4hrng")]
+[node name="Boss" parent="." node_paths=PackedStringArray("nav_region") instance=ExtResource("10_4hrng")]
 transform = Transform3D(-0.658453, 0, -0.752622, 0, 1, 0, 0.752622, 0, -0.658453, -7.45506, 0.396428, -8.60876)
+nav_region = NodePath("../NavigationRegion3D")
