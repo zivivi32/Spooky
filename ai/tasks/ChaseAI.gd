@@ -7,6 +7,5 @@ func _enter() -> void:
 	agent.navigation_agent.SetTarget(agent.player)
 	agent.navigation_agent.Speed = chase_speed
 	
-func _tick(delta: float) -> Status:
-	agent.range_attack()
+func _tick(_delta: float) -> Status:
 	return SUCCESS

@@ -8,8 +8,6 @@ class_name Boss
 @export var speed: int = 5
 @export var chase_speed: int = 5
 @export var health: Health_System
-@export var animation_tree: AnimationTree
-@export var is_spawned: bool = false
 @export var navigation_agent: FollowTarget3D
 @export var random_target_point : RandomTarget3D
 
@@ -20,8 +18,11 @@ class_name Boss
 
 @export_subgroup("Weapons")
 @export var weapon: Gun_Weapon
+@export var bullet_count: int = 5
+@export var default_bullet: PackedScene
 @export var melee_bullet: PackedScene
 @export var range_bullet: PackedScene
+@export var range_bullet_cound: int = 10
 
 @export_subgroup("Minion spawner")
 @export var can_spawn_minion: bool = false
@@ -40,7 +41,7 @@ signal enemy_death
 
 func _ready() -> void:
 	health.connect("death", death)
-
+	weapon.bullet_count = bullet_count
 
 ################### BOSS FUNCTIONS ##########################
 
@@ -53,15 +54,25 @@ func reached_target():
 func melee_attack(): 
 	switch_bullet(melee_bullet)
 	weapon.shoot()
-
+	switch_bullet(default_bullet)
+	
 func range_attack():
+	weapon.attack_timer.stop()
 	switch_bullet(range_bullet)
+	weapon.bullet_count = bullet_count
+	navigation_agent.ClearTarget()
+	velocity = Vector3.ZERO
+	navigation_agent.Speed = 0
 	weapon.shoot()
-
+	
+func switch_default_bullet():
+	switch_bullet(default_bullet)
+	if weapon.attack_timer.is_stopped():
+		weapon.attack_timer.start()
+	
 func switch_bullet(new_bullet: PackedScene):
 	weapon.bullet_scene = new_bullet
 	
-
 func spawn_minions() -> void:
 	var num_spawn : int = randi_range(min_spawn, max_spawn)
 	

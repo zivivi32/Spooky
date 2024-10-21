@@ -25,9 +25,16 @@ func _ready():
 	if visuals:
 		for fx in visuals:
 			fx.emitting = true
+	if direction.length() > 0.01:
+		look_at(global_position + direction, Vector3.UP, true)  # Rotate to face the direction of movement
+	
 func _physics_process(delta):
 	global_position += direction * (delta * speed)
-	
+	#if direction.length() > 0.01:
+		#look_at(global_position + direction, Vector3.UP, true)  # Rotate to face the direction of movement
+	#
+
+
 func _on_body_entered(body):
 	if body is Health_System:
 		body.damage(damage)

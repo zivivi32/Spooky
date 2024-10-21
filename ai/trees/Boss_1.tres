@@ -1,8 +1,9 @@
-[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://teckh0arde2n"]
+[gd_resource type="BehaviorTree" load_steps=31 format=3 uid="uid://teckh0arde2n"]
 
 [ext_resource type="Script" path="res://ai/tasks/ChaseAI.gd" id="2_3qq0i"]
 [ext_resource type="Script" path="res://ai/tasks/idle_phase.gd" id="2_fd1i3"]
 [ext_resource type="Script" path="res://ai/tasks/spawn_Minions.gd" id="3_fehff"]
+[ext_resource type="Script" path="res://ai/tasks/switch_default_bullet.gd" id="4_1e8d7"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ni651"]
 
@@ -33,7 +34,7 @@ resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6rbal"]
 animation_player = SubResource("BBNode_b5vqn")
-animation_name = &"Walk"
+animation_name = &"Dance"
 
 [sub_resource type="BTAction" id="BTAction_85v26"]
 script = ExtResource("2_3qq0i")
@@ -56,25 +57,49 @@ saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
 resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ae5dh"]
+await_completion = 100.0
 animation_player = SubResource("BBNode_or40g")
 animation_name = &"Cheer"
 
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("3_fehff")
 
-[sub_resource type="BTWait" id="BTWait_357sr"]
-duration = 3.0
-
 [sub_resource type="BTSequence" id="BTSequence_c53sd"]
 custom_name = "Spawn_Minions"
-children = [SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_ojhm3"), SubResource("BTWait_357sr")]
+children = [SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_ojhm3")]
 
 [sub_resource type="BTProbability" id="BTProbability_ojjha"]
 run_chance = 0.4
 children = [SubResource("BTSequence_c53sd")]
 
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_uap8e"]
+text = "Range Attack!"
+
+[sub_resource type="BBNode" id="BBNode_4gyl8"]
+saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
+resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_su4j1"]
+await_completion = 100.0
+animation_player = SubResource("BBNode_4gyl8")
+animation_name = &"AttackSpinning"
+
+[sub_resource type="BTRepeat" id="BTRepeat_b5w2w"]
+times = 3
+custom_name = "Attack3 times"
+children = [SubResource("BTPlayAnimation_su4j1")]
+
+[sub_resource type="BTAction" id="BTAction_ughqs"]
+script = ExtResource("4_1e8d7")
+
+[sub_resource type="BTSequence" id="BTSequence_glyoj"]
+children = [SubResource("BTConsolePrint_uap8e"), SubResource("BTRepeat_b5w2w"), SubResource("BTAction_ughqs")]
+
+[sub_resource type="BTProbability" id="BTProbability_c3my0"]
+children = [SubResource("BTSequence_glyoj")]
+
 [sub_resource type="BTSelector" id="BTSelector_mncpb"]
-children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha")]
+children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha"), SubResource("BTProbability_c3my0")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ni651")
