@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://q6hivk3hm8xn"]
+[gd_scene load_steps=72 format=4 uid="uid://q6hivk3hm8xn"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_g3vkc"]
 [ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="1_tm5xs"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://de1h70p5afry2" path="res://Scene/VFX/fireball/fireball_spawn/muzzle_enemy.tscn" id="5_1pksv"]
 [ext_resource type="Script" path="res://Scripts/States/attack_state_ai.gd" id="5_3bht3"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="9_7pit8"]
+[ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="12_kxi06"]
+[ext_resource type="PackedScene" uid="uid://f5jq5q0phl8r" path="res://Scene/Collectibles/coin3.tscn" id="13_1u4bm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x5d64"]
 
@@ -384,7 +386,7 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_cwyi2"]
 size = Vector2(0.5, 0.5)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "death_state")]
 collision_layer = 9
 script = ExtResource("1_g3vkc")
 model = NodePath("model")
@@ -396,9 +398,13 @@ navigation_agent = NodePath("FollowTarget3D")
 spawn_particles = NodePath("Spawn_Particles")
 walking_particles = NodePath("walking_particles")
 death_particles = NodePath("FireAmber")
+loot = Array[PackedScene]([ExtResource("12_kxi06"), ExtResource("13_1u4bm")])
+min_spawn_loot = 1
+max_spawn_loot = 3
 hsm = NodePath("LimboHSM")
 chase_state = NodePath("LimboHSM/chase_state")
 attack_state = NodePath("LimboHSM/attack_state")
+death_state = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_x5d64")

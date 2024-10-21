@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_0o8vc"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_28gmy"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_ymjgf"]
-[ext_resource type="PackedScene" uid="uid://b8y05k0xjbboo" path="res://Scene/Enemy/Boss_Template.tscn" id="10_4hrng"]
+[ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="10_ha3uf"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
 vertices = PackedVector3Array(-14, 0.481918, -14, -14, 0.481918, 14, 14, 0.481918, 14, 14, 0.481918, -14)
@@ -106,7 +106,7 @@ far = 4000.0
 
 [node name="Sandbox" type="Node3D" groups=["world"]]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." groups=["navigation_region"]]
 navigation_mesh = SubResource("NavigationMesh_qedyx")
 
 [node name="Node3D" type="Node3D" parent="NavigationRegion3D"]
@@ -187,7 +187,6 @@ collision_mask = 4294967295
 shape = SubResource("ConvexPolygonShape3D_xyddh")
 
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
 medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
@@ -249,6 +248,5 @@ follow_damping_value = Vector3(0.5, 0.5, 0.5)
 follow_distance = 20.0
 spring_length = 20.0
 
-[node name="Boss" parent="." node_paths=PackedStringArray("nav_region") instance=ExtResource("10_4hrng")]
-transform = Transform3D(-0.658453, 0, -0.752622, 0, 1, 0, 0.752622, 0, -0.658453, -7.45506, 0.396428, -8.60876)
-nav_region = NodePath("../NavigationRegion3D")
+[node name="Coin" parent="." instance=ExtResource("10_ha3uf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.301239, 0.772504, 0.994671)

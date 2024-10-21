@@ -13,6 +13,16 @@ class_name Player
 @export var damage_rate: int = 2
 @export var death_animation_time: float = 1
 
+@export_subgroup("Coins")
+@export var coin_label: Label
+@export var base_text: String
+var coins: int :
+	set(new_coins):
+		coins = new_coins
+		coin_label.text = base_text + " : " +str(coins)
+	get:
+		return coins
+
 @export_subgroup("Abilities")
 @export var dash: Dash_Ability
 
@@ -36,13 +46,10 @@ signal player_death
 @export var test_abilities: Array[PackedScene]
 
 func _ready() -> void:
+	coins = 0
 	health.connect("death", death)
-	for test_ability in test_abilities:
-		var abil = test_ability.instantiate()
-		ability_manager.add_child(abil)
-		ability_manager.call_deferred("add_ability", abil)
+	refresh_abilities()
 	
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon1"):
 		ability_manager.launch_ability(0)
@@ -187,3 +194,23 @@ func set_default_bullet():
 
 func change_gun_bullet(weapon_bullet) -> void: 
 	gun.change_bullet(weapon_bullet)
+
+
+func refresh_abilities() -> void:
+	for test_ability in test_abilities:
+		var abil = test_ability.instantiate()
+		ability_manager.add_child(abil)
+		ability_manager.call_deferred("add_ability", abil)
+
+
+##### Shop Controls functions #####
+func heal_player(amount: int):
+	health.health += amount
+
+func increase_health(amount: int): 
+	health.max_health += amount
+	health.health = health.max_health
+
+func add_ability(new_ability: PackedScene):
+	test_abilities.append(new_ability)
+	refresh_abilities()

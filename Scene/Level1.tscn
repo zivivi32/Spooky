@@ -110,7 +110,7 @@ far = 4000.0
 
 [node name="Level" type="Node3D" groups=["world"]]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." groups=["navigation_region"]]
 navigation_mesh = SubResource("NavigationMesh_qedyx")
 
 [node name="Node3D" type="Node3D" parent="NavigationRegion3D"]

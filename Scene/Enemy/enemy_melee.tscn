@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://dipitv17rpxuf"]
+[gd_scene load_steps=71 format=4 uid="uid://dipitv17rpxuf"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_okk44"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_tbhu3"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://addons/3dEnemyToolkit/FollowTarget.gd" id="5_22hhf"]
 [ext_resource type="Script" path="res://Scripts/States/chase_state_AI.gd" id="6_rn140"]
 [ext_resource type="Script" path="res://Scripts/States/attack_state_ai.gd" id="7_62kpp"]
+[ext_resource type="Script" path="res://Scripts/States/death_stateAI.gd" id="10_k71jw"]
+[ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="11_3vwix"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x5d64"]
 
@@ -388,7 +390,7 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_j464y"]
 size = Vector2(0.5, 0.5)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "death_state")]
 collision_layer = 9
 script = ExtResource("1_okk44")
 model = NodePath("model")
@@ -400,9 +402,13 @@ navigation_agent = NodePath("FollowTarget3D")
 spawn_particles = NodePath("model/Spawn_Particles")
 walking_particles = NodePath("walking_particles")
 death_particles = NodePath("model/death_particles")
+loot = Array[PackedScene]([ExtResource("11_3vwix")])
+min_spawn_loot = 1
+max_spawn_loot = 2
 hsm = NodePath("LimboHSM")
 chase_state = NodePath("LimboHSM/chase_state")
 attack_state = NodePath("LimboHSM/attack_state")
+death_state = NodePath("LimboHSM/Death_State")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_x5d64")
@@ -494,6 +500,11 @@ followtarget = NodePath("../../FollowTarget3D")
 script = ExtResource("7_62kpp")
 followtarget = NodePath("../../FollowTarget3D")
 attack_range = 3.0
+
+[node name="Death_State" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("death_particles")]
+script = ExtResource("10_k71jw")
+death_particles = NodePath("../../model/death_particles")
+loot = Array[PackedScene]([ExtResource("11_3vwix")])
 
 [node name="walking_particles" type="GPUParticles3D" parent="."]
 unique_name_in_owner = true

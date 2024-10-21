@@ -114,5 +114,6 @@ func _on_enemy_died(enemy) -> void:
 	current_wave_enemies.erase(enemy) # Remove enemy from the list
 	if ! is_in_wave:
 		if current_wave_enemies.size() == 0:
+			### EMIT SHOW SHOP SIGNAL HERE!
 			wave_number += 1
 			start_new_wave() # Start a new wave if all enemies are defeated

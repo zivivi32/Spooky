@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://cspmrlw6qg6h8"]
+
+[ext_resource type="Script" path="res://Scene/UI_Items/upgrade_button.gd" id="1_n4rht"]
+
+[node name="Button" type="MarginContainer" node_paths=PackedStringArray("button_item", "upgrade_name", "upgrade_cost")]
+offset_right = 170.0
+offset_bottom = 120.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_n4rht")
+button_item = NodePath("Button1")
+upgrade_name = NodePath("VBoxContainer/upgradename")
+upgrade_cost = NodePath("VBoxContainer/Upgrade_cost")
+
+[node name="Button1" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="upgradename" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Upgrade_name"
+horizontal_alignment = 1
+
+[node name="Upgrade_cost" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Cost"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Button1" to="." method="pressed"]

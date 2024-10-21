@@ -48,6 +48,8 @@ func _ready() -> void:
 	health.connect("death", death)
 	weapon.bullet_count = bullet_count
 
+	nav_region = get_tree().get_first_node_in_group("navigation_region")
+
 ################### BOSS FUNCTIONS ##########################
 
 func get_player(): 

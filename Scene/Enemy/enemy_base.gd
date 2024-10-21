@@ -15,6 +15,14 @@ class_name Enemy
 @export var walking_particles: GPUParticles3D
 @export var death_particles: GPUParticles3D
 
+@export_subgroup("Loot configurations")
+@export var nav_region: NavigationRegion3D
+@export var has_loot: bool = true
+@export var loot: Array[PackedScene]
+@export var min_spawn_loot: int = 2
+@export var max_spawn_loot: int = 5
+@export var spawn_radius_loot: float = 3
+
 @export_subgroup("Minion spawner")
 @export var can_spawn_minion: bool = false
 @export var spawn_radius: float = 3
@@ -27,6 +35,7 @@ class_name Enemy
 @export var hsm: LimboHSM
 @export var chase_state: LimboState
 @export var attack_state: LimboState
+@export var death_state: LimboState
 
 var rotation_direction = 0
 var player: Player
@@ -37,8 +46,9 @@ signal enemy_death
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
-	health.connect("death", death)
+	nav_region = get_tree().get_first_node_in_group("navigation_region")
 	
+	health.connect("death", death)
 	set_as_top_level(true)
 	
 	playback = animation_tree["parameters/playback"]
@@ -101,6 +111,9 @@ func death() -> void:
 	if can_spawn_minion:
 		spawn_minions()
 	
+	if has_loot:
+		spawn_loot()
+	
 	enemy_death.emit(self)
 	
 	if death_particles:
@@ -120,24 +133,69 @@ func death() -> void:
 	queue_free()
 
 func spawn_minions() -> void:
-	var num_spawn : int = randi_range(min_spawn, max_spawn)
+	var num_spawn: int = randi_range(min_spawn, max_spawn)
 	
 	for i in range(num_spawn):
 		var spawn = minions.pick_random().instantiate()
-		# Generate a random point within the spawn radius
-		var random_offset = Vector3(
-			randf_range(-spawn_radius, spawn_radius),  # X offset
-			0,                                        # Y remains the same, no vertical change
-			randf_range(-spawn_radius, spawn_radius)   # Z offset
-		)
-		# Calculate spawn position relative to the current enemy's position
-		spawn_position = global_position + random_offset
-		spawn.is_spawned = true
-		# Defer adding the minion to the scene
-		get_parent().add_child(spawn)
-		# Set the calculated spawn position
-		spawn.global_position = spawn_position
 		
+		var valid_spawn_position = false
+		var spawn_position: Vector3
+		
+		while not valid_spawn_position:
+			# Generate a random point within the spawn radius
+			var random_offset = Vector3(
+				randf_range(-spawn_radius, spawn_radius),  # X offset
+				0,                                        # Y remains the same, no vertical change
+				randf_range(-spawn_radius, spawn_radius)   # Z offset
+			)
+			
+			# Calculate tentative spawn position relative to the current position
+			var tentative_position = global_position + random_offset
 
+			# Use NavigationServer3D to get the closest point on the navigation mesh
+			spawn_position = NavigationServer3D.map_get_closest_point(nav_region.get_navigation_map(), tentative_position)
+			
+			# Check if the spawn_position is valid (on the navigation mesh)
+			if spawn_position != Vector3.ZERO:
+				valid_spawn_position = true  # Exit the loop when a valid position is found
+
+		# Spawn the minion at the valid position
+		spawn.is_spawned = true
+		get_parent().add_child(spawn)
+		spawn.global_position = spawn_position
+
+
+func spawn_loot() -> void:
+	if loot:
+		var num_spawn: int = randi_range(min_spawn_loot, max_spawn_loot)
+		
+		for i in range(num_spawn):
+			var spawn = loot.pick_random().instantiate()
+			
+			var valid_spawn_position = false
+			var spawn_position_loot: Vector3
+			
+			while not valid_spawn_position:
+				# Generate a random point within the spawn radius
+				var random_offset = Vector3(
+					randf_range(-spawn_radius_loot, spawn_radius_loot),  # X offset
+					0,                                        # Y remains the same, no vertical change
+					randf_range(-spawn_radius_loot, spawn_radius_loot)   # Z offset
+				)
+				
+				# Calculate tentative spawn position relative to the current position
+				var tentative_position = global_position + random_offset
+
+				# Use NavigationServer3D to get the closest point on the navigation mesh
+				spawn_position_loot = NavigationServer3D.map_get_closest_point(nav_region.get_navigation_map(), tentative_position)
+				
+				# Check if the spawn_position is valid (on the navigation mesh)
+				if spawn_position_loot != Vector3.ZERO:
+					valid_spawn_position = true  # Exit the loop when a valid position is found
+
+			# Spawn the minion at the valid position
+			get_parent().add_child(spawn)
+			spawn.global_position = spawn_position_loot
+		
 func _on_follow_target_3d_reached_target(_target: Node3D) -> void:
 	hsm.dispatch("attack")

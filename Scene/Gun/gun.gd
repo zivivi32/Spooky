@@ -12,7 +12,7 @@ class_name Gun_Weapon
 @export var is_ai: bool = false
 var rotation_direction: float
 var can_shoot: bool = true
-
+var extra_damage: int = 0
 @export var attack_timer: Timer
 
 
@@ -50,7 +50,8 @@ func shoot() -> void:
 				# Apply rotation to the direction vector to create the spread
 				var spread_direction = global_transform.basis.z.rotated(Vector3.UP, angle_offset)
 				bullet.direction = spread_direction.normalized()
-
+				
+			bullet.damage += extra_damage
 			# Add the bullet to the scene
 			get_tree().root.add_child(bullet)
 			bullet.global_position = spawn_pos.global_position
