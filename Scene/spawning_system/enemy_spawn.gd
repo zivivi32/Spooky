@@ -16,8 +16,13 @@ var is_in_wave: bool = false
 var wave_number: int = 1
 var spawning_boss: bool = false
 
+
+signal wave_started
+signal boss_spawn
+
 func _ready() -> void:
 	# Start spawning when the game starts
+	Events.shop_done.connect(start_next_wave)
 	spawn_timer.connect("timeout", spawning)
 	start_new_wave()
 
@@ -29,6 +34,11 @@ func start_new_wave() -> void:
 	if !is_in_wave:
 		current_wave_enemies.clear() # Clear the previous wave enemies
 		spawning_boss = is_boss_wave() # Check if the new wave is a boss wave
+		
+		if spawning_boss:
+			boss_spawn.emit()
+		else: 
+			wave_started.emit()
 
 		if spawning_boss:
 			spawn_timer.start(0.1)  # Boss spawns immediately
@@ -115,5 +125,10 @@ func _on_enemy_died(enemy) -> void:
 	if ! is_in_wave:
 		if current_wave_enemies.size() == 0:
 			### EMIT SHOW SHOP SIGNAL HERE!
-			wave_number += 1
-			start_new_wave() # Start a new wave if all enemies are defeated
+			await get_tree().create_timer(3).timeout
+			Events.wave_done.emit()
+
+
+func start_next_wave():
+	wave_number += 1
+	start_new_wave() # Start a new wave if all enemies are defeated

@@ -13,6 +13,9 @@ func set_text(upgrade_name_text: String, upgrade_cost_text: String):
 
 func set_button_meta(meta_name, meta_value):
 	button_item.set_meta(meta_name, meta_value)
+
+func refresh_button(): 
+	button_item.disabled = false
 	
 func pressed():
 	button_pressed.emit(button_item)

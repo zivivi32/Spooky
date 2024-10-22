@@ -96,7 +96,7 @@ scale_curve = SubResource("CurveTexture_nuyoc")
 color = Color(3, 0.8, 0.2, 1)
 
 [node name="Coin" type="Area3D" node_paths=PackedStringArray("model", "vfx", "timer")]
-collision_layer = 0
+collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_vele7")
 model = NodePath("candy_orange_A2")

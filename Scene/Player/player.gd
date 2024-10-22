@@ -22,6 +22,8 @@ var coins: int :
 		coin_label.text = base_text + " : " +str(coins)
 	get:
 		return coins
+@export var coin_magnet: CoinMagnet
+
 
 @export_subgroup("Abilities")
 @export var dash: Dash_Ability
@@ -46,7 +48,7 @@ signal player_death
 @export var test_abilities: Array[PackedScene]
 
 func _ready() -> void:
-	coins = 0
+	coins = 350
 	health.connect("death", death)
 	refresh_abilities()
 	
@@ -197,13 +199,24 @@ func change_gun_bullet(weapon_bullet) -> void:
 
 
 func refresh_abilities() -> void:
-	for test_ability in test_abilities:
-		var abil = test_ability.instantiate()
-		ability_manager.add_child(abil)
-		ability_manager.call_deferred("add_ability", abil)
+	if test_abilities:
+		for test_ability in test_abilities:
+			var abil = test_ability.instantiate()
+			ability_manager.add_child(abil)
+			ability_manager.call_deferred("add_ability", abil)
 
 
 ##### Shop Controls functions #####
+
+## Coin Magnet Functions
+func increase_magnet_radius(amount): 
+	coin_magnet.increase_radius(amount)
+
+func activate_magnet():
+	coin_magnet.magnet_enabled = true
+
+
+## Player Health Functions
 func heal_player(amount: int):
 	health.health += amount
 
@@ -211,6 +224,8 @@ func increase_health(amount: int):
 	health.max_health += amount
 	health.health = health.max_health
 
+
+## Ability functions
 func add_ability(new_ability: PackedScene):
 	test_abilities.append(new_ability)
 	refresh_abilities()

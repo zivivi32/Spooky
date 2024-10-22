@@ -37,6 +37,11 @@ class_name Enemy
 @export var attack_state: LimboState
 @export var death_state: LimboState
 
+
+@export_subgroup("SFX")
+@export var spawn_sfx: AudioStreamPlayer
+@export var death_sfx: AudioStreamPlayer
+
 var rotation_direction = 0
 var player: Player
 var playback 
@@ -59,6 +64,9 @@ func _ready() -> void:
 
 	if spawn_particles:
 		spawn_particles.emitting = true
+	if spawn_sfx:
+		spawn_sfx.pitch_scale = randf_range(0.8, 1.2)
+		spawn_sfx.play()
 
 func handle_rotation(delta) -> void : 
 	if Vector2(velocity.z, velocity.x).length() > 0:
@@ -115,6 +123,9 @@ func death() -> void:
 		spawn_loot()
 	
 	enemy_death.emit(self)
+	if death_sfx:
+		death_sfx.pitch_scale = randf_range(0.8, 1.2)
+		death_sfx.play()
 	
 	if death_particles:
 		
@@ -129,6 +140,8 @@ func death() -> void:
 		
 		death_particles.emitting = true
 		await  death_particles.finished
+		
+
 		
 	queue_free()
 

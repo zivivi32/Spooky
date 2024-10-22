@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=4 uid="uid://dipitv17rpxuf"]
+[gd_scene load_steps=73 format=4 uid="uid://dipitv17rpxuf"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_okk44"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_tbhu3"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://Scripts/States/attack_state_ai.gd" id="7_62kpp"]
 [ext_resource type="Script" path="res://Scripts/States/death_stateAI.gd" id="10_k71jw"]
 [ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="11_3vwix"]
+[ext_resource type="AudioStream" uid="uid://dji54gncemo7y" path="res://Assets/Sound/SFX/SFX/Quaterize.ogg" id="12_t17j6"]
+[ext_resource type="AudioStream" uid="uid://beuuimfnq7que" path="res://Assets/Sound/SFX/SFX/Blood Ritual A.ogg" id="13_iyeyw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x5d64"]
 
@@ -390,8 +392,9 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_j464y"]
 size = Vector2(0.5, 0.5)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "death_state")]
-collision_layer = 9
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "death_state", "spawn_sfx", "death_sfx")]
+collision_layer = 8
+collision_mask = 11
 script = ExtResource("1_okk44")
 model = NodePath("model")
 model_mesh = NodePath("model/pumpkin_yellow_jackolantern2")
@@ -409,6 +412,8 @@ hsm = NodePath("LimboHSM")
 chase_state = NodePath("LimboHSM/chase_state")
 attack_state = NodePath("LimboHSM/attack_state")
 death_state = NodePath("LimboHSM/Death_State")
+spawn_sfx = NodePath("SFX/Spawn")
+death_sfx = NodePath("SFX/death")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_x5d64")
@@ -514,5 +519,16 @@ amount = 4
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_gyl6p")
 draw_pass_1 = SubResource("QuadMesh_j464y")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Spawn" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("12_t17j6")
+bus = &"SFX"
+
+[node name="death" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("13_iyeyw")
+volume_db = 3.0
+bus = &"SFX"
 
 [connection signal="ReachedTarget" from="FollowTarget3D" to="." method="_on_follow_target_3d_reached_target"]

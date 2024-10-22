@@ -1,3 +1,4 @@
 extends Node
-signal ability_ready(name: String)
-signal ability_used(name: String)
+
+signal wave_done
+signal shop_done

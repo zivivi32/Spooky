@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=4 uid="uid://cjqaxecdjpcos"]
+[gd_scene load_steps=108 format=4 uid="uid://cjqaxecdjpcos"]
 
 [ext_resource type="PackedScene" uid="uid://byvydukidk6i2" path="res://Game/menu/scenes/menus/main_menu/main_menu.tscn" id="1_1tql6"]
 [ext_resource type="MeshLibrary" uid="uid://bhyah837x5vq" path="res://Scene/MeshLibrary/Kaykit_Halloween.tres" id="1_845d7"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://uynrjvje41hx" path="res://Scene/UI_Items/UI_Ability.tscn" id="7_sar6u"]
 [ext_resource type="Texture2D" uid="uid://dwx3r4isv4pa4" path="res://Assets/Kenney-preview/pumpkin-tall-carved.png" id="8_qm54m"]
 [ext_resource type="Texture2D" uid="uid://dius5a470ps5r" path="res://Assets/Kenney-preview/character-digger.png" id="9_vu7xg"]
+[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets/Sound/Music/Menu.ogg" id="11_edkms"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o242l"]
 render_priority = 0
@@ -3089,6 +3090,10 @@ _data = {
 
 [node name="Level" type="Node3D" groups=["world"]]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_edkms")
+autoplay = true
+
 [node name="MainMenu" parent="." instance=ExtResource("1_1tql6")]
 game_scene_path = "res://Scene/Level1.tscn"
 
@@ -3241,28 +3246,28 @@ bones/3/parent = 0
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44382e-15, 0.17625, -0.02875)
 bones/3/enabled = true
 bones/3/position = Vector3(-1.44382e-15, 0.17625, -0.02875)
-bones/3/rotation = Quaternion(-0.000509371, 0, 0, 1)
+bones/3/rotation = Quaternion(-0.0405234, 0, 0, 0.999179)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "arm-left"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0998968, 0.1115, 0.0115)
 bones/4/enabled = true
 bones/4/position = Vector3(0.0998968, 0.1115, 0.0115)
-bones/4/rotation = Quaternion(0, 0, -0.381271, 0.924463)
+bones/4/rotation = Quaternion(0, 0, -0.271767, 0.962363)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "arm-right"
 bones/5/parent = 3
 bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0998968, 0.1115, 0.0115)
 bones/5/enabled = true
 bones/5/position = Vector3(-0.0998968, 0.1115, 0.0115)
-bones/5/rotation = Quaternion(0, 0, 0.381271, 0.924463)
+bones/5/rotation = Quaternion(0, 0, 0.271767, 0.962363)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "head"
 bones/6/parent = 3
 bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81969e-09, 0.167, 0.0263888)
 bones/6/enabled = true
 bones/6/position = Vector3(1.81969e-09, 0.167, 0.0263888)
-bones/6/rotation = Quaternion(0, 0.000509371, 0, 1)
+bones/6/rotation = Quaternion(0, 0.0405234, 0, 0.999179)
 bones/6/scale = Vector3(1, 1, 1)
 
 [node name="body-mesh" type="MeshInstance3D" parent="Player/Model/character-female-e2/character-female-e/Skeleton3D"]

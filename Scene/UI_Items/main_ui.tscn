@@ -1,68 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://pkcq0owtlebx"]
+[gd_scene load_steps=3 format=3 uid="uid://pkcq0owtlebx"]
 
 [ext_resource type="Script" path="res://Scene/UI_Items/main_ui.gd" id="1_den7x"]
-[ext_resource type="Script" path="res://Scene/UI_Items/shop.gd" id="2_63g1v"]
-[ext_resource type="PackedScene" uid="uid://cspmrlw6qg6h8" path="res://Scene/UI_Items/upgrade_button.tscn" id="3_1yk7t"]
-[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/health_heal.gd" id="4_eygfm"]
-[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/increase_health.gd" id="5_ser3r"]
-[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/pumpkin_boom.gd" id="6_ew1vc"]
+[ext_resource type="PackedScene" uid="uid://dxgl86ghjo0nv" path="res://Scene/UI_Items/shop.tscn" id="2_urlfk"]
 
 [node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_den7x")
 
-[node name="Shop" type="CanvasLayer" parent="." node_paths=PackedStringArray("upgrade_pool", "items_buttons")]
-script = ExtResource("2_63g1v")
-upgrade_pool = [NodePath("Upgrades/Heal"), NodePath("Upgrades/Increase_Health"), NodePath("Upgrades/PumpkinBoom")]
-items_buttons = [NodePath("PanelContainer/MarginContainer/HBoxContainer/Button"), NodePath("PanelContainer/MarginContainer/HBoxContainer/Button2"), NodePath("PanelContainer/MarginContainer/HBoxContainer/Button3")]
-
-[node name="PanelContainer" type="PanelContainer" parent="Shop"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Shop/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("3_1yk7t")]
-layout_mode = 2
-
-[node name="Button2" parent="Shop/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("3_1yk7t")]
-layout_mode = 2
-
-[node name="Button3" parent="Shop/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("3_1yk7t")]
-layout_mode = 2
-
-[node name="Upgrades" type="Node" parent="Shop"]
-
-[node name="Heal" type="Node" parent="Shop/Upgrades"]
-script = ExtResource("4_eygfm")
-upgrade_name = "Heal"
-description = "Heal Player "
-cost = 10
-
-[node name="Increase_Health" type="Node" parent="Shop/Upgrades"]
-script = ExtResource("5_ser3r")
-upgrade_name = "Max health"
-description = "Increase Max Health"
-cost = 10
-
-[node name="PumpkinBoom" type="Node" parent="Shop/Upgrades"]
-script = ExtResource("6_ew1vc")
-upgrade_name = "Pumpkin Boom"
-description = "Pumpkin bullets that go Boom!"
-cost = 15
+[node name="Shop" parent="." instance=ExtResource("2_urlfk")]

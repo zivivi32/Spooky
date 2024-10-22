@@ -20,6 +20,9 @@ var extra_damage: int = 0
 @export var muzzle_flash : PackedScene
 @export var flash_particles: Array[GPUParticles3D]
 
+@export_subgroup("SFX")
+@export var sfx: AudioStreamPlayer
+
 func _ready() -> void:
 	attack_timer.wait_time = timer_count
 	if !is_ai:
@@ -65,6 +68,9 @@ func shoot() -> void:
 				for vfx in flash_particles:
 					vfx.emitting = true
 			#Events.emit_signal("fx_screen_shake")
+		if sfx:
+			sfx.pitch_scale = randf_range(0.5, 0.6)
+			sfx.play()
 
 		#await get_tree().create_timer(1/fire_rate).timeout
 		can_shoot = true

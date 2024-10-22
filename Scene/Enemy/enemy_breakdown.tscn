@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=4 uid="uid://contpan4e10nt"]
+[gd_scene load_steps=120 format=4 uid="uid://contpan4e10nt"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_qirt4"]
 [ext_resource type="PackedScene" uid="uid://sov6fkb5ig7s" path="res://Scene/Collectibles/coin5.tscn" id="2_ibvlr"]
@@ -14,12 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://d1ia3lutswjg0" path="res://Assets/Explosions_textures/T_VFX_Noise_44xainv.png" id="11_ybmpr"]
 [ext_resource type="Texture2D" uid="uid://btts4nbplfj3h" path="res://Assets/Explosions_textures/T_cloudy_noise_211c.png" id="12_3jc7t"]
 [ext_resource type="Texture2D" uid="uid://cdvg8cxrgnto" path="res://Assets/Explosions_textures/T_PerlinNoise_46_inv.png" id="13_bkpt1"]
+[ext_resource type="AudioStream" uid="uid://dji54gncemo7y" path="res://Assets/Sound/SFX/SFX/Quaterize.ogg" id="15_b20k4"]
+[ext_resource type="AudioStream" uid="uid://beuuimfnq7que" path="res://Assets/Sound/SFX/SFX/Blood Ritual A.ogg" id="16_3s56x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x5d64"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13vsf"]
 resource_name = "Orange"
-albedo_color = Color(1, 0.522259, 0.261719, 1)
+albedo_color = Color(1, 0.261719, 0.261719, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_rpudm"]
 _surfaces = [{
@@ -777,7 +779,7 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_0rasu"]
 size = Vector2(0.5, 0.5)
 
-[node name="Enemy_spawner" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state")]
+[node name="Enemy_spawner" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "spawn_sfx", "death_sfx")]
 collision_layer = 9
 script = ExtResource("1_qirt4")
 model = NodePath("model")
@@ -797,6 +799,8 @@ minions = Array[PackedScene]([ExtResource("2_joxgx")])
 hsm = NodePath("LimboHSM")
 chase_state = NodePath("LimboHSM/chase_state")
 attack_state = NodePath("LimboHSM/attack_state")
+spawn_sfx = NodePath("Spawn")
+death_sfx = NodePath("death")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_x5d64")
@@ -917,5 +921,14 @@ one_shot = true
 explosiveness = 0.8
 process_material = SubResource("ParticleProcessMaterial_afpl2")
 draw_pass_1 = SubResource("QuadMesh_0rasu")
+
+[node name="Spawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_b20k4")
+bus = &"SFX"
+
+[node name="death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_3s56x")
+volume_db = 3.0
+bus = &"SFX"
 
 [connection signal="ReachedTarget" from="FollowTarget3D" to="." method="_on_follow_target_3d_reached_target"]

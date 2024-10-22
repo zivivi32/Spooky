@@ -1,6 +1,7 @@
 extends UpgradeResource
 
-@export var healing_amount: int = 25
+@export var heal_percentage: float = 0.25
 
 func apply_upgrade(player: Player):
-	player.heal_player(healing_amount)
+	var heal_amount = player.health.max_health * heal_percentage
+	player.heal_player(int(heal_amount))

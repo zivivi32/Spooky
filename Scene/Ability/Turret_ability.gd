@@ -20,4 +20,5 @@ func process_ability():
 	
 func process_cooldown():
 	cool_down_timer.start(cooldown_time)
+	on_cool_down.emit()
 	turret.die()

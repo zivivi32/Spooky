@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://v6oqv05kgcx6"]
+
+[ext_resource type="Script" path="res://Scene/UI_Items/call_shop.gd" id="1_h1qeq"]
+[ext_resource type="PackedScene" uid="uid://dxgl86ghjo0nv" path="res://Scene/UI_Items/shop.tscn" id="2_m7asc"]
+
+[node name="CallShop" type="CanvasLayer" node_paths=PackedStringArray("shop", "message_box")]
+process_mode = 3
+visible = false
+script = ExtResource("1_h1qeq")
+shop = NodePath("Shop")
+message_box = NodePath("Call")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.469, 0.177, 0.941, 0.194)
+
+[node name="Shop" parent="." instance=ExtResource("2_m7asc")]
+visible = false
+
+[node name="Call" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Call"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Call/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Call/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="MarginContainer2" type="MarginContainer" parent="Call/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "CALL THE  WITCH?"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Call/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Yes" type="Button" parent="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "YES"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="No" type="Button" parent="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "NO
+"
+
+[connection signal="shopped" from="Shop" to="." method="_on_shop_shopped"]
+[connection signal="pressed" from="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2/No" to="." method="_on_no_pressed"]

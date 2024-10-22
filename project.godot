@@ -24,11 +24,12 @@ SceneLoader="*res://addons/maaacks_game_template/base/scenes/autoloads/scene_loa
 ProjectMusicController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_music_controller.tscn"
 ProjectUISoundController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+Events="*res://Scripts/Globals/Events.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="ignore"
+window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
 
 [editor_plugins]
@@ -114,6 +115,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/t
 3d_physics/layer_3="player_health"
 3d_physics/layer_4="enemy"
 3d_physics/layer_5="enemy_health"
+3d_physics/layer_6="Coin"
 3d_physics/layer_20="mouse"
 
 [maaacks_game_template]

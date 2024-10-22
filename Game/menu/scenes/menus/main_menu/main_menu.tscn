@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://byvydukidk6i2"]
+[gd_scene load_steps=7 format=3 uid="uid://byvydukidk6i2"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_pss7b"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu.gd" id="2_lk0wa"]
 [ext_resource type="PackedScene" uid="uid://bdvdf5v87mmrr" path="res://Game/menu/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_lqjmk"]
 [ext_resource type="PackedScene" uid="uid://c1g50h2avck3w" path="res://Game/menu/scenes/credits/credits.tscn" id="3_vmius"]
+[ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets/Sound/SFX/UI/pluck_002.ogg" id="5_tpk1i"]
+[ext_resource type="AudioStream" uid="uid://nb01g0n5hvdc" path="res://Assets/Sound/SFX/UI/select_004.ogg" id="6_pl0qt"]
 
 [node name="MainMenu" instance=ExtResource("1_pss7b")]
 script = ExtResource("2_lk0wa")
 game_scene_path = "res://addons/maaacks_game_template/examples/scenes/game_scene/game_ui.tscn"
 options_packed_scene = ExtResource("3_lqjmk")
 credits_packed_scene = ExtResource("3_vmius")
+
+[node name="UISoundController" parent="." index="0"]
+button_hovered = ExtResource("5_tpk1i")
+button_pressed = ExtResource("6_pl0qt")
 
 [node name="BackgroundTextureRect" parent="." index="2"]
 visible = false
@@ -41,3 +47,15 @@ offset_top = -262.0
 offset_right = -188.0
 offset_bottom = -54.0
 grow_vertical = 0
+
+[node name="PlayButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0"]
+custom_minimum_size = Vector2(200, 60)
+
+[node name="OptionsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="1"]
+custom_minimum_size = Vector2(200, 60)
+
+[node name="CreditsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="2"]
+custom_minimum_size = Vector2(200, 60)
+
+[node name="ExitButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="3"]
+custom_minimum_size = Vector2(200, 60)

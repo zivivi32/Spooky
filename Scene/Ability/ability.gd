@@ -7,12 +7,14 @@ class_name Special_Abilities
 @export var cool_down_timer: Timer
 @export var icon_image: Texture
 @export var is_available: bool = true
+@export var ammo: int = 2
 
 var can_use: bool = true
 
 
 signal ability_used
 signal ability_ready
+signal on_cool_down
 
 func _ready() -> void:
 	can_use = is_available
