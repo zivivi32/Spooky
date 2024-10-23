@@ -34,6 +34,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="prologue" parent="MarginContainer2" instance=ExtResource("1_8sppe")]
 layout_mode = 2
+attribution_file_path = "res://Game/menu/Prologue.md"
 current_speed = 0.3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

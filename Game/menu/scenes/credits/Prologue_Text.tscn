@@ -15,48 +15,36 @@ custom_minimum_size = Vector2(0, 648)
 custom_minimum_size = Vector2(1152, 0)
 theme_override_fonts/normal_font = ExtResource("3_kef4v")
 theme_override_fonts/bold_font = ExtResource("3_kef4v")
-text = "[center][font_size=48]CREDITS[/font_size]
+text = "[center][font_size=64]Prologue[/font_size]
 
-[font_size=32]Code & Story[/font_size]
-Zivivi - Alpaca Games
-https://zivivi32.itch.io/
+Every year, Harvestville celebrates Halloween with a grand harvest from the \"Squashbash Square,\" an enchanted field said to grow the most magical pumpkins in the land. 
+These pumpkins are more than just a tasty treat—they are infused with mystical powers. This year, however, things took a turn for the bizarre.
 
+The mischievous witch, Hilda Hexberry, accidentally cursed the entire town, bringing the pumpkins to life. 
+Now, these animated gourds are causing mayhem across the village, and it falls upon you—Brumble McSpade, Harvestville's appointed protector—to save the day.
 
-[font_size=32]Asset Used[/font_size]
-[font_size=24]Art[/font_size]
-Author: Kay Lousberg 
-Website: https://kaylousberg.com/
+---
 
-Author: Kenney
-Website: https://kenney.nl/assets
+[font_size=32]Mission Assignment from Mayor Grimblepot[/font_size]
 
-[font_size=24]Music and SFX[/font_size]
-Author: Ovani Sounds
-Website: https://ovanisound.com/
+**Mission: Protect Harvestville from the Pumpkin Invasion!**
 
-Pixabay: Cyberwave-Orchestra
-Website: https://pixabay.com/users/cyberwave-orchestra-23801316/
+Greetings, Protector Brumble McSpade!
 
-Level Music: bramd
-Source: https://opengameart.org/content/swing-along
+This is Mayor Barnaby Grimblepot, and we've got a real pickle on our hands. Those pumpkins from the Sacred Patch have come to life, and they're not here to make pie! They're stomping around, causing chaos, and terrorizing our dear villagers. As our town's brave protector, it's up to you to put an end to this squashy menace.
 
-Boss Music: Peter Gresser
-Source: https://opengameart.org/content/countdown-to-myocardial-infarction
+Here's the plan:
 
-[font_size=48]Tools[/font_size]
-[font_size=24]Godot[/font_size]
-Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]  
-Source: [url=https://godotengine.org/]godotengine.org[/url]  
-License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url] 
+- Head to the Squashbash Square and take down any rogue pumpkins.
+- Defend the village from the waves of animated pumpkin creatures.
+- Use your trusty Pumpkin Cannon—it's been enchanted to deal with these pesky gourds.
+- And remember, the witch Hilda Hexberry is the one who caused this mess, but she's also offering upgrades to help you out. Don’t hesitate to call her if things get tough.
 
-[font_size=24]Godot Game Menu Template[/font_size]
-Author: [url=https://github.com/Maaack/Godot-Game-Template/graphs/contributors]Marek Belski and contributors[/url]  
-Source: [url=https://github.com/Maaack/Godot-Game-Template]github: Godot-Game-Template[/url]  
-License: [url=LICENSE.txt]MIT License[/url]  
+Harvestville is counting on you! Get out there and show those pumpkins who's boss!
 
-[font_size=32]Special Thanks[/font_size]
-My Wife, My muse
-For the support and encouragement through this project and helping me to keep the scope!
+Good luck, protector. The fate of the village is in your hands!
+
+**—Mayor Barnaby Grimblepot**
 [/center]"
 
 [node name="FooterSpace" parent="ScrollContainer/VBoxContainer" index="2"]

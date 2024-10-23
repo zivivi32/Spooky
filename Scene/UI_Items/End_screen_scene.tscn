@@ -30,7 +30,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="prologue" parent="MarginContainer2" instance=ExtResource("2_0w3fc")]
 layout_mode = 2
-attribution_file_path = "res://Game/menu/scenes/end_credits/End_Story.md"
+attribution_file_path = "res://Game/menu/End_Story.md"
 current_speed = 0.3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
