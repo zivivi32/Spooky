@@ -8,7 +8,8 @@ func _ready() -> void:
 		Events.end_game.connect(load_end_screen)
 
 func load_end_screen():
-	SceneLoader.load_scene(end_scene)
+	SceneManager.change_scene(end_scene, {"pattern_enter": "squares", "pattern_leave" : "squares"})
+	#SceneLoader.load_scene(end_scene)
 
 func start_wave_music(): 
 	stop_boss_music()

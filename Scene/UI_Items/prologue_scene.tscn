@@ -4,9 +4,14 @@
 [ext_resource type="Script" path="res://Scene/UI_Items/prologue_scene.gd" id="1_uwyv1"]
 [ext_resource type="AudioStream" uid="uid://cdqld1cc3jm6t" path="res://Assets/Sound/Music/creepy_closet.ogg" id="3_5y8ct"]
 
-[node name="Prologue" type="CanvasLayer"]
+[node name="Prologue" type="CanvasLayer" node_paths=PackedStringArray("level_music")]
 script = ExtResource("1_uwyv1")
 level_scene = "res://Scene/Level1.tscn"
+level_music = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5y8ct")
+bus = &"Music"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -48,10 +53,5 @@ theme_override_constants/margin_bottom = 10
 modulate = Color(1, 1, 1, 0.686)
 layout_mode = 2
 text = "CONTINUE"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_5y8ct")
-autoplay = true
-bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

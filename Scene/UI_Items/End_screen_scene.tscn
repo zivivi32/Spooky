@@ -4,9 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://bwnxsqk0umvyj" path="res://Game/menu/scenes/credits/Prologue_Text.tscn" id="2_0w3fc"]
 [ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets/Sound/Music/Menu.ogg" id="3_3a16f"]
 
-[node name="EndScene" type="CanvasLayer"]
+[node name="EndScene" type="CanvasLayer" node_paths=PackedStringArray("level_music")]
 script = ExtResource("1_cs6hu")
 level_scene = "res://Scene/Main_BG.tscn"
+level_music = NodePath("AudioStreamPlayer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -52,7 +53,6 @@ text = "CONTINUE"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_3a16f")
-autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

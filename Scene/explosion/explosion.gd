@@ -15,6 +15,7 @@ func _ready() -> void:
 		gpu_particle.connect("finished", queue_free)
 		gpu_particle.emitting = true
 		
+	Events.emit_signal("fx_screen_shake", 0.1, 1)
 
 func no_monitoring():
 	monitoring = false

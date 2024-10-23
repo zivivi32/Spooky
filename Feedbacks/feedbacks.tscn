@@ -1,0 +1,190 @@
+[gd_scene load_steps=16 format=3 uid="uid://toipoewdno2f"]
+
+[ext_resource type="Script" path="res://Feedbacks/feedbacks.gd" id="1_50md3"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/chromatic.gdshader" id="2_bsrk2"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/screen_shake.gdshader" id="3_kc3gj"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/glitch.gdshader" id="4_nmtyk"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/fish_eye.gdshader" id="5_04gdk"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/pixelate.gdshader" id="6_vqdnh"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/CRT.gdshader" id="7_mvthy"]
+[ext_resource type="Shader" path="res://addons/post_processing/shaders/blur.gdshader" id="8_63fow"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mh18q"]
+shader = ExtResource("2_bsrk2")
+shader_parameter/offset = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l1sw0"]
+shader = ExtResource("3_kc3gj")
+shader_parameter/ShakeStrength = 0.2
+shader_parameter/FactorA = Vector2(100, 100)
+shader_parameter/FactorB = Vector2(1, 1)
+shader_parameter/magnitude = Vector2(0.01, 0.01)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1p5rd"]
+shader = ExtResource("4_nmtyk")
+shader_parameter/range = 0.05
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0088
+shader_parameter/offsetIntensity = 0.03
+shader_parameter/colorOffsetIntensity = 1.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akmr6"]
+shader = ExtResource("5_04gdk")
+shader_parameter/aspect = 1.0
+shader_parameter/distortion = 1.0
+shader_parameter/radius = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/crop = 1.0
+shader_parameter/crop_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75k6n"]
+shader = ExtResource("6_vqdnh")
+shader_parameter/pixelSize = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68vhj"]
+shader = ExtResource("7_mvthy")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.427
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ft7q3"]
+shader = ExtResource("8_63fow")
+shader_parameter/lod = 0.0
+
+[node name="Feedbacks" type="CanvasLayer" node_paths=PackedStringArray("chromatic_aberration", "chromatic_aberration_rect", "blur", "blur_rect", "fish_eye", "fish_eye_rect", "glitch", "glitch_rect", "crt", "crt_rect", "screen_shake", "screen_shake_rect", "screen_shake_timer", "screen_shake_toggle", "screen_shake_rect_toggle", "pixelate", "pixelate_rect", "pixelate_timer")]
+script = ExtResource("1_50md3")
+chromatic_aberration = NodePath("chromatic")
+chromatic_aberration_rect = NodePath("chromatic/ColorRect")
+blur = NodePath("Blur")
+blur_rect = NodePath("Blur/ColorRect")
+fish_eye = NodePath("Fisheye")
+fish_eye_rect = NodePath("Fisheye/ColorRect")
+glitch = NodePath("Glitch")
+glitch_rect = NodePath("Glitch/ColorRect")
+crt = NodePath("CRT")
+crt_rect = NodePath("CRT/ColorRect")
+screen_shake = NodePath("ScreenShake")
+screen_shake_rect = NodePath("ScreenShake/ColorRect")
+screen_shake_timer = NodePath("ScreenShake/ScreenShake_timer")
+screen_shake_toggle = NodePath("ScreenShakeToggle")
+screen_shake_rect_toggle = NodePath("ScreenShakeToggle/ColorRect")
+pixelate = NodePath("pixelate")
+pixelate_rect = NodePath("pixelate/ColorRect")
+pixelate_timer = NodePath("pixelate/pixelate_timer")
+
+[node name="chromatic" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="chromatic"]
+material = SubResource("ShaderMaterial_mh18q")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenShake" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ScreenShake"]
+material = SubResource("ShaderMaterial_l1sw0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenShake_timer" type="Timer" parent="ScreenShake"]
+one_shot = true
+
+[node name="ScreenShakeToggle" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ScreenShakeToggle"]
+material = SubResource("ShaderMaterial_l1sw0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenShake_timer" type="Timer" parent="ScreenShakeToggle"]
+one_shot = true
+
+[node name="Glitch" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Glitch"]
+material = SubResource("ShaderMaterial_1p5rd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fisheye" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Fisheye"]
+material = SubResource("ShaderMaterial_akmr6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -9.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="pixelate" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="pixelate"]
+material = SubResource("ShaderMaterial_75k6n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="pixelate_timer" type="Timer" parent="pixelate"]
+one_shot = true
+
+[node name="CRT" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CRT"]
+material = SubResource("ShaderMaterial_68vhj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Blur" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Blur"]
+material = SubResource("ShaderMaterial_ft7q3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

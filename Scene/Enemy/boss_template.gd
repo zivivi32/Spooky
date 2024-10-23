@@ -133,6 +133,7 @@ func spawn_minions() -> void:
 		get_parent().add_child(spawn)
 		spawn.global_position = spawn_position
 
+	Events.emit_signal("fx_screen_shake", 0.1, 0.2)
 	if weapon.attack_timer.is_stopped():
 		weapon.attack_timer.start()
 		

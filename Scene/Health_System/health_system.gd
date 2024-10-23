@@ -4,6 +4,8 @@ class_name Health_System
 
 @export var max_health: int = 100
 @export var health_bar: HealthBar
+@export var sfx_hurt: Array[AudioStream]
+@export var is_player: bool = false
 var health: int : 
 	set(new_health):
 		health = new_health
@@ -44,4 +46,10 @@ func immune(time):
 
 func damage(amount):
 	if can_hurt:
+		if is_player:
+			Events.emit_signal("fx_screen_shake", 0.1, 0.5)
+			Events.emit_signal("fx_chromatic_aberration", 0.05, 10)
+			if sfx_hurt:
+				for sfx in sfx_hurt:
+					AudioManager.play_sound(sfx)
 		health -= amount
