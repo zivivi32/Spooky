@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://drfw2e8keyly1"
+path="res://.godot/imported/Chuckle A.ogg-7bc14593a717e168a586b8198c97b709.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sound/SFX/SFX/Chuckle A.ogg"
+dest_files=["res://.godot/imported/Chuckle A.ogg-7bc14593a717e168a586b8198c97b709.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

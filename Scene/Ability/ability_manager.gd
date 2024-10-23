@@ -29,6 +29,9 @@ func launch_ability(index: int):
 		if abilities[index]:
 			abilities[index].launch_ability()
 
+func empty_abilities(): 
+	abilities.clear()
+
 func add_ability(ability_to_add): 
 	abilities.append(ability_to_add)
 	refresh_ability()

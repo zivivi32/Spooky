@@ -12,7 +12,6 @@ extends Area3D
 @export var vfx: Array[PackedScene]
 @export var visuals: Array[GPUParticles3D]
 
-
 var bodies_pierced: int = 0
 var direction := Vector3.FORWARD
 var rotated_direction
@@ -44,5 +43,4 @@ func _on_body_entered(body):
 			var explosion = explosion_scene.instantiate()
 			get_tree().root.add_child(explosion)
 			explosion.global_position = global_position
-		
 		queue_free()

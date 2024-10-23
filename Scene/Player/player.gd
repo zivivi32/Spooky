@@ -5,6 +5,7 @@ class_name Player
 @export var camera : Camera3D
 @export var model: Node3D
 @export var animation_tree: AnimationTree
+
 @export_subgroup("VFX")
 @export var walking_particles: GPUParticles3D
 
@@ -12,6 +13,7 @@ class_name Player
 @export var health: Health_System
 @export var damage_rate: int = 2
 @export var death_animation_time: float = 1
+@export var death_particle: GPUParticles3D
 
 @export_subgroup("Coins")
 @export var coin_label: Label
@@ -23,7 +25,6 @@ var coins: int :
 	get:
 		return coins
 @export var coin_magnet: CoinMagnet
-
 
 @export_subgroup("Abilities")
 @export var dash: Dash_Ability
@@ -47,35 +48,54 @@ signal player_death
 
 @export var test_abilities: Array[PackedScene]
 
+@export_subgroup("UI HUD")
+@export var HUD: CanvasLayer
+@export var shop: CanvasLayer
+@export var lose_screen: CanvasLayer
+
+var can_control: bool = true
+
 func _ready() -> void:
+	can_control = true
 	coins = 350
 	health.connect("death", death)
 	refresh_abilities()
 	
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("weapon1"):
-		ability_manager.launch_ability(0)
-
-	if event.is_action_pressed("weapon2"): 
-		ability_manager.launch_ability(1)
-		
-	if event.is_action_pressed("weapon3"): 
-		ability_manager.launch_ability(2)
+	HUD.show()
+	shop.hide()
+	lose_screen.hide()
 	
-	if event.is_action_pressed("dash"):
-		dash.launch_ability()
+func _input(event: InputEvent) -> void:
+	if can_control:
+		if event.is_action_pressed("weapon1"):
+			ability_manager.launch_ability(0)
+
+		if event.is_action_pressed("weapon2"): 
+			ability_manager.launch_ability(1)
+			
+		if event.is_action_pressed("weapon3"): 
+			ability_manager.launch_ability(2)
+		
+		if event.is_action_pressed("dash"):
+			dash.launch_ability()
 
 func death(): 
 	model.visible = false
+	can_control = false
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(2, false)
 	gun.attack_timer.stop()
+	
+	death_particle.emitting = true
 	
 	await get_tree().create_timer(death_animation_time).timeout
 	
 	player_death.emit()
 	
-	get_tree().reload_current_scene()
+	HUD.hide()
+	shop.hide()
+	lose_screen.show()
+	
 	
 func to_isometric(motion_3d):
 	# Rotate the input vector to match the camera's orientation
@@ -178,18 +198,19 @@ func handle_gravity(delta):
 
 # Handle movement input
 func handle_controls(_delta):
-	# Movement
-	var input := Vector3.ZERO
-	input = input.rotated(Vector3.UP, world_node.rotation.y).normalized()
-	input.x = Input.get_axis("move_left", "move_right")
-	input.z = Input.get_axis("move_forward", "move_back")
+	if can_control:
+		# Movement
+		var input := Vector3.ZERO
+		input = input.rotated(Vector3.UP, world_node.rotation.y).normalized()
+		input.x = Input.get_axis("move_left", "move_right")
+		input.z = Input.get_axis("move_forward", "move_back")
 
-	if input.length() > 1:
-		input = input.normalized()
-	
-	handle_animation(input)
+		if input.length() > 1:
+			input = input.normalized()
+		
+		handle_animation(input)
 
-	movement_velocity = to_isometric(input) 
+		movement_velocity = to_isometric(input) 
 	
 func set_default_bullet(): 
 	gun.change_bullet(default_bullet)
@@ -200,6 +221,7 @@ func change_gun_bullet(weapon_bullet) -> void:
 
 func refresh_abilities() -> void:
 	if test_abilities:
+		ability_manager.empty_abilities()
 		for test_ability in test_abilities:
 			var abil = test_ability.instantiate()
 			ability_manager.add_child(abil)

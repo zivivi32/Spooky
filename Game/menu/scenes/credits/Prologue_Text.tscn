@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwnxsqk0umvyj"]
+
+[ext_resource type="PackedScene" uid="uid://t2dui8ppm3a4" path="res://addons/maaacks_game_template/base/scenes/credits/credits.tscn" id="1_v73db"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/credits/credits.gd" id="2_koljs"]
+[ext_resource type="FontFile" uid="uid://s5twypuokr5e" path="res://Assets/Fonts/Silvertones.ttf" id="3_kef4v"]
+
+[node name="prologue" instance=ExtResource("1_v73db")]
+script = ExtResource("2_koljs")
+attribution_file_path = "res://Game/menu/scenes/end_credits/Prologue.md"
+
+[node name="HeaderSpace" parent="ScrollContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(0, 648)
+
+[node name="CreditsLabel" parent="ScrollContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(1152, 0)
+theme_override_fonts/normal_font = ExtResource("3_kef4v")
+theme_override_fonts/bold_font = ExtResource("3_kef4v")
+text = "[center][font_size=48]CREDITS[/font_size]
+
+[font_size=32]Code & Story[/font_size]
+Zivivi - Alpaca Games
+https://zivivi32.itch.io/
+
+
+[font_size=32]Asset Used[/font_size]
+[font_size=24]Art[/font_size]
+Author: Kay Lousberg 
+Website: https://kaylousberg.com/
+
+Author: Kenney
+Website: https://kenney.nl/assets
+
+[font_size=24]Music and SFX[/font_size]
+Author: Ovani Sounds
+Website: https://ovanisound.com/
+
+Pixabay: Cyberwave-Orchestra
+Website: https://pixabay.com/users/cyberwave-orchestra-23801316/
+
+Level Music: bramd
+Source: https://opengameart.org/content/swing-along
+
+Boss Music: Peter Gresser
+Source: https://opengameart.org/content/countdown-to-myocardial-infarction
+
+[font_size=48]Tools[/font_size]
+[font_size=24]Godot[/font_size]
+Author: [url=https://godotengine.org/contact]Juan Linietsky, Ariel Manzur, and contributors[/url]  
+Source: [url=https://godotengine.org/]godotengine.org[/url]  
+License: [url=https://github.com/godotengine/godot/blob/master/LICENSE.txt]MIT License[/url] 
+
+[font_size=24]Godot Game Menu Template[/font_size]
+Author: [url=https://github.com/Maaack/Godot-Game-Template/graphs/contributors]Marek Belski and contributors[/url]  
+Source: [url=https://github.com/Maaack/Godot-Game-Template]github: Godot-Game-Template[/url]  
+License: [url=LICENSE.txt]MIT License[/url]  
+
+[font_size=32]Special Thanks[/font_size]
+My Wife, My muse
+For the support and encouragement through this project and helping me to keep the scope!
+[/center]"
+
+[node name="FooterSpace" parent="ScrollContainer/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(0, 648)

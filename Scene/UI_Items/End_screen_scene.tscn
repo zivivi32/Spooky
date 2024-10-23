@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://bck0r8vnu45j8"]
+
+[ext_resource type="Script" path="res://Scene/UI_Items/prologue_scene.gd" id="1_cs6hu"]
+[ext_resource type="PackedScene" uid="uid://bwnxsqk0umvyj" path="res://Game/menu/scenes/credits/Prologue_Text.tscn" id="2_0w3fc"]
+[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets/Sound/Music/Menu.ogg" id="3_3a16f"]
+
+[node name="EndScene" type="CanvasLayer"]
+script = ExtResource("1_cs6hu")
+level_scene = "res://Scene/Main_BG.tscn"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="prologue" parent="MarginContainer2" instance=ExtResource("2_0w3fc")]
+layout_mode = 2
+attribution_file_path = "res://Game/menu/scenes/end_credits/End_Story.md"
+current_speed = 0.3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(150, 75)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
+offset_right = 150.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="MarginContainer"]
+modulate = Color(1, 1, 1, 0.686)
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3a16f")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

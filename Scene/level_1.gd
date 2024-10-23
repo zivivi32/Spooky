@@ -1,7 +1,14 @@
 extends Node3D
 @export var wave_music: AudioStreamPlayer
 @export var boss_music: AudioStreamPlayer
+@export var end_scene: String
 
+func _ready() -> void:
+	if end_scene:
+		Events.end_game.connect(load_end_screen)
+
+func load_end_screen():
+	SceneLoader.load_scene(end_scene)
 
 func start_wave_music(): 
 	stop_boss_music()

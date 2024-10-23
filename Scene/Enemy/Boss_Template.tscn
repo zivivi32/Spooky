@@ -1,15 +1,36 @@
-[gd_scene load_steps=64 format=4 uid="uid://b8y05k0xjbboo"]
+[gd_scene load_steps=112 format=4 uid="uid://b8y05k0xjbboo"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/boss_template.gd" id="1_0lk05"]
+[ext_resource type="AudioStream" uid="uid://beuuimfnq7que" path="res://Assets/Sound/SFX/SFX/Blood Ritual A.ogg" id="2_c8mhn"]
 [ext_resource type="PackedScene" uid="uid://25qfflttof6h" path="res://Scene/projectile/projectile_melee_enemy.tscn" id="2_lnqwo"]
 [ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="2_lqxmh"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_q5oea"]
+[ext_resource type="AudioStream" uid="uid://g6jgx0ifdy88" path="res://Assets/Sound/SFX/SFX/shoot2.ogg" id="3_0b0qm"]
+[ext_resource type="AudioStream" uid="uid://dji54gncemo7y" path="res://Assets/Sound/SFX/SFX/Quaterize.ogg" id="3_qca6n"]
 [ext_resource type="PackedScene" uid="uid://b374fbrm6lwsx" path="res://Scene/projectile/projectile_enemy.tscn" id="3_toeyi"]
 [ext_resource type="Script" path="res://addons/3dEnemyToolkit/FollowTarget.gd" id="3_wjwop"]
 [ext_resource type="PackedScene" uid="uid://csp8fkxltgv5c" path="res://Scene/projectile/projectile_range_boss.tscn" id="3_wwgxf"]
+[ext_resource type="AudioStream" uid="uid://yws5mrvo82fs" path="res://Assets/Sound/SFX/SFX/boom_pumpkinsmp3.ogg" id="4_qwwyi"]
+[ext_resource type="AudioStream" uid="uid://dqlvqb1hislcq" path="res://Assets/Sound/SFX/SFX/Ah Ha A.ogg" id="5_4ulej"]
+[ext_resource type="AudioStream" uid="uid://d0xhbdamg505x" path="res://Assets/Sound/SFX/SFX/shoot.ogg" id="5_dwpfb"]
 [ext_resource type="Script" path="res://addons/3dEnemyToolkit/RandomTarget3D.gd" id="7_q7ee1"]
 [ext_resource type="BehaviorTree" uid="uid://teckh0arde2n" path="res://ai/trees/Boss_1.tres" id="9_dp3h4"]
 [ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/enemy_melee.tscn" id="10_74dne"]
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="11_jri48"]
+[ext_resource type="PackedScene" uid="uid://contpan4e10nt" path="res://Scene/Enemy/enemy_breakdown.tscn" id="12_8u1gu"]
+[ext_resource type="PackedScene" uid="uid://q6hivk3hm8xn" path="res://Scene/Enemy/enemy_base.tscn" id="13_asqwb"]
+[ext_resource type="PackedScene" uid="uid://cq8au55vnfwdt" path="res://Scene/Health_bar/health_bar.tscn" id="14_6b6oa"]
+[ext_resource type="Shader" uid="uid://d06whgyoqxi2d" path="res://Shaders/Material_Explosive_Cloud.tres" id="15_s3qct"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_arhxe"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("3_0b0qm")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kj2f7"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("5_dwpfb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8q3us"]
 resource_name = "PrototypePete"
@@ -349,6 +370,11 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tm7km")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2jisw"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("3_0b0qm")
 
 [sub_resource type="SphereMesh" id="SphereMesh_8fqrd"]
 radius = 0.2
@@ -3893,7 +3919,181 @@ size = Vector3(1.74393, 2.45361, 1.7735)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_cest8"]
 
-[node name="Boss_Template" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "navigation_agent", "random_target_point", "weapon")]
+[sub_resource type="Gradient" id="Gradient_xfgoc"]
+offsets = PackedFloat32Array(0.285714, 0.989796)
+colors = PackedColorArray(0.632812, 0.632812, 0.632812, 1, 0.589844, 0.589844, 0.589844, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8p70d"]
+gradient = SubResource("Gradient_xfgoc")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0vty6"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fs5ih"]
+seamless = true
+noise = SubResource("FastNoiseLite_0vty6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lla0t"]
+render_priority = 0
+shader = ExtResource("11_jri48")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_fs5ih")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_8p70d")
+
+[sub_resource type="Gradient" id="Gradient_7uyd6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wkxu3"]
+gradient = SubResource("Gradient_7uyd6")
+
+[sub_resource type="Curve" id="Curve_bhaol"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ke6ba"]
+curve = SubResource("Curve_bhaol")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1qeq4"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 0, -1)
+spread = 20.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 1, 0)
+scale_min = 5.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_ke6ba")
+color_ramp = SubResource("GradientTexture1D_wkxu3")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_bm0iv"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqgda"]
+bg_color = Color(0.859938, 0.384521, 0.373111, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Gradient" id="Gradient_kfo4k"]
+offsets = PackedFloat32Array(0.4, 1)
+colors = PackedColorArray(0.960784, 0.132721, 0.0470588, 1, 1, 0.421875, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6yjll"]
+gradient = SubResource("Gradient_kfo4k")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4n20u"]
+noise_type = 2
+frequency = 0.03
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7bvru"]
+seamless = true
+noise = SubResource("FastNoiseLite_4n20u")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x37yn"]
+render_priority = 0
+shader = ExtResource("11_jri48")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_7bvru")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_6yjll")
+
+[sub_resource type="Gradient" id="Gradient_laigq"]
+offsets = PackedFloat32Array(0, 0.123932, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nds74"]
+gradient = SubResource("Gradient_laigq")
+
+[sub_resource type="Curve" id="Curve_kscf6"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xwq5i"]
+curve = SubResource("Curve_kscf6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gjge8"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+spread = 80.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 1, 0)
+damping_min = 0.5
+damping_max = 1.0
+scale_min = 10.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_xwq5i")
+color_ramp = SubResource("GradientTexture1D_nds74")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_wbimd"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rn2ku"]
+render_priority = 0
+shader = ExtResource("15_s3qct")
+shader_parameter/Cloud_Speed = Vector2(0, 1)
+shader_parameter/Cloud_Intensity = 0.25
+shader_parameter/Emission_Color = Color(0.578125, 0.222284, 0.0293579, 1)
+
+[sub_resource type="Curve" id="Curve_i0feh"]
+_data = [Vector2(0.424528, 0), 0.0, 0.54359, 0, 0, Vector2(0.839623, 1), 4.65934, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c0c57"]
+texture_mode = 1
+curve = SubResource("Curve_i0feh")
+
+[sub_resource type="Gradient" id="Gradient_qfkd3"]
+offsets = PackedFloat32Array(0.36413, 0.646739)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ur7qe"]
+gradient = SubResource("Gradient_qfkd3")
+
+[sub_resource type="Curve" id="Curve_hewp6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.353774, 0.186813), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d38yf"]
+curve = SubResource("Curve_hewp6")
+
+[sub_resource type="Curve" id="Curve_dlo50"]
+_data = [Vector2(0, 0.175824), 0.0, 2.98198, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8e3kn"]
+curve = SubResource("Curve_dlo50")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fvhoc"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.2
+radial_velocity_min = 6.49998
+radial_velocity_max = 7.49998
+radial_velocity_curve = SubResource("CurveTexture_d38yf")
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_8e3kn")
+color_ramp = SubResource("GradientTexture1D_ur7qe")
+alpha_curve = SubResource("CurveTexture_c0c57")
+
+[sub_resource type="SphereMesh" id="SphereMesh_4mmki"]
+
+[node name="Boss_Template" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "navigation_agent", "random_target_point", "walking_particles", "death_particles", "weapon")]
+collision_layer = 8
+collision_mask = 11
 script = ExtResource("1_0lk05")
 model = NodePath("KayKit Animated Character_v1_2")
 model_mesh = NodePath("KayKit Animated Character_v1_2/KayKit Animated Character")
@@ -3901,13 +4101,18 @@ speed = 2
 health = NodePath("Health_System")
 navigation_agent = NodePath("FollowTarget3D")
 random_target_point = NodePath("RandomTarget3D")
+walking_particles = NodePath("walking_particles")
+death_particles = [NodePath("death_particles"), NodePath("vfx_smoke")]
+death_sfx = Array[AudioStream]([ExtResource("2_c8mhn"), ExtResource("3_qca6n"), ExtResource("4_qwwyi"), ExtResource("5_4ulej")])
 default_bullet = ExtResource("3_toeyi")
+attack_sfx = Array[AudioStream]([SubResource("AudioStreamRandomizer_arhxe")])
 weapon = NodePath("KayKit Animated Character_v1_2/KayKit Animated Character/Gun")
 melee_bullet = ExtResource("2_lnqwo")
 range_bullet = ExtResource("3_wwgxf")
+range_attack_sfx = Array[AudioStream]([SubResource("AudioStreamRandomizer_kj2f7")])
 can_spawn_minion = true
 spawn_radius = 10.0
-minions = Array[PackedScene]([ExtResource("10_74dne")])
+minions = Array[PackedScene]([ExtResource("10_74dne"), ExtResource("12_8u1gu"), ExtResource("13_asqwb")])
 
 [node name="KayKit Animated Character_v1_2" type="Node3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -3928,7 +4133,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, -3.1012e-15, 1.10177e-29, 3.1012e-15, 1, -7.10543e-15, 1.10177e-29, 7.10543e-15, 1, -1.95483e-15, 0.711598, 1.63938e-14)
 bones/1/enabled = true
 bones/1/position = Vector3(0, 0.711598, 0)
-bones/1/rotation = Quaternion(7.10543e-15, 0, 4.23516e-22, 1)
+bones/1/rotation = Quaternion(7.10543e-15, 0, -3.92364e-44, 1)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "armLeft"
 bones/2/parent = 0
@@ -3985,7 +4190,7 @@ mesh = SubResource("ArrayMesh_kany3")
 skeleton = NodePath("")
 
 [node name="Head" type="BoneAttachment3D" parent="KayKit Animated Character_v1_2/KayKit Animated Character/Skeleton3D"]
-transform = Transform3D(1, -8.47032e-22, 6.01853e-36, 8.47032e-22, 1, 1.64233e-07, -1.39111e-28, -1.64233e-07, 1, 0, 0.711598, -1.16868e-07)
+transform = Transform3D(1, 7.84727e-44, 0, -7.84727e-44, 1, 1.64233e-07, 0, -1.64233e-07, 1, 0, 0.711598, -1.16868e-07)
 bone_name = "Head"
 bone_idx = 1
 
@@ -4025,6 +4230,7 @@ bullet_scene = ExtResource("3_toeyi")
 bullet_count = 5
 bullet_speed = 10.0
 spawn_pos = NodePath("Spawn")
+sfx = Array[AudioStream]([SubResource("AudioStreamRandomizer_2jisw")])
 
 [node name="Spawn" type="Marker3D" parent="KayKit Animated Character_v1_2/KayKit Animated Character/Gun"]
 transform = Transform3D(1, 0, -3.55271e-14, 0, 1, 0, 3.55271e-14, 0, 1, -3.70783e-08, 0.295881, 0.424119)
@@ -4042,8 +4248,12 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29487, 0)
 shape = SubResource("CapsuleShape3D_x3p5x")
 
-[node name="Health_System" type="Area3D" parent="."]
+[node name="Health_System" type="Area3D" parent="." node_paths=PackedStringArray("health_bar")]
+collision_layer = 16
+collision_mask = 0
 script = ExtResource("2_lqxmh")
+max_health = 15000
+health_bar = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/MarginContainer3/Health_Bar")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health_System"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0347137, 1.17776, 0.0713806)
@@ -4061,3 +4271,76 @@ MaxRadius = 15.0
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("9_dp3h4")
 blackboard_plan = SubResource("BlackboardPlan_cest8")
+
+[node name="walking_particles" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.116614, 1.09493)
+material_override = SubResource("ShaderMaterial_lla0t")
+amount = 4
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_1qeq4")
+draw_pass_1 = SubResource("QuadMesh_bm0iv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.0
+offset_right = 225.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -7
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Health_Bar" parent="CanvasLayer/MarginContainer/VBoxContainer/MarginContainer3" instance=ExtResource("14_6b6oa")]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_rqgda")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Pumkin King"
+horizontal_alignment = 1
+
+[node name="death_particles" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_x37yn")
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_gjge8")
+draw_pass_1 = SubResource("QuadMesh_wbimd")
+
+[node name="vfx_smoke" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_rn2ku")
+emitting = false
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fvhoc")
+draw_pass_1 = SubResource("SphereMesh_4mmki")

@@ -1,10 +1,31 @@
 # Attribution
 ## Collaborators
 
-### Godot Game Template
-Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-Game-Template/graphs/contributors)  
-Source: [github: Godot-Game-Template](https://github.com/Maaack/Godot-Game-Template)  
-License: [MIT License](LICENSE.txt)  
+### Code & Story
+Zivivi - Alpaca Games
+https://zivivi32.itch.io/
+
+
+### Asset Used
+#### Art
+Author: Kay Lousberg 
+Website: https://kaylousberg.com/
+
+Author: Kenney
+Website: https://kenney.nl/assets
+
+#### Music and SFX
+Author: Ovani Sounds
+Website: https://ovanisound.com/
+
+Pixabay: Cyberwave-Orchestra
+Website: https://pixabay.com/users/cyberwave-orchestra-23801316/
+
+Level Music: bramd
+Source: https://opengameart.org/content/swing-along
+
+Boss Music: Peter Gresser
+Source: https://opengameart.org/content/countdown-to-myocardial-infarction
 
 ## Tools
 #### Godot
@@ -12,12 +33,11 @@ Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org
 Source: [godotengine.org](https://godotengine.org/)  
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt) 
 
-#### Visual Studio Code
-Author: [Microsoft](https://opensource.microsoft.com/)  
-Source: [github: vscode](https://github.com/microsoft/vscode)  
-License: [MIT License](https://github.com/microsoft/vscode/blob/main/LICENSE.txt)
+#### Godot Game Menu Template
+Author: [Marek Belski and contributors](https://github.com/Maaack/Godot-Game-Template/graphs/contributors)  
+Source: [github: Godot-Game-Template](https://github.com/Maaack/Godot-Game-Template)  
+License: [MIT License](LICENSE.txt)  
 
-#### Git
-Author: [Linus Torvalds](https://github.com/torvalds)  
-Source: [git-scm.com](https://git-scm.com/downloads)  
-License: [GNU General Public License version 2](https://opensource.org/licenses/GPL-2.0)
+### Special Thanks
+My Wife, My muse
+For the support and encouragement through this project and helping me to keep the scope!

@@ -21,7 +21,8 @@ var extra_damage: int = 0
 @export var flash_particles: Array[GPUParticles3D]
 
 @export_subgroup("SFX")
-@export var sfx: AudioStreamPlayer
+@export var sfx: Array[AudioStream]
+@export var volume: float = 0.0
 
 func _ready() -> void:
 	attack_timer.wait_time = timer_count
@@ -69,8 +70,8 @@ func shoot() -> void:
 					vfx.emitting = true
 			#Events.emit_signal("fx_screen_shake")
 		if sfx:
-			sfx.pitch_scale = randf_range(0.5, 0.6)
-			sfx.play()
+			for sound in sfx: 
+				AudioManager.play_sound(sound, volume)
 
 		#await get_tree().create_timer(1/fire_rate).timeout
 		can_shoot = true

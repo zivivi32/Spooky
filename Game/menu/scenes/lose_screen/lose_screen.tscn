@@ -1,8 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://duvowpap0jwaq"]
+[gd_scene load_steps=5 format=3 uid="uid://duvowpap0jwaq"]
 
 [ext_resource type="PackedScene" uid="uid://cp3p3kqcjh0me" path="res://addons/maaacks_game_template/extras/scenes/lose_screen/lose_screen.tscn" id="1_exl4x"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/lose_screen/lose_screen.gd" id="2_ay3xf"]
+[ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets/Sound/SFX/UI/pluck_002.ogg" id="3_k5a3t"]
+[ext_resource type="AudioStream" uid="uid://nb01g0n5hvdc" path="res://Assets/Sound/SFX/UI/select_004.ogg" id="4_hgq6m"]
 
 [node name="LoseScreen" instance=ExtResource("1_exl4x")]
 script = ExtResource("2_ay3xf")
 main_menu_scene = "res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu_with_animations.tscn"
+
+[node name="UISoundController" parent="." index="0"]
+button_hovered = ExtResource("3_k5a3t")
+button_pressed = ExtResource("4_hgq6m")
+
+[node name="LoseMessage" parent="PanelContainer/MarginContainer/VBoxContainer" index="0"]
+text = "YOU DIED!"

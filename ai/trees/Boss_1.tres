@@ -1,9 +1,13 @@
-[gd_resource type="BehaviorTree" load_steps=31 format=3 uid="uid://teckh0arde2n"]
+[gd_resource type="BehaviorTree" load_steps=38 format=3 uid="uid://teckh0arde2n"]
 
 [ext_resource type="Script" path="res://ai/tasks/ChaseAI.gd" id="2_3qq0i"]
 [ext_resource type="Script" path="res://ai/tasks/idle_phase.gd" id="2_fd1i3"]
+[ext_resource type="Script" path="res://ai/tasks/stop_attack.gd" id="3_287rp"]
 [ext_resource type="Script" path="res://ai/tasks/spawn_Minions.gd" id="3_fehff"]
+[ext_resource type="Script" path="res://ai/tasks/player_soundfx.gd" id="3_w5rjj"]
 [ext_resource type="Script" path="res://ai/tasks/switch_default_bullet.gd" id="4_1e8d7"]
+[ext_resource type="AudioStream" uid="uid://c170l044syxr" path="res://Assets/Sound/SFX/SFX/Evil Laugh.ogg" id="4_a07ap"]
+[ext_resource type="Script" path="res://ai/tasks/start_attack.gd" id="7_hjmjv"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ni651"]
 
@@ -52,6 +56,18 @@ children = [SubResource("BTPlayAnimation_6rbal"), SubResource("BTAction_85v26"),
 run_chance = 0.2
 children = [SubResource("BTSequence_ru17y")]
 
+[sub_resource type="BTAction" id="BTAction_wojhy"]
+script = ExtResource("3_287rp")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hdgal"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("4_a07ap")
+
+[sub_resource type="BTAction" id="BTAction_2eea7"]
+script = ExtResource("3_w5rjj")
+soundFX = Array[AudioStream]([SubResource("AudioStreamRandomizer_hdgal")])
+
 [sub_resource type="BBNode" id="BBNode_or40g"]
 saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
 resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
@@ -64,16 +80,16 @@ animation_name = &"Cheer"
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("3_fehff")
 
+[sub_resource type="BTAction" id="BTAction_usf3m"]
+script = ExtResource("7_hjmjv")
+
 [sub_resource type="BTSequence" id="BTSequence_c53sd"]
 custom_name = "Spawn_Minions"
-children = [SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_ojhm3")]
+children = [SubResource("BTAction_wojhy"), SubResource("BTAction_2eea7"), SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
 
 [sub_resource type="BTProbability" id="BTProbability_ojjha"]
 run_chance = 0.4
 children = [SubResource("BTSequence_c53sd")]
-
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_uap8e"]
-text = "Range Attack!"
 
 [sub_resource type="BBNode" id="BBNode_4gyl8"]
 saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
@@ -93,9 +109,10 @@ children = [SubResource("BTPlayAnimation_su4j1")]
 script = ExtResource("4_1e8d7")
 
 [sub_resource type="BTSequence" id="BTSequence_glyoj"]
-children = [SubResource("BTConsolePrint_uap8e"), SubResource("BTRepeat_b5w2w"), SubResource("BTAction_ughqs")]
+children = [SubResource("BTRepeat_b5w2w"), SubResource("BTAction_ughqs")]
 
 [sub_resource type="BTProbability" id="BTProbability_c3my0"]
+run_chance = 0.4
 children = [SubResource("BTSequence_glyoj")]
 
 [sub_resource type="BTSelector" id="BTSelector_mncpb"]

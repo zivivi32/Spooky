@@ -25,6 +25,7 @@ ProjectMusicController="*res://addons/maaacks_game_template/base/scenes/autoload
 ProjectUISoundController="*res://addons/maaacks_game_template/base/scenes/autoloads/project_ui_sound_controller.tscn"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Events="*res://Scripts/Globals/Events.gd"
+AudioManager="*res://Scripts/Globals/Audio_Manager.gd"
 
 [display]
 

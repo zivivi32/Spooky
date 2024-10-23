@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://h6dr4xywg2gp"]
+[gd_scene load_steps=4 format=3 uid="uid://h6dr4xywg2gp"]
 
 [ext_resource type="Script" path="res://Scene/Gun/gun.gd" id="1_v1yxl"]
-[ext_resource type="AudioStream" uid="uid://cwm8gysg4cnfy" path="res://Assets/Sound/SFX/SFX/shoot_3.ogg" id="2_eteh5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cgi3"]
 albedo_color = Color(0.553585, 0.16918, 0, 1)
@@ -12,11 +11,10 @@ top_radius = 0.15
 bottom_radius = 0.15
 height = 0.7
 
-[node name="Gun" type="Node3D" node_paths=PackedStringArray("spawn_pos", "attack_timer", "sfx")]
+[node name="Gun" type="Node3D" node_paths=PackedStringArray("spawn_pos", "attack_timer")]
 script = ExtResource("1_v1yxl")
 spawn_pos = NodePath("MeshInstance3D/Marker3D")
 attack_timer = NodePath("Timer")
-sfx = NodePath("AudioStreamPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1)
@@ -28,7 +26,3 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.4
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_eteh5")
-bus = &"SFX"

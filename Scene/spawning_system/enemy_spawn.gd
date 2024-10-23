@@ -1,8 +1,12 @@
 extends Path3D
 @export_subgroup("Spawn properties")
+@export var easy_wave: int = 1
 @export var easy_enemies: Array[PackedScene] # Easy enemies for early waves
+@export var medium_wave: int = 2
 @export var medium_enemies: Array[PackedScene] # Medium enemies for mid-game waves
+@export var hard_wave: int = 3
 @export var hard_enemies: Array[PackedScene] # Hard enemies for later waves
+@export var boss_wave: int = 5
 @export var boss_enemies: Array[PackedScene] # Boss enemies for special waves
 @export var spawn_pos: PathFollow3D
 @export var min_number: int = 3
@@ -75,7 +79,7 @@ func spawning() -> void:
 
 # Determine if this is a boss wave (every 10th wave)
 func is_boss_wave() -> bool:
-	return wave_number % 5 == 0
+	return wave_number % boss_wave == 0
 
 # Spawn a boss enemy (only one per boss wave)
 func spawn_boss() -> void:
@@ -93,16 +97,16 @@ func spawn_boss() -> void:
 func pick_enemy_type() -> PackedScene:
 	var random_choice = randi() % 100  # Generate a random number from 0 to 99
 
-	if wave_number <= 1 and !easy_enemies.is_empty():
+	if wave_number <= easy_wave and !easy_enemies.is_empty():
 		# Early waves: Mostly easy enemies
 		return easy_enemies.pick_random()
-	elif wave_number <= 2 and !medium_enemies.is_empty():
+	elif wave_number <= medium_wave and !medium_enemies.is_empty():
 		# Mid waves: Higher chance for medium enemies, but still some easy
 		if random_choice < 70:  # 70% chance for easy enemies
 			return easy_enemies.pick_random()
 		else:
 			return medium_enemies.pick_random()  # 30% chance for medium enemies
-	elif wave_number <= 3 and !hard_enemies.is_empty():
+	elif wave_number <= hard_wave and !hard_enemies.is_empty():
 		# Later waves: A mix of easy, medium, and hard
 		if random_choice < 50:
 			return easy_enemies.pick_random()  # 50% chance for easy
@@ -122,11 +126,17 @@ func pick_enemy_type() -> PackedScene:
 # Callback when an enemy dies
 func _on_enemy_died(enemy) -> void:
 	current_wave_enemies.erase(enemy) # Remove enemy from the list
+	if spawning_boss:
+		await get_tree().create_timer(3).timeout
+		print_debug("Emit End Game")
+		Events.end_game.emit()
+		
 	if ! is_in_wave:
 		if current_wave_enemies.size() == 0:
 			### EMIT SHOW SHOP SIGNAL HERE!
 			await get_tree().create_timer(3).timeout
 			Events.wave_done.emit()
+
 
 
 func start_next_wave():

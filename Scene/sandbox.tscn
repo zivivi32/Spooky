@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b33qdb870ijou"]
+[gd_scene load_steps=31 format=3 uid="uid://b33qdb870ijou"]
 
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_7cyyn"]
 [ext_resource type="PackedScene" uid="uid://q6hivk3hm8xn" path="res://Scene/Enemy/enemy_base.tscn" id="2_odpd5"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_28gmy"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_ymjgf"]
 [ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="10_ha3uf"]
+[ext_resource type="PackedScene" uid="uid://b8y05k0xjbboo" path="res://Scene/Enemy/Boss_Template.tscn" id="11_4pxm1"]
+[ext_resource type="AudioStream" uid="uid://csuvxktop0yin" path="res://Assets/Sound/Music/Countdown to Myocardial Infarction.ogg" id="12_m2wmy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
 vertices = PackedVector3Array(-14, 0.481918, -14, -14, 0.481918, 14, 14, 0.481918, 14, 14, 0.481918, -14)
@@ -187,6 +189,7 @@ collision_mask = 4294967295
 shape = SubResource("ConvexPolygonShape3D_xyddh")
 
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
 medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
@@ -250,3 +253,12 @@ spring_length = 20.0
 
 [node name="Coin" parent="." instance=ExtResource("10_ha3uf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.301239, 0.772504, 0.994671)
+
+[node name="Boss_Template" parent="." instance=ExtResource("11_4pxm1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0698, 0.100002, -1.40251)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_m2wmy")
+volume_db = 5.0
+autoplay = true
+bus = &"Music"

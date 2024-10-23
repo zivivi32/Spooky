@@ -30,7 +30,6 @@ func refresh():
 func _process(delta: float) -> void:
 	if time_label.visible:
 		time_label.text = str(snappedf(timer.time_left, 0.1))
-		print_debug(timer.time_left)
 
 func ability_ready(): 
 	used.visible = false

@@ -10,10 +10,14 @@ class_name Turret
 
 @export_subgroup("VFX")
 @export var move_vfx_particles: Array[GPUParticles3D]
+@export var move_sfx: Array[AudioStream]
 @export var spawn_particles: GPUParticles3D
+@export var spawn_sfx: Array[AudioStream]
 @export var death_particles: GPUParticles3D
+@export var death_sfx: Array[AudioStream]
 
-var target: Enemy
+
+var target: Node3D
 
 func _ready() -> void:
 	#timer.start(turret_lifetime)
@@ -22,13 +26,24 @@ func _ready() -> void:
 	play_move_vfx()
 	if spawn_particles:
 		spawn_particles.emitting = true
+		
+	if spawn_sfx:
+		play_sfx(spawn_sfx)
+
+func play_sfx(sfx_array: Array[AudioStream]):
+	for sfx in sfx_array:
+		AudioManager.play_sound(sfx)
 
 func die(): 
 	model.visible = false
 	gun.attack_timer.stop()
 	if death_particles:
 		death_particles.emitting = true
-		await  death_particles.finished
+	if death_sfx:
+		play_sfx(death_sfx)
+	
+	await get_tree().create_timer(2).timeout
+	
 	queue_free()
 
 func _process(delta: float) -> void:
@@ -40,6 +55,8 @@ func play_move_vfx():
 		for particles in move_vfx_particles:
 			particles.restart()
 			particles.emitting = true
+	if move_sfx:
+		play_sfx(move_sfx)
 
 func _physics_process(_delta: float) -> void:
 	var targets = detection.get_overlapping_bodies()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://6rw3c07kgh83"
+path="res://.godot/imported/Select DigiBubbles B.ogg-d6139a569250fc5a3c3f3e0b1d87b9b0.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sound/SFX/UI/Select DigiBubbles B.ogg"
+dest_files=["res://.godot/imported/Select DigiBubbles B.ogg-d6139a569250fc5a3c3f3e0b1d87b9b0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ddmfhg5fgjp8q"
+path="res://.godot/imported/Fall Grass B.ogg-1432e2d4c729ea1849121e3e6ba0663e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sound/SFX/SFX/Fall Grass B.ogg"
+dest_files=["res://.godot/imported/Fall Grass B.ogg-1432e2d4c729ea1849121e3e6ba0663e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

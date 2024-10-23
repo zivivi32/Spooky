@@ -7,6 +7,7 @@ class_name Coin
 @export var life_time: float = 5
 @export var timer: Timer
 @export var movement_speed: float = 5.0
+@export var collect_sfx: Array[AudioStream]
 
 var is_moving: bool = false
 var target_player: Player
@@ -26,6 +27,9 @@ func disappear() -> void:
 
 func collected(player: Player) -> void: 
 	player.coins += amount
+	if collect_sfx:
+		for sfx in collect_sfx:
+			AudioManager.play_sound(sfx, -5.0)
 	disappear()
 
 func _on_body_entered(body: Node3D) -> void:

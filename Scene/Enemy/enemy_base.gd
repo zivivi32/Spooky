@@ -39,8 +39,8 @@ class_name Enemy
 
 
 @export_subgroup("SFX")
-@export var spawn_sfx: AudioStreamPlayer
-@export var death_sfx: AudioStreamPlayer
+@export var spawn_sfx: Array[AudioStream]
+@export var death_sfx: Array[AudioStream]
 
 var rotation_direction = 0
 var player: Player
@@ -64,9 +64,11 @@ func _ready() -> void:
 
 	if spawn_particles:
 		spawn_particles.emitting = true
+		
 	if spawn_sfx:
-		spawn_sfx.pitch_scale = randf_range(0.8, 1.2)
-		spawn_sfx.play()
+		for sfx in spawn_sfx:
+			AudioManager.play_sound(sfx)
+
 
 func handle_rotation(delta) -> void : 
 	if Vector2(velocity.z, velocity.x).length() > 0:
@@ -124,8 +126,8 @@ func death() -> void:
 	
 	enemy_death.emit(self)
 	if death_sfx:
-		death_sfx.pitch_scale = randf_range(0.8, 1.2)
-		death_sfx.play()
+		for sfx in death_sfx:
+			AudioManager.play_sound(sfx)
 	
 	if death_particles:
 		

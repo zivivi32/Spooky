@@ -11,20 +11,23 @@ class_name Boss
 @export var navigation_agent: FollowTarget3D
 @export var random_target_point : RandomTarget3D
 
-@export_subgroup("VFX")
+@export_subgroup("FX")
 @export var spawn_particles: GPUParticles3D
 @export var walking_particles: GPUParticles3D
-@export var death_particles: GPUParticles3D
+@export var death_particles: Array[GPUParticles3D]
+@export var death_sfx: Array[AudioStream]
 
 @export_subgroup("default attack")
 @export var bullet_count: int = 5
 @export var default_arc: float = 60
 @export var default_bullet: PackedScene
+@export var attack_sfx: Array[AudioStream]
 
 @export_subgroup("Weapons")
 @export var weapon: Gun_Weapon
 @export var melee_bullet: PackedScene
 @export var range_bullet: PackedScene
+@export var range_attack_sfx: Array[AudioStream]
 @export var range_bullet_count: int = 10
 @export var range_arc: float = 360
 
@@ -74,6 +77,9 @@ func range_attack():
 	velocity = Vector3.ZERO
 	navigation_agent.Speed = 0
 	
+	if range_attack_sfx:
+		for sfx in range_attack_sfx:
+			AudioManager.play_sound(sfx)
 	weapon.shoot()
 	
 func switch_default_bullet():
@@ -82,17 +88,22 @@ func switch_default_bullet():
 	switch_bullet(default_bullet)
 	weapon.bullet_count = bullet_count
 	weapon.arc = default_arc
-	
+	start_attack()
+
+func stop_attack(): 
+	weapon.attack_timer.stop()
+
+func start_attack():
 	if weapon.attack_timer.is_stopped():
 		weapon.attack_timer.start()
-	
+
 func switch_bullet(new_bullet: PackedScene):
 	weapon.bullet_scene = new_bullet
 	
 
 func spawn_minions() -> void:
-	var num_spawn: int = randi_range(min_spawn, max_spawn)
 	
+	var num_spawn: int = randi_range(min_spawn, max_spawn)
 	for i in range(num_spawn):
 		var spawn = minions.pick_random().instantiate()
 		
@@ -122,6 +133,9 @@ func spawn_minions() -> void:
 		get_parent().add_child(spawn)
 		spawn.global_position = spawn_position
 
+	if weapon.attack_timer.is_stopped():
+		weapon.attack_timer.start()
+		
 ###############################################################
 
 func _physics_process(_delta: float) -> void:
@@ -149,7 +163,13 @@ func death() -> void:
 		set_collision_layer_value(4, false)
 		velocity = Vector3.ZERO
 		
-		death_particles.emitting = true
-		await  death_particles.finished
-		
+		for vfx in death_particles:
+			vfx.emitting = true
+			
+
+	if death_sfx:
+		for sfx in death_sfx: 
+			AudioManager.play_sound(sfx)
+			
+	await get_tree().create_timer(2).timeout
 	queue_free()
