@@ -26,15 +26,22 @@ mouse_filter = 2
 script = ExtResource("1_yncxy")
 timer = NodePath("Sweep/Timer")
 time_label = NodePath("MarginContainer/Label")
-icon = NodePath("TextureRect")
+icon = NodePath("MarginContainer2/TextureRect")
 used = NodePath("available")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+layout_mode = 2
 
 [node name="bg_panel" type="Panel" parent="."]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_mr03v")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 2
 
 [node name="Sweep" type="TextureProgressBar" parent="."]
 modulate = Color(0.145098, 0.145098, 0.145098, 0.87451)

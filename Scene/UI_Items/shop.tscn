@@ -15,11 +15,12 @@
 [ext_resource type="Script" path="res://Scene/UI_Items/coin_magnet.gd" id="9_i5ppq"]
 [ext_resource type="PackedScene" uid="uid://xnijgqipefdv" path="res://Scene/Ability/Abilities_scenes/turret_ability.tscn" id="10_o8xv1"]
 
-[node name="Shop" type="CanvasLayer" node_paths=PackedStringArray("upgrade_pool", "items_buttons")]
+[node name="Shop" type="CanvasLayer" node_paths=PackedStringArray("upgrade_pool", "items_buttons", "num_coin")]
 process_mode = 3
 script = ExtResource("1_lr2il")
-upgrade_pool = [NodePath("Upgrades/Heal"), NodePath("Upgrades/Increase_Health"), NodePath("Upgrades/PumpkinBoom"), NodePath("Upgrades/GunDamage"), NodePath("Upgrades/BulletCount")]
+upgrade_pool = [NodePath("Upgrades/Heal"), NodePath("Upgrades/Increase_Health"), NodePath("Upgrades/PumpkinBoom"), NodePath("Upgrades/GunDamage"), NodePath("Upgrades/BulletCount"), NodePath("Upgrades/ScareCrow_Turret"), NodePath("Upgrades/CoinMagnet")]
 items_buttons = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button2"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/Button3")]
+num_coin = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/Coins")
 
 [node name="UISoundController" type="Node" parent="."]
 script = ExtResource("2_yvg0o")
@@ -64,6 +65,15 @@ theme_override_font_sizes/font_size = 45
 text = "WHAT WOULD LIKE TO BUY?"
 horizontal_alignment = 1
 
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Coins" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Candies: "
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -83,48 +93,60 @@ layout_mode = 2
 [node name="Button3" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" instance=ExtResource("2_rmgi4")]
 layout_mode = 2
 
+[node name="Back" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Back"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "BACK"
+
 [node name="Upgrades" type="Node" parent="."]
 
 [node name="Heal" type="Node" parent="Upgrades"]
 script = ExtResource("3_q101y")
 upgrade_name = "Heal"
 description = "Heal Player "
-cost = 100
+cost = 50
 
 [node name="Increase_Health" type="Node" parent="Upgrades"]
 script = ExtResource("4_1qdds")
 upgrade_name = "Max health"
 description = "Increase Max Health by 10%"
-cost = 150
+cost = 100
 
 [node name="PumpkinBoom" type="Node" parent="Upgrades"]
 script = ExtResource("5_6mbix")
 new_ability = ExtResource("6_lp3ih")
 upgrade_name = "Pumpkin Boom"
 description = "Pumpkin bullets that go Boom!"
-cost = 200
+cost = 100
 
 [node name="GunDamage" type="Node" parent="Upgrades"]
 script = ExtResource("6_tfkmn")
 upgrade_name = "More Damage"
 description = "Upgrade damage of main Gun"
-cost = 150
+cost = 100
 
 [node name="BulletCount" type="Node" parent="Upgrades"]
 script = ExtResource("7_dnn2l")
 upgrade_name = "Spread'em bullets"
 description = "Shoot more bullets"
-cost = 150
+cost = 100
 
 [node name="ScareCrow_Turret" type="Node" parent="Upgrades"]
 script = ExtResource("8_g0ajc")
 new_ability = ExtResource("10_o8xv1")
 upgrade_name = "ScareCrow Turret"
 description = "Place a turret to help you"
-cost = 300
+cost = 150
 
 [node name="CoinMagnet" type="Node" parent="Upgrades"]
 script = ExtResource("9_i5ppq")
 upgrade_name = "Bring'em to Me"
 description = "Draws the candies to the player"
-cost = 150
+cost = 50
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Back/Button" to="." method="_on_button_pressed"]

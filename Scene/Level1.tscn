@@ -258,13 +258,13 @@ shape = SubResource("ConvexPolygonShape3D_xyddh")
 
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("2_pt2ec")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-easy_wave = 2
+easy_wave = 3
 easy_enemies = Array[PackedScene]([ExtResource("3_t0oo8")])
-medium_wave = 4
+medium_wave = 5
 medium_enemies = Array[PackedScene]([ExtResource("4_3tcfc")])
-hard_wave = 6
+hard_wave = 7
 hard_enemies = Array[PackedScene]([ExtResource("5_f3oet")])
-boss_wave = 7
+boss_wave = 8
 boss_enemies = Array[PackedScene]([ExtResource("11_qx1yr")])
 spawn_pos = NodePath("PathFollow3D")
 difficulty_manager = NodePath("Difficulty_manager")

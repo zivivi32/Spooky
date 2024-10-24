@@ -9,11 +9,27 @@ _data = {
 }
 point_count = 5
 
-[node name="Enemy_spawn" type="Path3D" node_paths=PackedStringArray("spawn_timer")]
+[node name="Enemy_spawn" type="Path3D" node_paths=PackedStringArray("spawn_timer", "wave_label")]
 curve = SubResource("Curve3D_02yr6")
 script = ExtResource("1_dlawo")
 spawn_timer = NodePath("spawn_timer")
+wave_label = NodePath("CanvasLayer/Margin/Label")
 
 [node name="spawn_timer" type="Timer" parent="."]
 
 [node name="wave_time" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 176.0
+offset_bottom = 88.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Label" type="Label" parent="CanvasLayer/Margin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "WAVE : "

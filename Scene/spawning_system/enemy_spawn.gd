@@ -14,10 +14,22 @@ extends Path3D
 @export var spawn_timer: Timer
 @export var difficulty_manager: Difficulty_Manager
 
+@export_subgroup("Wave UI")
+@export var wave_label: Label
+
 # Track enemies in the current wave
 var current_wave_enemies: Array = []
 var is_in_wave: bool = false
-var wave_number: int = 1
+var wave_number: int : 
+	set(wave_num): 
+		wave_number = wave_num
+		if ! spawning_boss:
+			wave_label.text = "WAVE: " + str(wave_number)
+		else: 
+			wave_label.text = "BOSS WAVE"
+	get():
+		return wave_number
+
 var spawning_boss: bool = false
 
 
@@ -25,6 +37,7 @@ signal wave_started
 signal boss_spawn
 
 func _ready() -> void:
+	wave_number = 1
 	# Start spawning when the game starts
 	Events.shop_done.connect(start_next_wave)
 	spawn_timer.connect("timeout", spawning)

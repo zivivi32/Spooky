@@ -8,6 +8,7 @@ var chosen_upgrades: Array[UpgradeResource]
 
 @export var items_buttons: Array[item_button]
 
+@export var num_coin: Label
 #var test_coins: int = 100
 signal shopped
 
@@ -17,6 +18,7 @@ func _ready() -> void:
 
 func show_upgrades(): 
 	choose_random_upgrades()
+	
 
 func connecting_buttons():
 	for button in items_buttons:
@@ -26,6 +28,7 @@ func connecting_buttons():
 func choose_random_upgrades():
 	chosen_upgrades.clear()
 	upgrade_pool.shuffle()
+	num_coin.text = "Candies: " + str(player.coins)
 	var i: int = 0
 	for button in items_buttons:
 		var upgrade_instance :UpgradeResource = upgrade_pool[i]
@@ -42,4 +45,8 @@ func _on_Button_pressed(button):
 		player.coins -= upgrade_instance.cost
 		upgrade_instance.apply_upgrade(player)
 		#button.disabled = true  # Disable the button after purchase
+	shopped.emit()
+
+
+func _on_button_pressed() -> void:
 	shopped.emit()

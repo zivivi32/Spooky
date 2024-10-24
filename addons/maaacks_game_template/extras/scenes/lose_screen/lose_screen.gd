@@ -31,7 +31,8 @@ func _on_restart_button_pressed():
 	InGameMenuController.close_menu()
 
 func _on_confirm_main_menu_confirmed():
-	SceneLoader.load_scene(main_menu_scene)
+	#SceneLoader.load_scene(main_menu_scene)
+	SceneManager.change_scene(main_menu_scene, {"pattern_enter": "squares", "pattern_leave" : "squares"})
 	InGameMenuController.close_menu()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 

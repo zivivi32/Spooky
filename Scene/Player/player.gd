@@ -57,7 +57,7 @@ var can_control: bool = true
 
 func _ready() -> void:
 	can_control = true
-	coins = 350
+	#coins = 350
 	health.connect("death", death)
 	refresh_abilities()
 	
@@ -89,7 +89,7 @@ func death():
 	death_particle.emitting = true
 	
 	await get_tree().create_timer(death_animation_time).timeout
-	
+	velocity = Vector3.ZERO
 	player_death.emit()
 	
 	HUD.hide()
