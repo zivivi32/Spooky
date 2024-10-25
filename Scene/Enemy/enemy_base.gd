@@ -9,6 +9,7 @@ class_name Enemy
 @export var animation_tree: AnimationTree
 @export var is_spawned: bool = false
 @export var navigation_agent: FollowTarget3D
+@export var enemy_score: int = 100
 
 @export_subgroup("VFX")
 @export var spawn_particles: GPUParticles3D
@@ -19,6 +20,7 @@ class_name Enemy
 @export var nav_region: NavigationRegion3D
 @export var has_loot: bool = true
 @export var loot: Array[PackedScene]
+@export var health_pickup: PackedScene
 @export var min_spawn_loot: int = 2
 @export var max_spawn_loot: int = 5
 @export var spawn_radius_loot: float = 3
@@ -185,7 +187,15 @@ func spawn_loot() -> void:
 		var num_spawn: int = randi_range(min_spawn_loot, max_spawn_loot)
 		
 		for i in range(num_spawn):
-			var spawn = loot.pick_random().instantiate()
+			# Randomly decide if we spawn a health pickup or a coin
+			var is_health_pickup = randf() < 0.1  
+			
+			# Select loot type based on probability
+			var spawn: Node
+			if is_health_pickup and health_pickup:  # Assuming `health_pickup` is a PackedScene
+				spawn = health_pickup.instantiate()
+			else:
+				spawn = loot.pick_random().instantiate()
 			
 			var valid_spawn_position = false
 			var spawn_position_loot: Vector3
@@ -194,7 +204,7 @@ func spawn_loot() -> void:
 				# Generate a random point within the spawn radius
 				var random_offset = Vector3(
 					randf_range(-spawn_radius_loot, spawn_radius_loot),  # X offset
-					0,                                        # Y remains the same, no vertical change
+					0,                                                   # Y remains the same, no vertical change
 					randf_range(-spawn_radius_loot, spawn_radius_loot)   # Z offset
 				)
 				
@@ -208,9 +218,10 @@ func spawn_loot() -> void:
 				if spawn_position_loot != Vector3.ZERO:
 					valid_spawn_position = true  # Exit the loop when a valid position is found
 
-			# Spawn the minion at the valid position
+			# Spawn the loot at the valid position
 			get_parent().add_child(spawn)
 			spawn.global_position = spawn_position_loot
+
 		
 func _on_follow_target_3d_reached_target(_target: Node3D) -> void:
 	hsm.dispatch("attack")

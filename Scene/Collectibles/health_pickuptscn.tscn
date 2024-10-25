@@ -1,7 +1,40 @@
-[gd_scene load_steps=8 format=4 uid="uid://b3jgulvo0bdem"]
+[gd_scene load_steps=22 format=4 uid="uid://b3jgulvo0bdem"]
 
 [ext_resource type="Script" path="res://Scene/Collectibles/health_pickuptscn.gd" id="1_fitkx"]
 [ext_resource type="Script" path="res://Scripts/Animation_code/sine_animation.gd" id="2_5fqsl"]
+[ext_resource type="AudioStream" uid="uid://curbfixw0v8mk" path="res://Assets/Sound/SFX/SFX/Stimpack 003.ogg" id="2_duwch"]
+[ext_resource type="Shader" uid="uid://bxmtjd6qdj51r" path="res://Shaders/simple_impact_shader.tres.res" id="3_4pyje"]
+[ext_resource type="Texture2D" uid="uid://rkas75mhekqv" path="res://addons/kenney_particle_pack/magic_05.png" id="4_ag4r4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_luclf"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("2_duwch")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4lyk1"]
+render_priority = 0
+shader = ExtResource("3_4pyje")
+shader_parameter/Hit_Texture = ExtResource("4_ag4r4")
+
+[sub_resource type="Curve" id="Curve_x7hm7"]
+min_value = 0.1
+max_value = 0.9
+_data = [Vector2(1e-05, 0.1), 0.0, 0.0, 0, 0, Vector2(0.209924, 0.9), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_d7p1e"]
+curve = SubResource("Curve_x7hm7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tdgqd"]
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_d7p1e")
+color = Color(0.68125, 3, 0.2, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_aotjd"]
+size = Vector2(0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xiuf3"]
 resource_name = "IconSHD"
@@ -42,22 +75,65 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_u6onl")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yiqvl"]
-albedo_color = Color(0.925781, 0.678797, 0.415878, 1)
+albedo_color = Color(0.415878, 0.925781, 0.435796, 1)
 emission_enabled = true
-emission = Color(0.964844, 0.778282, 0.422119, 1)
+emission = Color(0.422119, 0.964844, 0.456039, 1)
 emission_energy_multiplier = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1p10b"]
 radius = 2.0
 
-[node name="health_pickup" type="Area3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdtxf"]
+render_priority = 0
+shader = ExtResource("3_4pyje")
+shader_parameter/Hit_Texture = ExtResource("4_ag4r4")
+
+[sub_resource type="Curve" id="Curve_pumly"]
+min_value = 0.1
+max_value = 0.9
+_data = [Vector2(1e-05, 0.1), 0.0, 0.0, 0, 0, Vector2(0.209924, 0.9), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dt76m"]
+curve = SubResource("Curve_pumly")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6gim4"]
+particle_flag_align_y = true
+angle_min = -45.0
+angle_max = 45.0
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_dt76m")
+color = Color(0.615625, 3, 0.2, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0ijbi"]
+size = Vector2(0.5, 0.5)
+
+[node name="health_pickup" type="Area3D" node_paths=PackedStringArray("model", "vfx", "timer")]
 collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_fitkx")
+model = NodePath("SM_Icon_Add_01")
+vfx = NodePath("Collected")
+timer = NodePath("Timer")
+collect_sfx = Array[AudioStream]([SubResource("AudioStreamRandomizer_luclf")])
 
 [node name="SM_Icon_Add_01" type="Node3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("2_5fqsl")
+
+[node name="SimpleParticles" type="GPUParticles3D" parent="SM_Icon_Add_01"]
+transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_4lyk1")
+lifetime = 0.7
+explosiveness = 0.2
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_tdgqd")
+draw_pass_1 = SubResource("QuadMesh_aotjd")
 
 [node name="SM_Icon_Add_01" type="MeshInstance3D" parent="SM_Icon_Add_01"]
 mesh = SubResource("ArrayMesh_fs0fr")
@@ -66,3 +142,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yiqvl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_1p10b")
+
+[node name="Collected" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_fdtxf")
+emitting = false
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_6gim4")
+draw_pass_1 = SubResource("QuadMesh_0ijbi")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

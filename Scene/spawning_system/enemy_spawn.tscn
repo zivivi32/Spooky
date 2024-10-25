@@ -9,11 +9,12 @@ _data = {
 }
 point_count = 5
 
-[node name="Enemy_spawn" type="Path3D" node_paths=PackedStringArray("spawn_timer", "wave_label")]
+[node name="Enemy_spawn" type="Path3D" node_paths=PackedStringArray("spawn_timer", "wave_label", "score_label")]
 curve = SubResource("Curve3D_02yr6")
 script = ExtResource("1_dlawo")
 spawn_timer = NodePath("spawn_timer")
-wave_label = NodePath("CanvasLayer/Margin/Label")
+wave_label = NodePath("CanvasLayer/Margin/VBoxContainer/MarginContainer/WaveNumber")
+score_label = NodePath("CanvasLayer/Margin/VBoxContainer/MarginContainer2/ScoreLabel")
 
 [node name="spawn_timer" type="Timer" parent="."]
 
@@ -29,7 +30,21 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="Label" type="Label" parent="CanvasLayer/Margin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Margin"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 35
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="WaveNumber" type="Label" parent="CanvasLayer/Margin/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "WAVE : "
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Margin/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Margin/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Score: "

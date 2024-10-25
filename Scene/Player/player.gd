@@ -32,6 +32,7 @@ var coins: int :
 @export_subgroup("Weapon properties")
 @export var default_bullet: PackedScene
 @export var gun: Gun_Weapon
+@export var max_spread: int = 3
 @export var ability_manager: Ability_Manager
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.

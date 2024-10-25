@@ -23,7 +23,7 @@ max_value = 0.9
 _data = [Vector2(1e-05, 0.1), 0.0, 0.0, 0, 0, Vector2(0.209924, 0.9), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_0l811"]
+[sub_resource type="CurveTexture" id="CurveTexture_7a53m"]
 curve = SubResource("Curve_tur4y")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3n1vt"]
@@ -31,7 +31,7 @@ spread = 180.0
 initial_velocity_min = 0.5
 initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_0l811")
+scale_curve = SubResource("CurveTexture_7a53m")
 color = Color(3, 0.8, 0.2, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3ydbs"]
@@ -85,7 +85,7 @@ max_value = 0.9
 _data = [Vector2(1e-05, 0.1), 0.0, 0.0, 0, 0, Vector2(0.209924, 0.9), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_nuyoc"]
+[sub_resource type="CurveTexture" id="CurveTexture_bgtip"]
 curve = SubResource("Curve_x4hh1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_putgt"]
@@ -98,7 +98,7 @@ initial_velocity_max = 7.0
 gravity = Vector3(0, 0, 0)
 scale_min = 2.0
 scale_max = 3.0
-scale_curve = SubResource("CurveTexture_nuyoc")
+scale_curve = SubResource("CurveTexture_bgtip")
 color = Color(3, 0.8, 0.2, 1)
 
 [node name="Coin" type="Area3D" node_paths=PackedStringArray("model", "vfx", "timer")]

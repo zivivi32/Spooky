@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://q6hivk3hm8xn"]
+[gd_scene load_steps=80 format=4 uid="uid://q6hivk3hm8xn"]
 
 [ext_resource type="Script" path="res://Scene/Enemy/enemy_base.gd" id="1_g3vkc"]
 [ext_resource type="Script" path="res://Scene/Health_System/health_system.gd" id="1_tm5xs"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/3dEnemyToolkit/FollowTarget.gd" id="3_3usdy"]
 [ext_resource type="PackedScene" uid="uid://b374fbrm6lwsx" path="res://Scene/projectile/projectile_enemy.tscn" id="3_fndtb"]
 [ext_resource type="Script" path="res://Scripts/States/chase_state_AI.gd" id="4_22ubw"]
+[ext_resource type="PackedScene" uid="uid://b3jgulvo0bdem" path="res://Scene/Collectibles/health_pickuptscn.tscn" id="4_g3v5e"]
 [ext_resource type="AudioStream" uid="uid://drfw2e8keyly1" path="res://Assets/Sound/SFX/SFX/Chuckle A.ogg" id="4_oh4c7"]
 [ext_resource type="PackedScene" uid="uid://de1h70p5afry2" path="res://Scene/VFX/fireball/fireball_spawn/muzzle_enemy.tscn" id="5_1pksv"]
 [ext_resource type="Script" path="res://Scripts/States/attack_state_ai.gd" id="5_3bht3"]
@@ -417,10 +418,12 @@ speed = 150
 health = NodePath("Health_System")
 animation_tree = NodePath("AnimationTree")
 navigation_agent = NodePath("FollowTarget3D")
+enemy_score = 150
 spawn_particles = NodePath("Spawn_Particles")
 walking_particles = NodePath("walking_particles")
 death_particles = NodePath("FireAmber")
 loot = Array[PackedScene]([ExtResource("12_kxi06"), ExtResource("13_1u4bm")])
+health_pickup = ExtResource("4_g3v5e")
 min_spawn_loot = 1
 max_spawn_loot = 3
 hsm = NodePath("LimboHSM")

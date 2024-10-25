@@ -4113,6 +4113,8 @@ range_attack_sfx = Array[AudioStream]([SubResource("AudioStreamRandomizer_kj2f7"
 can_spawn_minion = true
 spawn_radius = 10.0
 minions = Array[PackedScene]([ExtResource("10_74dne"), ExtResource("12_8u1gu"), ExtResource("13_asqwb")])
+min_spawn = 5
+max_spawn = 7
 
 [node name="KayKit Animated Character_v1_2" type="Node3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -4252,7 +4254,7 @@ shape = SubResource("CapsuleShape3D_x3p5x")
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("2_lqxmh")
-max_health = 15000
+max_health = 17000
 health_bar = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/MarginContainer3/Health_Bar")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health_System"]

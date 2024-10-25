@@ -16,6 +16,7 @@ extends Path3D
 
 @export_subgroup("Wave UI")
 @export var wave_label: Label
+@export var score_label: Label
 
 # Track enemies in the current wave
 var current_wave_enemies: Array = []
@@ -30,6 +31,13 @@ var wave_number: int :
 	get():
 		return wave_number
 
+var score: int: 
+	set(new_score): 
+		score = new_score
+		score_label.text = "Score: " + str(score)
+	get():
+		return score
+
 var spawning_boss: bool = false
 
 
@@ -38,6 +46,7 @@ signal boss_spawn
 
 func _ready() -> void:
 	wave_number = 1
+	score = 0
 	# Start spawning when the game starts
 	Events.shop_done.connect(start_next_wave)
 	spawn_timer.connect("timeout", spawning)
@@ -138,6 +147,7 @@ func pick_enemy_type() -> PackedScene:
 
 # Callback when an enemy dies
 func _on_enemy_died(enemy) -> void:
+	score += enemy.enemy_score	
 	current_wave_enemies.erase(enemy) # Remove enemy from the list
 	if spawning_boss:
 		await get_tree().create_timer(3).timeout
