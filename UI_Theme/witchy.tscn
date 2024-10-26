@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv28ladvpb1qj"]
+
+[ext_resource type="PackedScene" uid="uid://bciiprktdqt3p" path="res://Assets/Kaykit_Characters/Witch/fbx/character_witch.fbx" id="1_bjexa"]
+
+[node name="SubViewportContainer" type="SubViewportContainer"]
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11857.9, 2.60643, 5.06445)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11859, 0, 0)
+
+[node name="Control" type="Control" parent="Node3D"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Node3D/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -515.0
+offset_top = -328.0
+offset_right = -3.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="character_witch" parent="Node3D" instance=ExtResource("1_bjexa")]
+transform = Transform3D(2.12132, 0, 2.12132, 0, 3, 0, -2.12132, 0, 2.12132, 0, 0, 0)
