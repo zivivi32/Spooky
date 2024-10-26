@@ -1,13 +1,11 @@
-[gd_scene load_steps=114 format=4 uid="uid://b62weqcdg3t3y"]
+[gd_scene load_steps=112 format=4 uid="uid://b62weqcdg3t3y"]
 
 [ext_resource type="Script" path="res://Scene/Player/player.gd" id="1_rbcik"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="2_68ncm"]
 [ext_resource type="Texture2D" uid="uid://bchqbsyvgy4ta" path="res://Assets/KenneyMiniCharacters/Textures/colormap.png" id="3_1o08n"]
 [ext_resource type="PackedScene" uid="uid://cjlu11elklpnl" path="res://Scene/Health_System/health_system.tscn" id="3_6klh2"]
 [ext_resource type="PackedScene" uid="uid://clm0ya6cpgby5" path="res://Scene/projectile/projectile.tscn" id="3_bkk3v"]
-[ext_resource type="PackedScene" uid="uid://dnlfj22bcam5f" path="res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn" id="3_v1ms5"]
 [ext_resource type="PackedScene" uid="uid://cq8au55vnfwdt" path="res://Scene/Health_bar/health_bar.tscn" id="4_40gmr"]
-[ext_resource type="PackedScene" uid="uid://xnijgqipefdv" path="res://Scene/Ability/Abilities_scenes/turret_ability.tscn" id="4_nfk10"]
 [ext_resource type="PackedScene" uid="uid://cyqcloy3n7m15" path="res://Scene/CoinMagnet/coin_magnet.tscn" id="5_ds0y7"]
 [ext_resource type="Shader" path="res://Shaders/outline_shader.gdshader" id="5_pi02d"]
 [ext_resource type="PackedScene" uid="uid://c3cpjdmtyyu4m" path="res://Scene/VFX/fireball/fireball_spawn/fireball_spawn.tscn" id="5_sdh45"]
@@ -3009,6 +3007,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14384, 0)
 collision_layer = 3
 collision_mask = 9
 script = ExtResource("1_rbcik")
+is_testing = true
 camera = NodePath("Camera3D")
 model = NodePath("Model")
 animation_tree = NodePath("Model/AnimationTree")
@@ -3023,7 +3022,6 @@ dash = NodePath("Abilities/Dash")
 default_bullet = ExtResource("3_bkk3v")
 gun = NodePath("Model/Gun")
 ability_manager = NodePath("Abilities")
-test_abilities = Array[PackedScene]([ExtResource("3_v1ms5"), ExtResource("4_nfk10")])
 HUD = NodePath("CanvasLayer/HUD")
 shop = NodePath("CanvasLayer/CallShop")
 lose_screen = NodePath("CanvasLayer/LoseScreen")
@@ -3070,28 +3068,28 @@ bones/3/parent = 0
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44382e-15, 0.17625, -0.02875)
 bones/3/enabled = true
 bones/3/position = Vector3(-1.44382e-15, 0.17625, -0.02875)
-bones/3/rotation = Quaternion(-0.0403743, 0, 0, 0.999185)
+bones/3/rotation = Quaternion(0.0216721, 0, 0, 0.999765)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "arm-left"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0998968, 0.1115, 0.0115)
 bones/4/enabled = true
 bones/4/position = Vector3(0.0998968, 0.1115, 0.0115)
-bones/4/rotation = Quaternion(0, 0, -0.272369, 0.962193)
+bones/4/rotation = Quaternion(0, 0, -0.33962, 0.940563)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "arm-right"
 bones/5/parent = 3
 bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0998968, 0.1115, 0.0115)
 bones/5/enabled = true
 bones/5/position = Vector3(-0.0998968, 0.1115, 0.0115)
-bones/5/rotation = Quaternion(0, 0, 0.272369, 0.962193)
+bones/5/rotation = Quaternion(0, 0, 0.33962, 0.940563)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "head"
 bones/6/parent = 3
 bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.81969e-09, 0.167, 0.0263888)
 bones/6/enabled = true
 bones/6/position = Vector3(1.81969e-09, 0.167, 0.0263888)
-bones/6/rotation = Quaternion(0, 0.0403743, 0, 0.999185)
+bones/6/rotation = Quaternion(0, -0.0216721, 0, 0.999765)
 bones/6/scale = Vector3(1, 1, 1)
 
 [node name="body-mesh" type="MeshInstance3D" parent="Model/character-female-e2/character-female-e/Skeleton3D"]
@@ -3172,7 +3170,6 @@ script = ExtResource("8_dmq7s")
 [node name="Health_System" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_6klh2")]
 collision_layer = 4
 collision_mask = 8
-max_health = 10000
 health_bar = NodePath("../CanvasLayer/HUD/MarginContainer/Panel/MarginContainer/VBoxContainer/Health/MarginContainer/Health_Bar")
 sfx_hurt = Array[AudioStream]([SubResource("AudioStreamRandomizer_el4f8")])
 is_player = true

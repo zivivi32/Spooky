@@ -89,6 +89,5 @@ layout_mode = 2
 text = "NO
 "
 
-[connection signal="shopped" from="Shop" to="." method="_on_shop_shopped"]
 [connection signal="pressed" from="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="Call/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2/No" to="." method="_on_no_pressed"]

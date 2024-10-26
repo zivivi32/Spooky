@@ -1,6 +1,7 @@
 extends CharacterBody3D
 class_name Player
 @export_subgroup("Properties")
+@export var is_testing: bool = false
 @export var movement_speed = 10
 @export var camera : Camera3D
 @export var model: Node3D
@@ -54,16 +55,31 @@ signal player_death
 @export var lose_screen: CanvasLayer
 
 var can_control: bool = true
-
+var custom_cursor = preload("res://Assets/Cursor/target_round_big.png")
 func _ready() -> void:
+	## Capture and hide the mouse pointer
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	#
+	## Set the scaled custom cursor icon
+	#Input.set_custom_mouse_cursor(custom_cursor)
+	
 	can_control = true
 	#coins = 350
 	health.connect("death", death)
+	
+	if is_testing: 
+		health.max_health = 10000
+		health.health = 10000
+		
+		test_abilities.append(load("res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn"))
+		test_abilities.append(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
+		
 	refresh_abilities()
 	
 	HUD.show()
 	shop.hide()
 	lose_screen.hide()
+	
 	
 func _input(event: InputEvent) -> void:
 	if can_control:
