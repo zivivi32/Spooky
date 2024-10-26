@@ -149,9 +149,10 @@ func pick_enemy_type() -> PackedScene:
 func _on_enemy_died(enemy) -> void:
 	score += enemy.enemy_score	
 	current_wave_enemies.erase(enemy) # Remove enemy from the list
+	
 	if spawning_boss:
+		kill_all_enemies()
 		await get_tree().create_timer(3).timeout
-		print_debug("Emit End Game")
 		Events.end_game.emit()
 		
 	if ! is_in_wave:
@@ -160,7 +161,11 @@ func _on_enemy_died(enemy) -> void:
 			await get_tree().create_timer(3).timeout
 			Events.wave_done.emit()
 
-
+func kill_all_enemies(): 
+	var enemies_in_scene = get_tree().get_nodes_in_group("Enemy")
+	for enemy in enemies_in_scene:
+		if enemy is Enemy:
+			enemy.death()
 
 func start_next_wave():
 	wave_number += 1

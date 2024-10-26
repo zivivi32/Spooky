@@ -411,7 +411,7 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_j464y"]
 size = Vector2(0.5, 0.5)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "death_state")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "animation_tree", "navigation_agent", "spawn_particles", "walking_particles", "death_particles", "hsm", "chase_state", "attack_state", "death_state") groups=["Enemy"]]
 collision_layer = 8
 collision_mask = 11
 script = ExtResource("1_okk44")

@@ -43,6 +43,7 @@ enabled=PackedStringArray("res://addons/3dEnemyToolkit/plugin.cfg", "res://addon
 world=""
 player=""
 navigation_region=""
+Enemy=""
 
 [gui]
 

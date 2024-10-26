@@ -5,6 +5,7 @@ class_name Gun_Weapon
 @export_subgroup("Gun Properties")
 @export var bullet_scene: PackedScene
 @export var bullet_count: int = 1
+@export var max_spread: int = 3
 @export var bullet_speed: float = 25
 @export var spawn_pos: Marker3D
 @export_range(0, 360) var arc: float = 60
@@ -31,6 +32,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	scale = scale.lerp(Vector3(1, 1, 1), delta * 10)
+
+func increase_bullet_count(new_count): 
+	bullet_count += new_count
+	if bullet_count >= max_spread:
+		bullet_count = max_spread
 
 func shoot() -> void: 
 	if can_shoot:

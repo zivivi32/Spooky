@@ -11,6 +11,7 @@ class_name Boss
 @export var navigation_agent: FollowTarget3D
 @export var random_target_point : RandomTarget3D
 @export var enemy_score: int = 500
+@export var bt: BTPlayer
 
 @export_subgroup("FX")
 @export var spawn_particles: GPUParticles3D
@@ -154,6 +155,9 @@ func _physics_process(_delta: float) -> void:
 
 func death() -> void:
 	enemy_death.emit(self)
+	
+	if bt: 
+		bt.active = false
 	
 	navigation_agent.ClearTarget()
 	navigation_agent.Speed = 0
