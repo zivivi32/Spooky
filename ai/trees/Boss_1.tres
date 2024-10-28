@@ -12,12 +12,12 @@
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ni651"]
 
 [sub_resource type="BBNode" id="BBNode_xxwou"]
-saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
-resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
+resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_bmqjm"]
 animation_player = SubResource("BBNode_xxwou")
-animation_name = &"Idle"
+animation_name = &"Scary Clown Idle/mixamo_com"
 
 [sub_resource type="BTAction" id="BTAction_o68bi"]
 script = ExtResource("2_fd1i3")
@@ -33,12 +33,12 @@ run_chance = 0.1
 children = [SubResource("BTSequence_jp6ju")]
 
 [sub_resource type="BBNode" id="BBNode_b5vqn"]
-saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
-resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
+resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6rbal"]
 animation_player = SubResource("BBNode_b5vqn")
-animation_name = &"Dance"
+animation_name = &"Scary Clown Walk/mixamo_com"
 
 [sub_resource type="BTAction" id="BTAction_85v26"]
 script = ExtResource("2_3qq0i")
@@ -69,13 +69,13 @@ script = ExtResource("3_w5rjj")
 soundFX = Array[AudioStream]([SubResource("AudioStreamRandomizer_hdgal")])
 
 [sub_resource type="BBNode" id="BBNode_or40g"]
-saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
-resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
+resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ae5dh"]
 await_completion = 100.0
 animation_player = SubResource("BBNode_or40g")
-animation_name = &"Cheer"
+animation_name = &"Zombie Scream/mixamo_com"
 
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("3_fehff")
@@ -92,13 +92,13 @@ run_chance = 0.4
 children = [SubResource("BTSequence_c53sd")]
 
 [sub_resource type="BBNode" id="BBNode_4gyl8"]
-saved_value = NodePath("KayKit Animated Character_v1_2/AnimationPlayer")
-resource_name = "KayKit Animated Character_v1_2/AnimationPlayer"
+saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
+resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_su4j1"]
 await_completion = 100.0
 animation_player = SubResource("BBNode_4gyl8")
-animation_name = &"AttackSpinning"
+animation_name = &"Zombie Attack/mixamo_com"
 
 [sub_resource type="BTRepeat" id="BTRepeat_b5w2w"]
 times = 3

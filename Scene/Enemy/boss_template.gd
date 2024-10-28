@@ -105,6 +105,9 @@ func switch_bullet(new_bullet: PackedScene):
 
 func spawn_minions() -> void:
 	
+	navigation_agent.Speed = 0
+	velocity = Vector3.ZERO
+	
 	var num_spawn: int = randi_range(min_spawn, max_spawn)
 	for i in range(num_spawn):
 		var spawn = minions.pick_random().instantiate()
@@ -146,7 +149,7 @@ func _physics_process(_delta: float) -> void:
 		var animation_velocity = Vector2(velocity.x,velocity.z)
 		walking_particles.emitting = (animation_velocity != Vector2.ZERO)
 	if player:
-		model.look_at(player.global_position, Vector3.UP)
+		model.look_at(player.global_position, Vector3.UP, true)
 		model.rotation.x = 0
 		model.rotation.z = 0
 	else: 

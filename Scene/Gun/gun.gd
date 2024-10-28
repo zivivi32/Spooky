@@ -4,6 +4,7 @@ class_name Gun_Weapon
 
 @export_subgroup("Gun Properties")
 @export var bullet_scene: PackedScene
+@export var model: Node3D
 @export var bullet_count: int = 1
 @export var max_spread: int = 3
 @export var bullet_speed: float = 25
@@ -31,7 +32,7 @@ func _ready() -> void:
 		attack_timer.connect("timeout", shoot)
 
 func _process(delta: float) -> void:
-	scale = scale.lerp(Vector3(1, 1, 1), delta * 10)
+	model.scale = model.scale.lerp(Vector3(1, 1, 1), delta * 10)
 
 func increase_bullet_count(new_count): 
 	bullet_count += new_count
@@ -41,7 +42,7 @@ func increase_bullet_count(new_count):
 func shoot() -> void: 
 	if can_shoot:
 		can_shoot = false
-		scale = Vector3(1.2 ,1.2 ,1.2)
+		model.scale = Vector3(1.2 ,1.2 ,1.2)
 		
 		var arc_rad = deg_to_rad(arc)
 		var increment = arc_rad / max(1, bullet_count - 1)

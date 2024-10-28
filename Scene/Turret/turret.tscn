@@ -256,9 +256,10 @@ skeleton = NodePath("../../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Model/StaticBody3D"]
 shape = SubResource("BoxShape3D_j6cxj")
 
-[node name="Gun" parent="Model" instance=ExtResource("2_shctj")]
+[node name="Gun" parent="Model" node_paths=PackedStringArray("model") instance=ExtResource("2_shctj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554708, 0)
 bullet_scene = ExtResource("3_g7d5x")
+model = NodePath(".")
 timer_count = 0.2
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Model/Gun"]

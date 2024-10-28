@@ -54,14 +54,18 @@ signal player_death
 @export var shop: CanvasLayer
 @export var lose_screen: CanvasLayer
 
+var input: Vector3
 var can_control: bool = true
 var custom_cursor = preload("res://Assets/Cursor/target_round_big.png")
+
+
+
 func _ready() -> void:
-	## Capture and hide the mouse pointer
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	#
-	## Set the scaled custom cursor icon
-	#Input.set_custom_mouse_cursor(custom_cursor)
+	# Capture and hide the mouse pointer
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	
+	# Set the scaled custom cursor icon
+	Input.set_custom_mouse_cursor(custom_cursor)
 	
 	can_control = true
 	#coins = 350
@@ -129,10 +133,20 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	
 	handle_controls(delta)
 	handle_gravity(delta)
-	velocity = movement_velocity.normalized() * movement_speed 
-	velocity.y = -gravity
+	
+	#velocity = movement_velocity.normalized() * movement_speed 
+	#velocity.y = -gravity
+	var applied_velocity = velocity.lerp(movement_velocity, delta * 10)
+	applied_velocity.y = -gravity
+	
+	if applied_velocity.length() < 0.1:
+		applied_velocity = Vector3.ZERO
+		
+	velocity = applied_velocity
+	handle_animation(velocity)
 	
 	move_and_slide()
 	
@@ -145,8 +159,8 @@ func _physics_process(delta: float) -> void:
 	model.rotation.y = lerp_angle(model.rotation.y, rotation_direction, delta * 10)
 
 	# Update the gun's rotation based on the mouse position
-	update_gun_aim(update_player_aim())
-	#update_player_rotate(update_player_aim())
+	#update_gun_aim(update_player_aim())
+	update_player_rotate(update_player_aim())
 	
 ##### AIMING WITH MOUSE
 func update_player_aim():
@@ -184,10 +198,18 @@ func update_gun_aim(target_position : Vector3):
 
 func handle_animation(movement_vector: Vector3) -> void: 
 	var animation_velocity = Vector2(movement_vector.x,movement_vector.z)
-	animation_tree.set("parameters/Movement/blend_position", animation_velocity)
-
+	#animation_tree.set("parameters/Movement/blend_position", animation_velocity)
+	animation_tree.set("parameters/Movement/Movement/blend_position", animation_velocity)
+	
+	var is_moving = animation_velocity != Vector2.ZERO
+	
 	if walking_particles:
-		walking_particles.emitting = (animation_velocity != Vector2.ZERO)
+		walking_particles.emitting = is_moving
+	
+	if is_moving:
+		gun.model.rotation.x = 0
+	else: 
+		gun.model.rotation_degrees.x = -30
 
 func update_player_rotate(target_position : Vector3):
 	if target_position == Vector3.ZERO:
@@ -216,17 +238,15 @@ func handle_gravity(delta):
 func handle_controls(_delta):
 	if can_control:
 		# Movement
-		var input := Vector3.ZERO
+		input = Vector3.ZERO
 		input = input.rotated(Vector3.UP, world_node.rotation.y).normalized()
 		input.x = Input.get_axis("move_left", "move_right")
 		input.z = Input.get_axis("move_forward", "move_back")
 
 		if input.length() > 1:
 			input = input.normalized()
-		
-		handle_animation(input)
 
-		movement_velocity = to_isometric(input) 
+		movement_velocity = to_isometric(input) * movement_speed
 	
 func set_default_bullet(): 
 	gun.change_bullet(default_bullet)

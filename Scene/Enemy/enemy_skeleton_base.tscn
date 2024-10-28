@@ -2574,35 +2574,35 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.76641, 0)
 [node name="character-skeleton" type="Node3D" parent="model/character-skeleton2"]
 
 [node name="root" type="Node3D" parent="model/character-skeleton2/character-skeleton"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.136321, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0346377, 0)
 
 [node name="leg-left" type="MeshInstance3D" parent="model/character-skeleton2/character-skeleton/root"]
-transform = Transform3D(0.8584, 0, 0, 0, 0.411639, 0.753262, 0, -0.753262, 0.411639, 0.074204, 0.223184, -7.21911e-16)
+transform = Transform3D(0.8584, 0, 0, 0, 0.82683, -0.230656, 0, 0.230656, 0.82683, 0.074204, 0.223184, -7.21911e-16)
 mesh = SubResource("ArrayMesh_si36j")
 skeleton = NodePath("")
 
 [node name="leg-right" type="MeshInstance3D" parent="model/character-skeleton2/character-skeleton/root"]
-transform = Transform3D(0.8584, 0, 0, 0, 0.411639, -0.753262, 0, 0.753262, 0.411639, -0.074204, 0.223184, -7.21911e-16)
+transform = Transform3D(0.8584, 0, 0, 0, 0.82683, 0.230656, 0, -0.230656, 0.82683, -0.074204, 0.223184, -7.21911e-16)
 mesh = SubResource("ArrayMesh_61bcy")
 skeleton = NodePath("")
 
 [node name="torso" type="MeshInstance3D" parent="model/character-skeleton2/character-skeleton/root"]
-transform = Transform3D(0.995449, 0.0383744, 0.0872293, -0.00420878, 0.932151, -0.362047, -0.0952042, 0.360032, 0.92807, -1.44382e-15, 0.223184, -7.21911e-16)
+transform = Transform3D(0.999706, -0.0042497, -0.0238651, 0.00207184, 0.99589, -0.0905508, 0.0241518, 0.0904747, 0.995606, -1.44382e-15, 0.223184, -7.21911e-16)
 mesh = SubResource("ArrayMesh_ufqmp")
 skeleton = NodePath("")
 
 [node name="arm-left" type="MeshInstance3D" parent="model/character-skeleton2/character-skeleton/root/torso"]
-transform = Transform3D(0.770493, 0.393164, 0.501759, -0.465058, 0.885039, 0.0206448, -0.43596, -0.249254, 0.86476, 0.15, 0.225, 0.0025)
+transform = Transform3D(0.760009, 0.610282, -0.223475, -0.624648, 0.780864, 0.00809667, 0.179445, 0.13344, 0.974675, 0.15, 0.225, 0.0025)
 mesh = SubResource("ArrayMesh_oim8c")
 skeleton = NodePath("")
 
 [node name="arm-right" type="MeshInstance3D" parent="model/character-skeleton2/character-skeleton/root/torso"]
-transform = Transform3D(0.770493, -0.393164, 0.501759, 0.465058, 0.885039, -0.0206448, -0.43596, 0.249254, 0.86476, -0.15, 0.225, 0.0025)
+transform = Transform3D(0.760009, -0.610282, -0.223475, 0.624648, 0.780864, -0.00809667, 0.179445, -0.13344, 0.974675, -0.15, 0.225, 0.0025)
 mesh = SubResource("ArrayMesh_01ytn")
 skeleton = NodePath("")
 
 [node name="head" type="MeshInstance3D" parent="model/character-skeleton2/character-skeleton/root/torso"]
-transform = Transform3D(0.999908, 0.000251741, -0.0135258, 0.00448947, 0.936989, 0.349329, 0.0127614, -0.349357, 0.936902, 0, 0.26, 7.21911e-16)
+transform = Transform3D(0.999999, 0, 0, 0, 0.995891, 0.0905583, 0, -0.0905582, 0.995891, 0, 0.26, 7.21911e-16)
 mesh = SubResource("ArrayMesh_ih32h")
 skeleton = NodePath("")
 
