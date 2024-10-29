@@ -93,7 +93,6 @@ shadow_mesh = SubResource("ArrayMesh_w5i7q")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jx7d"]
 resource_name = "lambert4"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("15_sxoey")
 emission_enabled = true
 
@@ -315,6 +314,33 @@ anim_offset_max = 1.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_bm0iv"]
 size = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_a2tfp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%walking_particles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%walking_particles2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_a580c"]
 resource_name = "Take 001"
@@ -683,33 +709,6 @@ tracks/51/path = NodePath("%GeneralSkeleton:finger_04_r")
 tracks/51/interp = 1
 tracks/51/loop_wrap = true
 tracks/51/keys = PackedFloat32Array(0.0333333, 1, 0.0166464, -0.0965254, 0.16913, 0.980715, 0.0666667, 1, 0.0143626, -0.0968432, 0.143048, 0.984862, 0.1, 1, 0.0118163, -0.0970451, 0.114656, 0.988583, 0.133333, 1, 0.0090564, -0.0971117, 0.0843677, 0.99165, 0.166667, 1, 0.00613341, -0.0970285, 0.052612, 0.993871, 0.2, 1, 0.0030982, -0.0967864, 0.019829, 0.995103, 0.233333, 1, 1.57021e-06, -0.0963833, -0.0135321, 0.995252, 0.266667, 1, -0.0031065, -0.0958237, -0.0470175, 0.994283, 0.3, 1, -0.00617751, -0.0951191, -0.0801726, 0.992213, 0.333333, 1, -0.00916519, -0.0942881, -0.112548, 0.98912, 0.366667, 1, -0.0120259, -0.0933556, -0.143701, 0.985135, 0.4, 1, -0.0147193, -0.0923521, -0.173204, 0.980436, 0.433333, 1, -0.0172081, -0.0913132, -0.200643, 0.975248, 0.466667, 1, -0.0194583, -0.0902781, -0.225619, 0.969829, 0.5, 1, -0.021439, -0.0892888, -0.247749, 0.964463, 0.533333, 1, -0.0231213, -0.0883883, -0.266663, 0.95945, 0.566667, 1, -0.0244782, -0.0876201, -0.282003, 0.955091, 0.6, 1, -0.0254829, -0.087026, -0.29341, 0.951676, 0.633333, 1, -0.026108, -0.0866449, -0.300527, 0.949471, 0.666667, 1, -0.0263235, -0.0865112, -0.302984, 0.948696, 0.7, 1, -0.0262517, -0.0865517, -0.302145, 0.948962, 0.733333, 1, -0.026041, -0.0866701, -0.299681, 0.949738, 0.766667, 1, -0.025698, -0.086861, -0.295675, 0.950984, 0.8, 1, -0.0252291, -0.0871185, -0.290207, 0.952656, 0.833333, 1, -0.0246403, -0.0874361, -0.283354, 0.954703, 0.866667, 1, -0.0239377, -0.0878069, -0.275195, 0.957071, 0.9, 1, -0.023127, -0.0882237, -0.265807, 0.959702, 0.933333, 1, -0.0222141, -0.0886792, -0.255268, 0.962539, 0.966667, 1, -0.0212049, -0.089166, -0.243656, 0.965521, 1, 1, -0.0201054, -0.0896765, -0.23105, 0.968592, 1.03333, 1, -0.0189218, -0.0902036, -0.217531, 0.971692, 1.06667, 1, -0.0176604, -0.0907399, -0.20318, 0.974768, 1.1, 1, -0.0163278, -0.0912787, -0.188082, 0.977767, 1.13333, 1, -0.0149309, -0.0918134, -0.172321, 0.980639, 1.16667, 1, -0.0134769, -0.0923379, -0.155985, 0.983342, 1.2, 1, -0.011973, -0.0928465, -0.139164, 0.985835, 1.23333, 1, -0.010427, -0.0933341, -0.121946, 0.988084, 1.26667, 1, -0.00884696, -0.0937962, -0.104425, 0.99006, 1.4, 1, -0.0023528, -0.0953221, -0.0331779, 0.994891, 1.43333, 1, -0.000729492, -0.0956121, -0.0155506, 0.995297, 1.46667, 1, 0.000875695, -0.0958638, 0.00181225, 0.995393, 1.5, 1, 0.00245359, -0.0960774, 0.0188158, 0.995193, 1.53333, 1, 0.00399494, -0.096254, 0.0353656, 0.99472, 1.56667, 1, 0.0054905, -0.0963953, 0.0513686, 0.994002, 1.6, 1, 0.00693102, -0.0965036, 0.0667322, 0.993069, 1.63333, 1, 0.00830729, -0.0965815, 0.0813653, 0.991959, 1.66667, 1, 0.00961016, -0.0966325, 0.095178, 0.990713, 1.7, 1, 0.0108306, -0.0966601, 0.108082, 0.989373, 1.73333, 1, 0.0119595, -0.0966684, 0.119989, 0.987985, 1.76667, 1, 0.012988, -0.0966615, 0.130813, 0.986598, 1.8, 1, 0.0139074, -0.0966437, 0.140469, 0.985259, 1.83333, 1, 0.0147088, -0.0966192, 0.148871, 0.984015, 1.86667, 1, 0.0153837, -0.096592, 0.155936, 0.982913, 1.9, 1, 0.0159234, -0.0965661, 0.16158, 0.981995, 1.93333, 1, 0.0163194, -0.0965446, 0.165717, 0.981301, 1.96667, 1, 0.0165632, -0.0965304, 0.168262, 0.980865, 2.7, 1, 0.0166464, -0.0965254, 0.16913, 0.980715, 2.73333, 1, 0.0464785, -0.111092, 0.157822, 0.980097, 2.76667, 1, 0.0166464, -0.0965254, 0.16913, 0.980715)
-
-[sub_resource type="Animation" id="Animation_a2tfp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%walking_particles:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%walking_particles2:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b6dwg"]
 _data = {
@@ -2828,7 +2827,7 @@ bones/60/rotation = Quaternion(-1.94289e-16, -2.35163e-30, 2.82422e-14, 1)
 bones/60/scale = Vector3(1, 1, 1)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="SK_Chr_Scarecrow_01/Root/GeneralSkeleton"]
-transform = Transform3D(0.969773, 0.0966143, 0.224069, 0.00888418, 0.903686, -0.428104, -0.243849, 0.417154, 0.875511, -0.0572294, 1.45628, 0.207368)
+transform = Transform3D(0.969773, 0.0966143, 0.224069, 0.00888418, 0.903686, -0.428104, -0.243849, 0.417154, 0.875511, -0.0572293, 1.45628, 0.207368)
 bone_name = "Head"
 bone_idx = 5
 
@@ -2845,7 +2844,7 @@ mesh = SubResource("ArrayMesh_p8do1")
 skin = SubResource("Skin_1hqf5")
 
 [node name="LeftLeg" type="BoneAttachment3D" parent="SK_Chr_Scarecrow_01/Root/GeneralSkeleton"]
-transform = Transform3D(-0.696392, 0.660147, -0.281504, -0.38427, -0.011714, 0.923147, 0.606115, 0.751046, 0.261832, 0.177105, 0.215413, 0.0645497)
+transform = Transform3D(-0.696392, 0.660147, -0.281504, -0.38427, -0.011714, 0.923146, 0.606115, 0.751045, 0.261832, 0.177105, 0.215413, 0.0645497)
 bone_name = "LeftFoot"
 bone_idx = 47
 
@@ -2862,7 +2861,7 @@ process_material = SubResource("ParticleProcessMaterial_8ona0")
 draw_pass_1 = SubResource("QuadMesh_bm0iv")
 
 [node name="RightLeg" type="BoneAttachment3D" parent="SK_Chr_Scarecrow_01/Root/GeneralSkeleton"]
-transform = Transform3D(-0.926095, -0.377289, 2.90573e-07, 2.08616e-07, 2.08616e-07, 1, -0.377289, 0.926095, -2.08616e-07, -0.303096, 0.0625888, 0.00465615)
+transform = Transform3D(-0.926096, -0.377289, 2.23517e-07, 1.94879e-07, 2.38419e-07, 1, -0.377289, 0.926096, -2.38419e-07, -0.303096, 0.0625885, 0.00465629)
 bone_name = "RightFoot"
 bone_idx = 42
 

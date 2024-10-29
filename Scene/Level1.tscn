@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://csgopcpt7ugxa"]
+[gd_scene load_steps=43 format=3 uid="uid://csgopcpt7ugxa"]
 
 [ext_resource type="Script" path="res://Scene/level_1.gd" id="1_lj6na"]
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_pypgp"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_abv0n"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="11_ac1pm"]
 [ext_resource type="PackedScene" uid="uid://b8y05k0xjbboo" path="res://Scene/Enemy/Boss_Template.tscn" id="11_qx1yr"]
+[ext_resource type="Script" path="res://Scripts/Animation_code/light_animation.gd" id="19_seq0t"]
 
 [sub_resource type="Resource" id="Resource_7guc8"]
 script = ExtResource("3_3m0yv")
@@ -187,6 +188,22 @@ frustum_offset = Vector2(0, 0)
 near = 0.05
 far = 4000.0
 
+[sub_resource type="Gradient" id="Gradient_yrr1d"]
+offsets = PackedFloat32Array(0.093985, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bpqdc"]
+noise_type = 3
+frequency = 0.002
+fractal_gain = 3.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1cacq"]
+color_ramp = SubResource("Gradient_yrr1d")
+noise = SubResource("FastNoiseLite_bpqdc")
+
+[sub_resource type="Curve" id="Curve_clrw7"]
+_data = [Vector2(0.0127389, 0.00190353), 0.0, 0.0, 0, 0, Vector2(0.130573, 0.760787), 0.0, 0.0, 0, 0, Vector2(0.27707, 0.711294), 0.0, 0.0, 0, 0, Vector2(0.474522, 0.661802), 0.0, 0.0, 0, 0, Vector2(0.621019, 0.28236), 0.0, 0.0, 0, 0, Vector2(0.917197, 0.0266498), 0.0, 0.0, 0, 0]
+point_count = 6
+
 [node name="Level" type="Node3D" node_paths=PackedStringArray("wave_music", "boss_music") groups=["world"]]
 script = ExtResource("1_lj6na")
 wave_music = NodePath("Wave")
@@ -321,6 +338,7 @@ environment = SubResource("Environment_lifd2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(-0.331157, -0.533584, 0.778218, -0.0603919, 0.835049, 0.546851, -0.941641, 0.134096, -0.308757, 0, 5.74262, 0)
+visible = false
 light_color = Color(1, 0.924377, 0.835938, 1)
 light_energy = 0.1
 shadow_enabled = true
@@ -338,6 +356,7 @@ collision_mask = 4294967295
 shape = SubResource("ConvexPolygonShape3D_xyddh")
 
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("2_pt2ec")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 easy_enemies = Array[PackedScene]([ExtResource("3_t0oo8")])
 medium_wave = 3
@@ -392,7 +411,6 @@ omni_range = 15.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 11, 21)
-visible = false
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
 transform = Transform3D(0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353553, 7.61622, 18.4643, 16.548)
@@ -405,6 +423,22 @@ follow_damping = true
 follow_damping_value = Vector3(0.5, 0.5, 0.5)
 follow_distance = 20.0
 spring_length = 20.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 0)
+visible = false
+light_energy = 20.0
+light_projector = SubResource("NoiseTexture2D_1cacq")
+shadow_enabled = true
+spot_range = 38.0
+spot_attenuation = 0.4
+spot_angle = 54.8437
+script = ExtResource("19_seq0t")
+cycle_duration_x = 10.0
+cycle_duration_z = 10.0
+movement_curve_x = SubResource("Curve_clrw7")
+movement_curve_z = SubResource("Curve_clrw7")
 
 [connection signal="boss_spawn" from="Enemy_spawn" to="." method="_on_enemy_spawn_boss_spawn"]
 [connection signal="wave_started" from="Enemy_spawn" to="." method="_on_enemy_spawn_wave_started"]
