@@ -6,6 +6,8 @@ class_name Health_System
 @export var health_bar: HealthBar
 @export var sfx_hurt: Array[AudioStream]
 @export var is_player: bool = false
+@export var damange_number_origin: Marker3D
+
 var health: int : 
 	set(new_health):
 		health = new_health
@@ -52,4 +54,6 @@ func damage(amount):
 			if sfx_hurt:
 				for sfx in sfx_hurt:
 					AudioManager.play_sound(sfx)
+		if damange_number_origin:
+			DamageNumbers.display_number(amount, damange_number_origin.global_position)
 		health -= amount

@@ -59,15 +59,6 @@ children = [SubResource("BTSequence_ru17y")]
 [sub_resource type="BTAction" id="BTAction_wojhy"]
 script = ExtResource("3_287rp")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hdgal"]
-random_pitch = 1.2
-streams_count = 1
-stream_0/stream = ExtResource("4_a07ap")
-
-[sub_resource type="BTAction" id="BTAction_2eea7"]
-script = ExtResource("3_w5rjj")
-soundFX = Array[AudioStream]([SubResource("AudioStreamRandomizer_hdgal")])
-
 [sub_resource type="BBNode" id="BBNode_or40g"]
 saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
 resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
@@ -77,6 +68,15 @@ await_completion = 100.0
 animation_player = SubResource("BBNode_or40g")
 animation_name = &"Zombie Scream/mixamo_com"
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hdgal"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("4_a07ap")
+
+[sub_resource type="BTAction" id="BTAction_2eea7"]
+script = ExtResource("3_w5rjj")
+soundFX = Array[AudioStream]([SubResource("AudioStreamRandomizer_hdgal")])
+
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("3_fehff")
 
@@ -85,7 +85,7 @@ script = ExtResource("7_hjmjv")
 
 [sub_resource type="BTSequence" id="BTSequence_c53sd"]
 custom_name = "Spawn_Minions"
-children = [SubResource("BTAction_wojhy"), SubResource("BTAction_2eea7"), SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
+children = [SubResource("BTAction_wojhy"), SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_2eea7"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
 
 [sub_resource type="BTProbability" id="BTProbability_ojjha"]
 run_chance = 0.4

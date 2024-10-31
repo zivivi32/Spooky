@@ -2377,6 +2377,9 @@ max_spawn = 7
 [node name="SK_Chr_Scarecrow_01" type="Node3D" parent="."]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 
+[node name="Damage_number_position" type="Marker3D" parent="SK_Chr_Scarecrow_01"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.958063, 0.362277)
+
 [node name="Gun" parent="SK_Chr_Scarecrow_01" node_paths=PackedStringArray("model", "spawn_pos") instance=ExtResource("2_q5oea")]
 transform = Transform3D(0.499999, 0, 1.06581e-14, 0, 0.499999, 0, -1.06581e-14, 0, 0.499999, 0, 0, 0)
 bullet_scene = ExtResource("3_toeyi")
@@ -2890,12 +2893,13 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29487, 0)
 shape = SubResource("CapsuleShape3D_x3p5x")
 
-[node name="Health_System" type="Area3D" parent="." node_paths=PackedStringArray("health_bar")]
+[node name="Health_System" type="Area3D" parent="." node_paths=PackedStringArray("health_bar", "damange_number_origin")]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("2_lqxmh")
 max_health = 17000
 health_bar = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/MarginContainer3/Health_Bar")
+damange_number_origin = NodePath("../SK_Chr_Scarecrow_01/Damage_number_position")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health_System"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0347137, 1.17776, 0.0713806)

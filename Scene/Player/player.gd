@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Player
 @export_subgroup("Properties")
 @export var is_testing: bool = false
+@export var start_shoot: bool = true
 @export var movement_speed = 10
 @export var camera : Camera3D
 @export var model: Node3D
@@ -61,12 +62,16 @@ var custom_cursor = preload("res://Assets/Cursor/target_round_big.png")
 
 
 func _ready() -> void:
-	# Capture and hide the mouse pointer
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	## Capture and hide the mouse pointer
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	#
+	## Set the scaled custom cursor icon
+	#Input.set_custom_mouse_cursor(custom_cursor)
 	
-	# Set the scaled custom cursor icon
-	Input.set_custom_mouse_cursor(custom_cursor)
-	
+	if start_shoot: 
+		gun.attack_timer.start()
+	else: 
+		gun.attack_timer.stop()
 	can_control = true
 	#coins = 350
 	health.connect("death", death)
@@ -133,34 +138,41 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	
-	handle_controls(delta)
-	handle_gravity(delta)
-	
-	#velocity = movement_velocity.normalized() * movement_speed 
-	#velocity.y = -gravity
-	var applied_velocity = velocity.lerp(movement_velocity, delta * 10)
-	applied_velocity.y = -gravity
-	
-	if applied_velocity.length() < 0.1:
-		applied_velocity = Vector3.ZERO
+	if can_control:
+		handle_controls(delta)
+		handle_gravity(delta)
 		
-	velocity = applied_velocity
+		#velocity = movement_velocity.normalized() * movement_speed 
+		#velocity.y = -gravity
+		var applied_velocity = velocity.lerp(movement_velocity, delta * 10)
+		applied_velocity.y = -gravity
+		
+		if applied_velocity.length() < 0.1:
+			applied_velocity = Vector3.ZERO
+			
+		velocity = applied_velocity
+		
+		
+		
+		move_and_slide()
+		
+		## Manage Contact Damage
+		#damage_on_contact(delta)
+
+		# Rotate the player model based on movement
+		if Vector2(velocity.z, velocity.x).length() > 0:
+			rotation_direction = Vector2(velocity.z, velocity.x).angle()
+		model.rotation.y = lerp_angle(model.rotation.y, rotation_direction, delta * 10)
+
+		# Update the gun's rotation based on the mouse position
+		#update_gun_aim(update_player_aim())
+		update_player_rotate(update_player_aim())
+	
 	handle_animation(velocity)
 	
-	move_and_slide()
-	
-	## Manage Contact Damage
-	#damage_on_contact(delta)
-
-	# Rotate the player model based on movement
-	if Vector2(velocity.z, velocity.x).length() > 0:
-		rotation_direction = Vector2(velocity.z, velocity.x).angle()
-	model.rotation.y = lerp_angle(model.rotation.y, rotation_direction, delta * 10)
-
-	# Update the gun's rotation based on the mouse position
-	#update_gun_aim(update_player_aim())
-	update_player_rotate(update_player_aim())
+func interaction(control: bool):
+	can_control = control
+	velocity = Vector3.ZERO
 	
 ##### AIMING WITH MOUSE
 func update_player_aim():
