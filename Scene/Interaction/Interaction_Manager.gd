@@ -43,7 +43,7 @@ func _process(delta):
 		action_label.text = base_text + active_areas[0].action_name
 		#label.global_position = active_areas[0].global_position
 		sprite_interaction.global_position = active_areas[0].global_position
-		sprite_interaction.global_position.y += 2
+		sprite_interaction.global_position.y += 6
 		sprite_interaction.show()
 		#label.show()
 	else:

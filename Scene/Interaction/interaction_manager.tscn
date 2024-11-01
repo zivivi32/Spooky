@@ -11,7 +11,7 @@ action_label = NodePath("SubViewport/MarginContainer/Label")
 sprite_interaction = NodePath("Sprite3D")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_fritt")
 

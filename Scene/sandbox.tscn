@@ -1,6 +1,7 @@
-[gd_scene load_steps=42 format=4 uid="uid://b33qdb870ijou"]
+[gd_scene load_steps=43 format=4 uid="uid://b33qdb870ijou"]
 
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_7cyyn"]
+[ext_resource type="PackedScene" uid="uid://drk8vyippefsq" path="res://Scene/UI_Items/Hub_Shop.tscn" id="1_iccek"]
 [ext_resource type="PackedScene" uid="uid://q6hivk3hm8xn" path="res://Scene/Enemy/enemy_base.tscn" id="2_odpd5"]
 [ext_resource type="PackedScene" uid="uid://c3l10ygdgxhh0" path="res://Scene/spawning_system/enemy_spawn.tscn" id="3_dyo3c"]
 [ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/enemy_melee.tscn" id="4_bl28x"]
@@ -678,6 +679,8 @@ far = 4000.0
 size = Vector3(2.34869, 1, 1.55554)
 
 [node name="Sandbox" type="Node3D" groups=["world"]]
+
+[node name="HubShop" parent="." instance=ExtResource("1_iccek")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." groups=["navigation_region"]]
 navigation_mesh = SubResource("NavigationMesh_qedyx")

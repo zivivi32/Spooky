@@ -1,0 +1,175 @@
+[gd_scene load_steps=17 format=3 uid="uid://drk8vyippefsq"]
+
+[ext_resource type="Script" path="res://Scene/UI_Items/hub_shop.gd" id="1_1nvjx"]
+[ext_resource type="Texture2D" uid="uid://oyuajsudnsf" path="res://Assets/Kenney-preview/character-skeleton.png" id="1_uqbep"]
+[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/increase_health.gd" id="3_qh54l"]
+[ext_resource type="Texture2D" uid="uid://daicr80aenavt" path="res://Assets/Icons/health-increase.png" id="4_jx10p"]
+[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/pumpkin_boom.gd" id="4_n3p6b"]
+[ext_resource type="PackedScene" uid="uid://dnlfj22bcam5f" path="res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn" id="5_3aq07"]
+[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/gun_damage.gd" id="6_ta0ya"]
+[ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/bullet_count.gd" id="7_1j1f3"]
+[ext_resource type="Texture2D" uid="uid://5t1el3vjkrub" path="res://Assets/Icons/mine-explosion.png" id="7_h64e7"]
+[ext_resource type="Script" path="res://Scene/UI_Items/scare_crow_turret.gd" id="8_ly3oo"]
+[ext_resource type="Texture2D" uid="uid://88wykyvphkbs" path="res://Assets/Icons/cannon-ball.png" id="9_hyg13"]
+[ext_resource type="PackedScene" uid="uid://xnijgqipefdv" path="res://Scene/Ability/Abilities_scenes/turret_ability.tscn" id="9_qjk5p"]
+[ext_resource type="Script" path="res://Scene/UI_Items/coin_magnet.gd" id="10_uo5f6"]
+[ext_resource type="Texture2D" uid="uid://d18t7lhbykwjy" path="res://Assets/Icons/bullets.png" id="11_nebcc"]
+[ext_resource type="Texture2D" uid="uid://bucp0xexbdlvs" path="res://Assets/Icons/scarecrow.png" id="14_ulpli"]
+[ext_resource type="Texture2D" uid="uid://ch1dqlhna6rws" path="res://Assets/Icons/magnet.png" id="16_c1ils"]
+
+[node name="HubShop" type="CanvasLayer" node_paths=PackedStringArray("item_icon_rect", "description_label", "cost_label", "coins_label", "upgrade_pool", "purchase_button")]
+script = ExtResource("1_1nvjx")
+item_icon_rect = NodePath("PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/MarginContainer/TextureRect")
+description_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer/RichTextLabel")
+cost_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/MarginContainer2/Cost")
+coins_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer2/Candies")
+upgrade_pool = [NodePath("Upgrades/Increase_Health"), NodePath("Upgrades/PumpkinBoom"), NodePath("Upgrades/GunDamage"), NodePath("Upgrades/BulletCount"), NodePath("Upgrades/ScareCrow_Turret"), NodePath("Upgrades/CoinMagnet")]
+purchase_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer3/Button")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -159.0
+offset_right = 132.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="ITEM" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_uqbep")
+expand_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer"]
+layout_mode = 2
+
+[node name="Cost" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Cost"
+horizontal_alignment = 1
+
+[node name="ShopNavigation" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation"]
+layout_mode = 2
+
+[node name="Left" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer"]
+layout_mode = 2
+
+[node name="Left" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/Left"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "PREVIOUS"
+
+[node name="right" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer"]
+layout_mode = 2
+
+[node name="Right" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/right"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "NEXT"
+
+[node name="Information" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Information"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+text = "This is a desciption of the item"
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Information"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Candies" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer2"]
+layout_mode = 2
+text = "Candies: "
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Information"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer3"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+
+[node name="Upgrades" type="Node" parent="."]
+
+[node name="Increase_Health" type="Node" parent="Upgrades"]
+script = ExtResource("3_qh54l")
+upgrade_name = "Max health"
+description = "Increase Max Health by 10%"
+icon = ExtResource("4_jx10p")
+cost = 100
+
+[node name="PumpkinBoom" type="Node" parent="Upgrades"]
+script = ExtResource("4_n3p6b")
+new_ability = ExtResource("5_3aq07")
+upgrade_name = "Pumpkin Boom"
+description = "Pumpkin bullets that go Boom!"
+icon = ExtResource("7_h64e7")
+cost = 100
+
+[node name="GunDamage" type="Node" parent="Upgrades"]
+script = ExtResource("6_ta0ya")
+upgrade_name = "More Damage"
+description = "Upgrade damage of main Gun"
+icon = ExtResource("9_hyg13")
+cost = 100
+
+[node name="BulletCount" type="Node" parent="Upgrades"]
+script = ExtResource("7_1j1f3")
+upgrade_name = "Spread'em bullets"
+description = "Shoot more bullets"
+icon = ExtResource("11_nebcc")
+cost = 100
+
+[node name="ScareCrow_Turret" type="Node" parent="Upgrades"]
+script = ExtResource("8_ly3oo")
+new_ability = ExtResource("9_qjk5p")
+upgrade_name = "ScareCrow Turret"
+description = "Place a turret to help you"
+icon = ExtResource("14_ulpli")
+cost = 150
+
+[node name="CoinMagnet" type="Node" parent="Upgrades"]
+script = ExtResource("10_uo5f6")
+upgrade_name = "Bring'em to Me"
+description = "Draws the candies to the player"
+icon = ExtResource("16_c1ils")
+cost = 50
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/Left/Left" to="." method="on_left_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/right/Right" to="." method="on_right_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer3/Button" to="." method="on_button_pressed"]

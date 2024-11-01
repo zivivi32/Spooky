@@ -79,7 +79,7 @@ func _ready() -> void:
 	if is_testing: 
 		health.max_health = 10000
 		health.health = 10000
-		
+		coins = 1000
 		test_abilities.append(load("res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn"))
 		test_abilities.append(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
 		
@@ -151,7 +151,6 @@ func _physics_process(delta: float) -> void:
 			applied_velocity = Vector3.ZERO
 			
 		velocity = applied_velocity
-		
 		
 		
 		move_and_slide()
@@ -267,6 +266,11 @@ func change_gun_bullet(weapon_bullet) -> void:
 	gun.change_bullet(weapon_bullet)
 
 
+## Ability functions
+func add_ability(new_ability: PackedScene):
+	test_abilities.append(new_ability)
+	refresh_abilities()
+	
 func refresh_abilities() -> void:
 	if test_abilities:
 		ability_manager.empty_abilities()
@@ -293,9 +297,3 @@ func heal_player(amount: int):
 func increase_health(amount: int): 
 	health.max_health += amount
 	health.health = health.max_health
-
-
-## Ability functions
-func add_ability(new_ability: PackedScene):
-	test_abilities.append(new_ability)
-	refresh_abilities()

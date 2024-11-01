@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bucp0xexbdlvs"
-path="res://.godot/imported/scarecrow.png-020866f236b55bab6fd210e4d22130a8.ctex"
+uid="uid://88wykyvphkbs"
+path="res://.godot/imported/cannon-ball.png-e395927cdd65e376b70771924400550d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/scarecrow.png"
-dest_files=["res://.godot/imported/scarecrow.png-020866f236b55bab6fd210e4d22130a8.ctex"]
+source_file="res://Assets/Icons/cannon-ball.png"
+dest_files=["res://.godot/imported/cannon-ball.png-e395927cdd65e376b70771924400550d.ctex"]
 
 [params]
 
