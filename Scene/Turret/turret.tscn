@@ -233,6 +233,7 @@ model = NodePath("Model")
 gun = NodePath("Model/Gun")
 detection = NodePath("Detection")
 turret_lifetime = 25.0
+turret_cooldown = 2.0
 timer = NodePath("Timer")
 move_vfx_particles = [NodePath("puff"), NodePath("falling_particles")]
 move_sfx = Array[AudioStream]([SubResource("AudioStreamRandomizer_toblx")])

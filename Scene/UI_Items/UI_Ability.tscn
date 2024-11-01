@@ -19,15 +19,16 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("timer", "time_label", "icon", "used")]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("timer", "time_label", "icon", "used", "ammo_label")]
 offset_right = 64.0
 offset_bottom = 64.0
 mouse_filter = 2
 script = ExtResource("1_yncxy")
 timer = NodePath("Sweep/Timer")
-time_label = NodePath("MarginContainer/Label")
+time_label = NodePath("MarginContainer/Cooldown")
 icon = NodePath("MarginContainer2/TextureRect")
 used = NodePath("available")
+ammo_label = NodePath("Ammo/ammo_label")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -52,6 +53,18 @@ fill_mode = 5
 [node name="Timer" type="Timer" parent="Sweep"]
 one_shot = true
 
+[node name="Ammo" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="ammo_label" type="Label" parent="Ammo"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
 [node name="available" type="Panel" parent="."]
 visible = false
 layout_mode = 2
@@ -60,7 +73,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_md6ps")
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Cooldown" type="Label" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "5"

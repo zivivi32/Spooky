@@ -15,10 +15,9 @@ func process_ability():
 	get_tree().root.add_child(turret)
 	mouse_pos.y = 0
 	turret.global_position = mouse_pos
-	duration_timer.start(turret.turret_lifetime)
+	duration_timer.start(turret.turret_cooldown)
 	
 	
 func process_cooldown():
 	cool_down_timer.start(cooldown_time)
 	on_cool_down.emit()
-	turret.die()

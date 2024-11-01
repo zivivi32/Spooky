@@ -59,8 +59,6 @@ var input: Vector3
 var can_control: bool = true
 var custom_cursor = preload("res://Assets/Cursor/target_round_big.png")
 
-
-
 func _ready() -> void:
 	## Capture and hide the mouse pointer
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
@@ -80,10 +78,10 @@ func _ready() -> void:
 		health.max_health = 10000
 		health.health = 10000
 		coins = 1000
-		test_abilities.append(load("res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn"))
-		test_abilities.append(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
+		add_ability(load("res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn"))
+		add_ability(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
 		
-	refresh_abilities()
+	#refresh_abilities()
 	
 	HUD.show()
 	shop.hide()
@@ -94,6 +92,7 @@ func _input(event: InputEvent) -> void:
 	if can_control:
 		if event.is_action_pressed("weapon1"):
 			ability_manager.launch_ability(0)
+			#refresh_abilities()
 
 		if event.is_action_pressed("weapon2"): 
 			ability_manager.launch_ability(1)
@@ -265,20 +264,21 @@ func set_default_bullet():
 func change_gun_bullet(weapon_bullet) -> void: 
 	gun.change_bullet(weapon_bullet)
 
-
-## Ability functions
 func add_ability(new_ability: PackedScene):
-	test_abilities.append(new_ability)
-	refresh_abilities()
+	ability_manager.add_ability(new_ability)
 	
-func refresh_abilities() -> void:
-	if test_abilities:
-		ability_manager.empty_abilities()
-		for test_ability in test_abilities:
-			var abil = test_ability.instantiate()
-			ability_manager.add_child(abil)
-			ability_manager.call_deferred("add_ability", abil)
-
+#func refresh_abilities() -> void:
+	## Clear existing abilities in the ability manager
+	#ability_manager.empty_abilities()
+	#
+	## Add each test ability to the ability manager
+	#for test_ability in test_abilities:
+		#var abil = test_ability.instantiate()
+		#ability_manager.add_child(abil)
+		#ability_manager.add_ability(abil)
+	#
+	## Refresh the ability UI
+	#ability_manager.refresh_ability()
 
 ##### Shop Controls functions #####
 

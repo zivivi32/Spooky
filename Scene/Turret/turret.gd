@@ -20,8 +20,8 @@ class_name Turret
 var target: Node3D
 
 func _ready() -> void:
-	#timer.start(turret_lifetime)
-	#timer.connect("timeout", die)
+	timer.start(turret_lifetime)
+	timer.connect("timeout", die)
 	model.scale = Vector3(1.2 ,1.7 ,1.2)
 	play_move_vfx()
 	if spawn_particles:
