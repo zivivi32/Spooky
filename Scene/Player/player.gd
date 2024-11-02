@@ -66,6 +66,9 @@ func _ready() -> void:
 	## Set the scaled custom cursor icon
 	#Input.set_custom_mouse_cursor(custom_cursor)
 	
+	Events.connect("shop_open", player_cannot_control)
+	Events.connect("shop_done", player_can_control)
+	
 	if start_shoot: 
 		gun.attack_timer.start()
 	else: 
@@ -79,7 +82,7 @@ func _ready() -> void:
 		health.health = 10000
 		coins = 1000
 		add_ability(load("res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn"))
-		add_ability(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
+		#add_ability(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
 		
 	#refresh_abilities()
 	
@@ -87,7 +90,14 @@ func _ready() -> void:
 	shop.hide()
 	lose_screen.hide()
 	
-	
+
+func player_can_control():
+	can_control = true
+
+func player_cannot_control():
+	can_control = false
+
+
 func _input(event: InputEvent) -> void:
 	if can_control:
 		if event.is_action_pressed("weapon1"):
@@ -172,7 +182,38 @@ func interaction(control: bool):
 	can_control = control
 	velocity = Vector3.ZERO
 	
+# Handle movement input
+func handle_controls(_delta):
+	if can_control:
+		# Movement
+		input = Vector3.ZERO
+		input = input.rotated(Vector3.UP, world_node.rotation.y).normalized()
+		input.x = Input.get_axis("move_left", "move_right")
+		input.z = Input.get_axis("move_forward", "move_back")
+
+		if input.length() > 1:
+			input = input.normalized()
+
+		movement_velocity = to_isometric(input) * movement_speed
+		
 ##### AIMING WITH MOUSE
+func update_player_rotate(target_position : Vector3):
+	if target_position == Vector3.ZERO:
+		return  # Don't rotate if no valid target
+
+	# Calculate the direction from the gun to the mouse target
+	var direction_to_mouse = (target_position - model.global_position).normalized()
+
+	# Compute the rotation angles
+	var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
+
+	# Adjust only the gun's rotation to face the target
+	model.rotation.y = gun_rotation_angle
+
+	# Optional: Lock gun rotation on x and z axes if necessary
+	model.rotation.x = 0
+	model.rotation.z = 0
+	
 func update_player_aim():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var from = camera.project_ray_origin(mouse_pos)
@@ -196,7 +237,7 @@ func update_player_aim():
 		return Vector3.ZERO
 
 
-########### Rotate the gun towards the mouse position
+########### Rotate the gun towards the mouse position IF NEEDED
 func update_gun_aim(target_position : Vector3):
 	if target_position == Vector3.ZERO:
 		return  # Don't rotate if no valid target
@@ -221,22 +262,6 @@ func handle_animation(movement_vector: Vector3) -> void:
 	else: 
 		gun.model.rotation_degrees.x = -30
 
-func update_player_rotate(target_position : Vector3):
-	if target_position == Vector3.ZERO:
-		return  # Don't rotate if no valid target
-
-	# Calculate the direction from the gun to the mouse target
-	var direction_to_mouse = (target_position - model.global_position).normalized()
-
-	# Compute the rotation angles
-	var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
-
-	# Adjust only the gun's rotation to face the target
-	model.rotation.y = gun_rotation_angle
-
-	# Optional: Lock gun rotation on x and z axes if necessary
-	model.rotation.x = 0
-	model.rotation.z = 0
 
 # Handle gravity
 func handle_gravity(delta):
@@ -244,19 +269,6 @@ func handle_gravity(delta):
 	if gravity > 0 and is_on_floor():
 		gravity = 0
 
-# Handle movement input
-func handle_controls(_delta):
-	if can_control:
-		# Movement
-		input = Vector3.ZERO
-		input = input.rotated(Vector3.UP, world_node.rotation.y).normalized()
-		input.x = Input.get_axis("move_left", "move_right")
-		input.z = Input.get_axis("move_forward", "move_back")
-
-		if input.length() > 1:
-			input = input.normalized()
-
-		movement_velocity = to_isometric(input) * movement_speed
 	
 func set_default_bullet(): 
 	gun.change_bullet(default_bullet)
@@ -267,19 +279,6 @@ func change_gun_bullet(weapon_bullet) -> void:
 func add_ability(new_ability: PackedScene):
 	ability_manager.add_ability(new_ability)
 	
-#func refresh_abilities() -> void:
-	## Clear existing abilities in the ability manager
-	#ability_manager.empty_abilities()
-	#
-	## Add each test ability to the ability manager
-	#for test_ability in test_abilities:
-		#var abil = test_ability.instantiate()
-		#ability_manager.add_child(abil)
-		#ability_manager.add_ability(abil)
-	#
-	## Refresh the ability UI
-	#ability_manager.refresh_ability()
-
 ##### Shop Controls functions #####
 
 ## Coin Magnet Functions

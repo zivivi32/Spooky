@@ -98,7 +98,7 @@ func on_button_pressed() -> void:
 		# Deduct coins
 		player.coins -= current_upgrade.cost
 		
-		# Update coins display AFTER deducting coins
+		# Update coins display AFTER deddzzzzzucting coins
 		update_coins_display()
 		
 		# Optional: Provide feedback
@@ -106,3 +106,9 @@ func on_button_pressed() -> void:
 	else:
 		# Optional: Show error message or play sound
 		print("Not enough coins to purchase this upgrade!")
+
+
+func _on_exit_pressed() -> void:
+	hide()
+	Events.shop_done.emit()
+	

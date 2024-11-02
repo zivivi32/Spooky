@@ -1,6 +1,7 @@
 extends Node
 
 signal wave_done
+signal shop_open
 signal shop_done
 signal end_game
 

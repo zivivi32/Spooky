@@ -7,7 +7,7 @@ class_name Special_Abilities
 @export var cool_down_timer: Timer
 @export var icon_image: Texture
 @export var is_available: bool = true
-@export var max_ammo: int = 2  # Max ammo for the ability
+@export var max_ammo: int = 20  # Max ammo for the ability
 @export var initial_ammo: int = 2  # Initial ammo when ability is added
 
 var current_ammo: int = 2
