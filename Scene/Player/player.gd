@@ -7,6 +7,9 @@ class_name Player
 @export var camera : Camera3D
 @export var model: Node3D
 @export var animation_tree: AnimationTree
+var current_aim_direction := Vector3.ZERO
+var aim_smoothing := 15.0  # Adjust this value to change smoothing speed
+var using_controller := false
 
 @export_subgroup("VFX")
 @export var walking_particles: GPUParticles3D
@@ -107,8 +110,8 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("weapon2"): 
 			ability_manager.launch_ability(1)
 			
-		if event.is_action_pressed("weapon3"): 
-			ability_manager.launch_ability(2)
+		#if event.is_action_pressed("weapon3"): 
+			#ability_manager.launch_ability(2)
 		
 		if event.is_action_pressed("dash"):
 			dash.launch_ability()
@@ -130,11 +133,6 @@ func death():
 	shop.hide()
 	lose_screen.show()
 	
-	
-func to_isometric(motion_3d):
-	# Rotate the input vector to match the camera's orientation
-	motion_3d = motion_3d.rotated(Vector3(0, 1, 0), deg_to_rad(45.0))
-	return motion_3d
 	
 func damage_on_contact(delta):
 		#Process damage: 
@@ -160,8 +158,7 @@ func _physics_process(delta: float) -> void:
 			applied_velocity = Vector3.ZERO
 			
 		velocity = applied_velocity
-		
-		
+
 		move_and_slide()
 		
 		## Manage Contact Damage
@@ -182,7 +179,12 @@ func interaction(control: bool):
 	can_control = control
 	velocity = Vector3.ZERO
 	
-# Handle movement input
+func to_isometric(motion_3d):
+	# Rotate the input vector to match the camera's orientation
+	motion_3d = motion_3d.rotated(Vector3(0, 1, 0), deg_to_rad(45.0))
+	return motion_3d
+
+# Keep your original movement code unchanged
 func handle_controls(_delta):
 	if can_control:
 		# Movement
@@ -190,63 +192,76 @@ func handle_controls(_delta):
 		input = input.rotated(Vector3.UP, world_node.rotation.y).normalized()
 		input.x = Input.get_axis("move_left", "move_right")
 		input.z = Input.get_axis("move_forward", "move_back")
-
 		if input.length() > 1:
 			input = input.normalized()
-
 		movement_velocity = to_isometric(input) * movement_speed
 		
-##### AIMING WITH MOUSE
-func update_player_rotate(target_position : Vector3):
-	if target_position == Vector3.ZERO:
-		return  # Don't rotate if no valid target
+func update_player_aim() -> Vector3:
+	# If using mouse, use original mouse aim logic
+	if Input.get_last_mouse_velocity() != Vector2.ZERO:
+		return get_mouse_aim_position()  # Ensure this returns a Vector3 for consistency
 
-	# Calculate the direction from the gun to the mouse target
-	var direction_to_mouse = (target_position - model.global_position).normalized()
-
-	# Compute the rotation angles
-	var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
-
-	# Adjust only the gun's rotation to face the target
-	model.rotation.y = gun_rotation_angle
-
-	# Optional: Lock gun rotation on x and z axes if necessary
-	model.rotation.x = 0
-	model.rotation.z = 0
+	# If using controller stick, use stick aim logic
+	var right_stick_x = Input.get_axis("right_stick_left", "right_stick_right")
+	var right_stick_y = Input.get_axis("right_stick_up", "right_stick_down")
 	
-func update_player_aim():
+	# Apply deadzone
+	var deadzone = 0.001
+	if abs(right_stick_x) < deadzone and abs(right_stick_y) < deadzone:
+		return Vector3.ZERO  # Indicate no input with Vector3.ZERO
+
+	# Create aim direction vector based on stick input
+	var aim_direction = Vector3(right_stick_x, 0, right_stick_y)
+
+	# Adjust for isometric camera angle
+	aim_direction = to_isometric(aim_direction).normalized()
+
+	# Set an arbitrary distance for the target position in front of the player
+	var aim_distance = 10.0
+	var target_position = global_position + (aim_direction * aim_distance)
+
+	return target_position
+
+# Original mouse aim helper function
+func get_mouse_aim_position() -> Vector3:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var from = camera.project_ray_origin(mouse_pos)
 	var ray_direction = camera.project_ray_normal(mouse_pos)
-
-	var to = from + ray_direction * 1000  # Adjust 1000 as needed
+	var to = from + ray_direction * 1000
 	
-	# Creating ray_cast from and to a point with collision mask of 5. Meaning will only collide with objects on layer 5
 	var ray_query = PhysicsRayQueryParameters3D.create(from, to, pow(2, 20-1))
-
-	# Ray cast will only collide with areas and not bodies (static or character bodies)
 	ray_query.collide_with_areas = true
 	ray_query.collide_with_bodies = false
-
 	var space_state = get_world_3d().direct_space_state
 	var result = space_state.intersect_ray(ray_query)
-
 	if result:
 		return result.position
 	else:
 		return Vector3.ZERO
 
+# Keep your original rotation code
+func update_player_rotate(target_position : Vector3):
+	if target_position == Vector3.ZERO:
+		return  # Don't rotate if no valid target
+	# Calculate the direction from the gun to the mouse target
+	var direction_to_mouse = (target_position - model.global_position).normalized()
+	# Compute the rotation angles
+	var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
+	# Adjust only the gun's rotation to face the target
+	model.rotation.y = gun_rotation_angle
+	# Optional: Lock gun rotation on x and z axes if necessary
+	model.rotation.x = 0
+	model.rotation.z = 0
 
-########### Rotate the gun towards the mouse position IF NEEDED
+# Keep your original gun aim code
 func update_gun_aim(target_position : Vector3):
 	if target_position == Vector3.ZERO:
 		return  # Don't rotate if no valid target
-
 	target_position.y = 0
 	gun.look_at(target_position, Vector3.UP, true)
 	gun.rotation.x = 0
 	gun.rotation.z = 0
-
+		
 func handle_animation(movement_vector: Vector3) -> void: 
 	var animation_velocity = Vector2(movement_vector.x,movement_vector.z)
 	#animation_tree.set("parameters/Movement/blend_position", animation_velocity)
