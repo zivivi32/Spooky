@@ -98,7 +98,7 @@ func on_button_pressed() -> void:
 		# Deduct coins
 		player.coins -= current_upgrade.cost
 		
-		# Update coins display AFTER deddzzzzzucting coins
+		# Update coins display AFTER deducting coins
 		update_coins_display()
 		
 		# Optional: Provide feedback

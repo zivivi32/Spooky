@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://byvydukidk6i2"]
+[gd_scene load_steps=9 format=3 uid="uid://byvydukidk6i2"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_pss7b"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu.gd" id="2_lk0wa"]
 [ext_resource type="PackedScene" uid="uid://bdvdf5v87mmrr" path="res://Game/menu/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_lqjmk"]
 [ext_resource type="PackedScene" uid="uid://c1g50h2avck3w" path="res://Game/menu/scenes/credits/credits.tscn" id="3_vmius"]
+[ext_resource type="Script" path="res://Scripts/Tools/UiNavigationSetup.gd" id="5_b2sif"]
 [ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets/Sound/SFX/UI/pluck_002.ogg" id="5_tpk1i"]
 [ext_resource type="AudioStream" uid="uid://nb01g0n5hvdc" path="res://Assets/Sound/SFX/UI/select_004.ogg" id="6_pl0qt"]
 [ext_resource type="FontFile" uid="uid://c4tgepgmhawn6" path="res://Assets/Fonts/BoH-b.ttf" id="7_xbp33"]
@@ -14,14 +15,20 @@ game_scene_path = "res://addons/maaacks_game_template/examples/scenes/game_scene
 options_packed_scene = ExtResource("3_lqjmk")
 credits_packed_scene = ExtResource("3_vmius")
 
-[node name="UISoundController" parent="." index="0"]
+[node name="UINavigationSetup" type="Node" parent="." index="0" node_paths=PackedStringArray("default_focus_button", "parent_canvas")]
+script = ExtResource("5_b2sif")
+default_focus_button = NodePath("../MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer/PlayButton")
+parent_canvas = NodePath("..")
+auto_focus_first = false
+
+[node name="UISoundController" parent="." index="1"]
 button_hovered = ExtResource("5_tpk1i")
 button_pressed = ExtResource("6_pl0qt")
 
-[node name="BackgroundTextureRect" parent="." index="2"]
+[node name="BackgroundTextureRect" parent="." index="3"]
 visible = false
 
-[node name="VersionMargin" parent="." index="3"]
+[node name="VersionMargin" parent="." index="4"]
 visible = false
 
 [node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]

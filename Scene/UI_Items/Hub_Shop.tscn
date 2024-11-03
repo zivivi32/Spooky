@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://drk8vyippefsq"]
+[gd_scene load_steps=18 format=3 uid="uid://drk8vyippefsq"]
 
 [ext_resource type="Script" path="res://Scene/UI_Items/hub_shop.gd" id="1_1nvjx"]
 [ext_resource type="Texture2D" uid="uid://oyuajsudnsf" path="res://Assets/Kenney-preview/character-skeleton.png" id="1_uqbep"]
+[ext_resource type="Script" path="res://Scripts/Tools/UiNavigationSetup.gd" id="2_qek2f"]
 [ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/increase_health.gd" id="3_qh54l"]
 [ext_resource type="Texture2D" uid="uid://daicr80aenavt" path="res://Assets/Icons/health-increase.png" id="4_jx10p"]
 [ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/pumpkin_boom.gd" id="4_n3p6b"]
@@ -25,6 +26,12 @@ cost_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxCon
 coins_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer2/Candies")
 upgrade_pool = [NodePath("Upgrades/Increase_Health"), NodePath("Upgrades/PumpkinBoom"), NodePath("Upgrades/GunDamage"), NodePath("Upgrades/BulletCount"), NodePath("Upgrades/ScareCrow_Turret"), NodePath("Upgrades/CoinMagnet")]
 purchase_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/Information/MarginContainer3/Button")
+
+[node name="UINavigationSetup" type="Node" parent="." node_paths=PackedStringArray("default_focus_button", "parent_canvas")]
+script = ExtResource("2_qek2f")
+default_focus_button = NodePath("../PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/Left/Left")
+parent_canvas = NodePath("..")
+auto_focus_first = false
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 8
