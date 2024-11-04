@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueStep" load_steps=3 format=3 uid="uid://dprk1720ac068"]
+
+[ext_resource type="Resource" uid="uid://bj0ig47jfcplg" path="res://Dialogues/shop_dialogue.dialogue" id="1_6h78p"]
+[ext_resource type="Script" path="res://addons/cutscene_system/resources/steps/dialogue_step.gd" id="1_yd0oy"]
+
+[resource]
+script = ExtResource("1_yd0oy")
+dialogue_resource = ExtResource("1_6h78p")
+dialogue_title = "harvest_happenings_welcome"
+step_name = "Starting Dialogue"
+wait_for_completion = true
