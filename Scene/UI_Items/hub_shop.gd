@@ -24,7 +24,7 @@ func init_shop_ui():
 		update_upgrade_display(current_upgrade_index)
 	else:
 		print("No upgrades available in the pool!")
-	coins_label.text = "Coins: " + str(player.coins)
+	coins_label.text = "Candies: " + str(player.coins)
 	# Update player's current coins
 	update_coins_display()
 
@@ -85,7 +85,7 @@ func on_right_pressed() -> void:
 func on_button_pressed() -> void:
 	# BUY FUNCTION
 	if current_upgrade_index < 0 or current_upgrade_index >= upgrade_pool.size():
-		print("Invalid upgrade selection!")
+		#print("Invalid upgrade selection!")
 		return
 	
 	var current_upgrade = upgrade_pool[current_upgrade_index]
@@ -102,10 +102,10 @@ func on_button_pressed() -> void:
 		update_coins_display()
 		
 		# Optional: Provide feedback
-		print("Upgrade purchased: " + current_upgrade.upgrade_name)
-	else:
-		# Optional: Show error message or play sound
-		print("Not enough coins to purchase this upgrade!")
+		GlobalVariables.bought_something = true
+	#else:
+		## Optional: Show error message or play sound
+		#print("Not enough coins to purchase this upgrade!")
 
 
 func _on_exit_pressed() -> void:

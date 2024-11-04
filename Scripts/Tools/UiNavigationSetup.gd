@@ -11,6 +11,10 @@ class_name UINavigationSetup
 func _ready():
 	setup_navigation()
 	set_default_focus()
+	
+	call_deferred("connect_canvas")
+	
+func connect_canvas():
 	parent_canvas.connect("visibility_changed", on_parent_canvas_show)
 
 func on_parent_canvas_show():

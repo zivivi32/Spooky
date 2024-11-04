@@ -29,6 +29,13 @@ AudioManager="*res://Scripts/Globals/Audio_Manager.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 DamageNumbers="*res://Scripts/Globals/Damage_Numbers.gd"
 InteractionManager="*res://Scene/Interaction/interaction_manager.tscn"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+GlobalVariables="*res://Scripts/Globals/Global_variables.gd"
+
+[dialogue_manager]
+
+general/states=["Events", "GlobalVariables"]
+general/balloon_path="res://Dialogues/balloon.tscn"
 
 [display]
 
@@ -38,7 +45,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/3dEnemyToolkit/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/post_processing/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/3dEnemyToolkit/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/post_processing/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 
@@ -141,6 +148,7 @@ right_stick_down={
 [internationalization]
 
 locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_game_template/base/translations/menus_translations.fr.translation")
+locale/translations_pot_files=PackedStringArray("res://Dialogues/test.dialogue", "res://Dialogues/shop_dialogue.dialogue")
 
 [layer_names]
 

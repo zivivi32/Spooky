@@ -1,0 +1,33 @@
+~ harvest_happenings_welcome
+% Millie: [do emit("in_interaction")]Well, look who blew in like a fall breeze!
+% Millie: [do emit("in_interaction")]Ah, my favorite pumpkin-squashin’ hero!
+% Millie: [do emit("in_interaction")]If it isn’t the town’s top pumpkin punter!
+Millie: Welcome to Harvest Happenings, where it’s all treats and no tricks! So, what brings you here—itchin’ to buy or just here to browse my oddities?
+
+- I’m here to buy!
+	% Millie: Ooh, a shopper with taste!
+	% Millie: Oh, I got just the thing you might be looking for!
+	Millie: Go on, have a gander at my finest spooky stock—I guarantee it’s [[to die for!|frightfully good!|boo-tiful!]] [do open_shop=true]
+	=> END 
+
+- Leave => harvest_happenings_goodbye
+=> END
+
+~ harvest_happenings_purchase
+% Millie: Ooooh, fantastic choice!
+% Millie: You’ve got a keen eye for the spooky and spectacular!
+% Millie: Oh, you’ll love this! 
+% Millie: And remember: shop local, stay magical
+% Millie: Come back soon for more ghoulish goodies!
+% Millie: You keep buyin’, I keep stockin’!
+Millie: Bye! 
+=> END
+
+
+~ harvest_happenings_goodbye
+% Millie: Leavin’ already? Oh well, stay outta the pumpkin patch!
+% Millie: Catch ya later, alligator!
+% Millie: Don’t be a stranger now, ya hear?
+% Millie: If those pumpkins get feisty, just give ‘em a good bop from me!
+Millie: Bye!
+=> END

@@ -1,6 +1,8 @@
 extends Node
 
 signal wave_done
+signal in_interaction
+signal out_interaction
 signal shop_open
 signal shop_done
 signal end_game

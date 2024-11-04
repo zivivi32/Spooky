@@ -30,7 +30,7 @@ purchase_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/Informa
 [node name="UINavigationSetup" type="Node" parent="." node_paths=PackedStringArray("default_focus_button", "parent_canvas")]
 script = ExtResource("2_qek2f")
 default_focus_button = NodePath("../PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/Left/Left")
-parent_canvas = NodePath("..")
+parent_canvas = NodePath("../PanelContainer")
 auto_focus_first = false
 
 [node name="PanelContainer" type="PanelContainer" parent="."]

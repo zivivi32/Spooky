@@ -166,6 +166,7 @@ shape = SubResource("ConvexPolygonShape3D_mek44")
 
 [node name="Player" parent="." instance=ExtResource("1_7cyyn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122039, 1.14384, 3.703)
+start_shoot = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lifd2")
@@ -191,6 +192,7 @@ shape = SubResource("ConvexPolygonShape3D_xyddh")
 [node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+visible = false
 easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
 medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
 hard_enemies = Array[PackedScene]([ExtResource("5_mynpd")])

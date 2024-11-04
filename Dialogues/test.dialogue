@@ -1,0 +1,186 @@
+~ Intro_NPC
+if !Globals.talked_to_eamon:
+	OldMan: Why, [do emit("dialogue_started")] Hello traveller. You are very far from the sanctuary. Espcially if you come to these forgotten lands. 
+	OldMan: May I ask what brings you here?
+	Galen: I'm looking for something. I've heard that there was someone who could help turning people back to normal.
+	OldMan: Oh! You are looking for Eamon. 
+	Galen: Do you know where I can find this 'Eamon'.
+	Eamon: Well, I am he. 
+	Galen: Oh. I need you help. My wife has been turned into a shadow statue, and I need her back.
+	Galen: Please tell me you can help. 
+	Eamon: I can. But first I need your help. 
+	Galen: What is it?
+	Eamon: Well, the shadows run deep and strong in this place. There are two creatures who walk free. 
+	Eamon: One is in the Ghoul's swamps and the other in the Tribal Forest. They are interrupting some of my abilities.
+	Eamon: Get rid of them for me, then I will be able to help your wife. 
+	Galen: What's the catch? 
+	Eamon: The are very strong and very dangerous. You might not survive in these swamps. If you die, well, you die!
+	Eamon: Unless, you are willing to give me something of you. A little bit of your essence. I could revive you here if you happen to fall. 
+	Eamon: what do you say?
+
+	- Give
+		Eamon: Alright! [do emit("fx_chromatic_aberration", 0.05, 5)] You are part of me now. [do Globals.soul_given = true]
+	- Do not give
+		Eamon: Shame. I hope you know what you are doing. [do Globals.soul_given = false]
+
+	Eamon: You probably should go get those creatures if you want your wife back.[do emit("dialogue_finished")]
+else:
+	if Globals.boss_killed < 2:
+		if Globals.boss_killed >1 && Globals.boss_killed<2:
+			Eamon: Only [do emit("dialogue_started")] more to defeat. I can already feel the magic coming back. [do emit("dialogue_finished")]
+		else:
+			Eamon: Kill [do emit("dialogue_started")] the creatures first, then we can talk about bringing your wife back. [do emit("dialogue_finished")]
+	else: 
+		Eamon: You [do emit("dialogue_started")] have done well. Then let's get your wife, shall we?
+		Eamon: Come with me...
+		- Yes, Let's go. 
+			Eamon: Let's go. [do emit("start_final_boss")]
+		- Give me a minute. 
+			Eamon: Come see me when you're ready. [do emit("dialogue_finished")]
+=> END
+
+
+~ two_boss_killed
+Eamon: Ah [do emit("dialogue_started")]yes! I can feel the power of Alchemy coming back to me. The power of the shadows! 
+Galen: What?
+Eamon: Yes... I am a member of the Order of The Eclipse. The most powerful alchemists of Avalon. 
+Eamon: And you my dear Galen, just revive the order. Some of us thought it was a bad idea to release the Shadows in the world. 
+Eamon: So they created these guardians. To keep the powers away. 
+Eamon: But there were other, more ambitious, whom I led, wanting to control the shadows. I needed the guardians dead. A essence of a grieving person. 
+Eamon: You, Galen. You were the key to everything. Now, I have ultimate power. Witness the power of the Shadows Galen. [do emit("dialogue_finished")]
+
+=> END
+
+~ Final_boss_phase_two
+Eamon: You[do emit("dialogue_started")]... Can't ... Defeat... Me!!!
+Eamon: You wanted your wife... HERE SHE IS!!! [do emit("show_elena")]
+Eamon: Here she is in the whole glory of the shadows![do emit("dialogue_finished")]
+=> END
+
+~ Final_boss_scene
+Eamon: You [do emit("dialogue_started")]... Can't... 
+Galen: You said you could bring my wife back. Instead you lied.
+Galen: It's because of people like you that the world is in this state. Greedy for power they don't understand. 
+Galen: Now you die, like you are supposed to. [do emit("dialogue_finished")]
+=> END
+
+~ Final_scene
+Galen: Elena... My beloved. I miss you. I'm sorry I could not protect you. 
+Galen: I'm sorry I could not bring you back. 
+Elena: *whispers* It's okay. You freed me from the Shadows.
+Galen: Elena? How?
+Elena: *whispers* So many people are still trap in this shadow state. But you freed me. My mighty warrior.
+Elena: *whispers* I love you Galen.
+Galen: I love you... Elena.[do emit("dialogue_finished")]
+=> END
+
+##### NOTES
+
+~ Note1  
+Note: Initial [do emit("dialogue_started")] experiments in shadow alchemy show promise.  
+Note: The dark essence is surprisingly malleable and can be shaped with concentrated alchemical energy.  
+Note: We hypothesize that, with further refinement, this could be harnessed for significantly more powerful applications. [do emit("dialogue_finished")]
+=> END
+
+~ Note2  
+Note: We [do emit("dialogue_started")] have successfully created an orb of pure darkness by channeling bursts of alchemical energy into shadow essence.  
+Note: The orb’s reactions are volatile yet controlled, marking a small but significant breakthrough in our studies. [do emit("dialogue_finished")]
+=> END
+
+~ Note3  
+Note: Isolated [do emit("dialogue_started")] a fragment of shadow essence today.  
+Note: It displayed aggressive behavior when exposed to light, suggesting it possesses a form of sentience.  
+Note: This discovery necessitates the development of stronger containment protocols. [do emit("dialogue_finished")]
+=> END
+
+~ Note4  
+Note: The [do emit("dialogue_started")] Obsidian Hand leadership has given the green light for continued research.  
+Note: The potential military applications of shadow-based weaponry are vast and could give us a definitive edge in overthrowing the government. [do emit("dialogue_finished")]
+=> END
+
+~ Note5  
+Note: A [do emit("dialogue_started")] test subject showed severe adverse effects after prolonged exposure to shadow essence.  
+Note: His skin darkened and cracked like brittle stone.  
+Note: Immediate steps must be taken to improve our safety measures. [do emit("dialogue_finished")]
+=> END
+
+~ Note6  
+Note: We [do emit("dialogue_started")] have successfully opened a small rift to what appears to be a shadow realm.  
+Note: The energy readings are unprecedented, and we must conduct further exploration to understand the full potential of this discovery. [do emit("dialogue_finished")]
+=> END
+
+~ Note7  
+Note: Shadow [do emit("dialogue_started")] creatures have begun to emerge from the rift.  
+Note: These entities are both vicious and intelligent, resulting in the loss of two researchers today.  
+Note: Extreme caution is now a priority in our ongoing investigations. [do emit("dialogue_finished")]
+=> END
+
+~ Note8  
+Note: We’ve [do emit("dialogue_started")] started experimenting with binding spells in an attempt to control the shadow creatures.  
+Note: Early trials are yielding mixed results, but there is promise in our approach. [do emit("dialogue_finished")]
+=> END
+
+~ Note9  
+Note: Today [do emit("dialogue_started")] we managed to control a shadow beast for a brief period using a binding spell.  
+Note: Though the control is unstable, it marks a significant step forward in our ability to harness these entities. [do emit("dialogue_finished")]
+=> END
+
+~ Note10  
+Note: There [do emit("dialogue_started")] are alarming signs of corruption among our lower ranks.  
+Note: Extended exposure to shadow essence seems to be affecting their mental stability, leading to erratic and dangerous behavior. [do emit("dialogue_finished")]
+=> END
+
+~ Note11  
+Note: The [do emit("dialogue_started")] push for weaponization has led to the creation of a prototype bomb infused with shadow essence.  
+Note: This device emits a potent darkness capable of overwhelming conventional light-based defenses. [do emit("dialogue_finished")]
+=> END
+
+~ Note12  
+Note: Attempts [do emit("dialogue_started")] to merge shadow essence with traditional alchemical compounds resulted in a catastrophic explosion, decimating half of our lab.  
+Note: This incident underscores the need for more controlled testing environments. [do emit("dialogue_finished")]
+=> END
+
+~ Note13  
+Note: The [do emit("dialogue_started")] rift to Elin'kor is becoming increasingly unstable.  
+Note: We've anchored it with powerful alchemical wards, but maintaining these defenses is draining our resources at an unsustainable rate. [do emit("dialogue_finished")]
+=> END
+
+~ Note14  
+Note: A [do emit("dialogue_started")] major breakthrough today: we’ve found a method to stabilize shadow essence within a containment orb.  
+Note: This could be the key to safely managing larger quantities of the substance for our experiments. [do emit("dialogue_finished")]
+=> END
+
+~ Note15  
+Note: Field [do emit("dialogue_started")] testing the containment orb in a populated area ended disastrously.  
+Note: The essence escaped, corrupting everything it touched and spreading panic among the citizens.  
+Note: The situation is dire. [do emit("dialogue_finished")]
+=> END
+
+~ Note16  
+Note: There [do emit("dialogue_started")] is growing dissent among our ranks.  
+Note: Many believe we are meddling with forces beyond our control, yet our leadership remains committed to the path we’ve chosen.  
+Note: The stakes are higher than ever. [do emit("dialogue_finished")]
+=> END
+
+~ Note17  
+Note: Project [do emit("dialogue_started")] Obsidian Dawn has been initiated as our final attempt to control the power of Elin'kor.  
+Note: The risks are astronomical, but so are the potential rewards if we succeed in harnessing this dark force. [do emit("dialogue_finished")]
+=> END
+
+~ Note18  
+Note: The [do emit("dialogue_started")] rift has nearly become uncontrollable.  
+Note: Shadow creatures are flooding through at an alarming rate.  
+Note: All available resources are being deployed in a desperate attempt to contain this invasion. [do emit("dialogue_finished")]
+=> END
+
+~ Note19  
+Note: A [do emit("dialogue_started")] massive blast of shadow magic has engulfed Avalor.  
+Note: Casualties are extensive, and the city is littered with shadow statues.  
+Note: We have potentially doomed the entire city with our hubris. [do emit("dialogue_finished")]
+=> END
+
+~ Note20  
+Note: This [do emit("dialogue_started")] is likely my final entry.  
+Note: The Obsidian Hand has failed, and Avalor is lost to the darkness we unleashed.  
+Note: Let this serve as a somber warning to future generations: some powers should remain untouched. [do emit("dialogue_finished")]
+=> END

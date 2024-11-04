@@ -69,8 +69,8 @@ func _ready() -> void:
 	## Set the scaled custom cursor icon
 	#Input.set_custom_mouse_cursor(custom_cursor)
 	
-	Events.connect("shop_open", player_cannot_control)
-	Events.connect("shop_done", player_can_control)
+	Events.connect("in_interaction", player_cannot_control)
+	Events.connect("out_interaction", player_can_control)
 	
 	if start_shoot: 
 		gun.attack_timer.start()
@@ -96,10 +96,12 @@ func _ready() -> void:
 
 func player_can_control():
 	can_control = true
+	HUD.show()
 
 func player_cannot_control():
 	can_control = false
-
+	HUD.hide()
+	velocity = Vector3.ZERO
 
 func _input(event: InputEvent) -> void:
 	if can_control:
