@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CameraStep" load_steps=2 format=3 uid="uid://d2kkm0od7cuyj"]
+
+[ext_resource type="Script" path="res://addons/cutscene_system/resources/steps/camera_step.gd" id="1_3folp"]
+
+[resource]
+script = ExtResource("1_3folp")
+camera_name = &"Shop_camera"
+priority = 10
+resets = false
+step_name = "Shop_camera"
+wait_for_completion = true

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Cutscene" load_steps=5 format=3 uid="uid://utyq01dtwvog"]
+
+[ext_resource type="Script" path="res://addons/cutscene_system/resources/cutscene.gd" id="1_yx88e"]
+[ext_resource type="Script" path="res://addons/cutscene_system/resources/steps/cutscene_step.gd" id="2_nuyiw"]
+[ext_resource type="Resource" uid="uid://d2kkm0od7cuyj" path="res://Scripts/Cutscene_Resources/Shopkeeper/camera_shop.tres" id="3_p0x4f"]
+[ext_resource type="Resource" uid="uid://dprk1720ac068" path="res://Scripts/Cutscene_Resources/Shopkeeper/dialogue_shop.tres" id="4_l8xyy"]
+
+[resource]
+script = ExtResource("1_yx88e")
+cutscene_name = "Interaction_Shop"
+auto_start = false
+steps = Array[ExtResource("2_nuyiw")]([ExtResource("3_p0x4f"), ExtResource("4_l8xyy")])

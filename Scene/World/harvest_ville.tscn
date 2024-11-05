@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmatsrmmogt1w"]
+
+[ext_resource type="MeshLibrary" uid="uid://bhyah837x5vq" path="res://Scene/MeshLibrary/Kaykit_Halloween.tres" id="1_dw7es"]
+
+[node name="HarvestVille" type="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_dw7es")

@@ -17,9 +17,9 @@ var initial_camera_rotation: Vector3
 var tween: Tween
 var tween_duration: float = 0.9
 
-
+@export var cutscene_res: Cutscene
 func _ready() -> void:
-	interaction_area.interact = Callable(self, "start_diagloue")
+	interaction_area.interact = Callable(self, "start_dialogue")
 	
 	Events.connect("shop_done", shop_end)
 	#Events.connect("shop_open", shop_open)
@@ -33,11 +33,9 @@ func shop_open(resource) -> void:
 		area_pcam.set_priority(0)
 		Events.out_interaction.emit()
 
-func start_diagloue():
-	area_pcam.set_priority(20)
-	await area_pcam.tween_completed
-	dialogue_shop(dialogue_to_start)
-
+func start_dialogue(): 
+	print_debug("Starting cutscene!")
+	CutsceneManager.play_cutscene(cutscene_res)
 
 func dialogue_shop(_dialogue_to_start):
 	var balloon_scene = load("res://Dialogues/balloon.tscn")

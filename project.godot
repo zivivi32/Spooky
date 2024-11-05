@@ -31,6 +31,7 @@ DamageNumbers="*res://Scripts/Globals/Damage_Numbers.gd"
 InteractionManager="*res://Scene/Interaction/interaction_manager.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 GlobalVariables="*res://Scripts/Globals/Global_variables.gd"
+CutsceneManager="*res://addons/cutscene_system/autoload/cutscene_manager.gd"
 
 [dialogue_manager]
 
@@ -53,6 +54,9 @@ world=""
 player=""
 navigation_region=""
 Enemy=""
+phantom_camera=""
+animation_player=""
+animation_tree=""
 
 [gui]
 
