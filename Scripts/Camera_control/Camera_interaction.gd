@@ -34,6 +34,7 @@ func shop_open(resource) -> void:
 		Events.out_interaction.emit()
 
 func start_dialogue(): 
+	print_debug("Starting cutscene!")
 	CutsceneManager.play_cutscene(cutscene_res)
 
 func dialogue_shop(_dialogue_to_start):
