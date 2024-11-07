@@ -1,10 +1,10 @@
 [gd_resource type="Theme" load_steps=14 format=3 uid="uid://blnqmh4sv6jyk"]
 
 [ext_resource type="FontFile" uid="uid://s5twypuokr5e" path="res://Assets/Fonts/Silvertones.ttf" id="1_eh4n8"]
-[ext_resource type="Texture2D" uid="uid://c104edld8b8s1" path="res://Assets/Kenney_UI/Default/panel_border_grey.png" id="2_6xuxg"]
-[ext_resource type="Texture2D" uid="uid://daphrilo47icy" path="res://Assets/Kenney_UI/Default/banner_modern.png" id="3_v022q"]
-[ext_resource type="Texture2D" uid="uid://cqjvg4j85qosn" path="res://Assets/Kenney_UI/Default/progress_blue_border.png" id="4_ypjhq"]
-[ext_resource type="Texture2D" uid="uid://bw125pcku3tby" path="res://Assets/Kenney_UI/Default/progress_red.png" id="5_crpqs"]
+[ext_resource type="Texture2D" uid="uid://c104edld8b8s1" path="res://Assets_Imported/Kenney_UI/Default/panel_border_grey.png" id="2_6xuxg"]
+[ext_resource type="Texture2D" uid="uid://daphrilo47icy" path="res://Assets_Imported/Kenney_UI/Default/banner_modern.png" id="3_v022q"]
+[ext_resource type="Texture2D" uid="uid://cqjvg4j85qosn" path="res://Assets_Imported/Kenney_UI/Default/progress_blue_border.png" id="4_ypjhq"]
+[ext_resource type="Texture2D" uid="uid://bw125pcku3tby" path="res://Assets_Imported/Kenney_UI/Default/progress_red.png" id="5_crpqs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvbqs"]
 corner_radius_top_left = 5

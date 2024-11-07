@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://drk8vyippefsq"]
 
 [ext_resource type="Script" path="res://Scene/UI_Items/hub_shop.gd" id="1_1nvjx"]
-[ext_resource type="Texture2D" uid="uid://oyuajsudnsf" path="res://Assets/Kenney-preview/character-skeleton.png" id="1_uqbep"]
+[ext_resource type="Texture2D" uid="uid://oyuajsudnsf" path="res://Assets_Imported/Kenney-preview/character-skeleton.png" id="1_uqbep"]
 [ext_resource type="Script" path="res://Scripts/Tools/UiNavigationSetup.gd" id="2_qek2f"]
 [ext_resource type="Script" path="res://Scene/upgrades/upgrades_items/increase_health.gd" id="3_qh54l"]
 [ext_resource type="Texture2D" uid="uid://daicr80aenavt" path="res://Assets/Icons/health-increase.png" id="4_jx10p"]

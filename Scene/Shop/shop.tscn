@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=4 uid="uid://b2i4hhofq6s54"]
 
 [ext_resource type="Script" path="res://Scripts/Camera_control/Camera_interaction.gd" id="1_uysq1"]
-[ext_resource type="Texture2D" uid="uid://bfboa0p7spwm5" path="res://Assets/Synty_Farm_Characters/Textures/PolygonFarm_Texture_01_A.png" id="2_5sx81"]
+[ext_resource type="Texture2D" uid="uid://bfboa0p7spwm5" path="res://Assets/Characters/Synty_Farm/Textures/PolygonFarm_Texture_01_A.png" id="2_5sx81"]
 [ext_resource type="PackedScene" uid="uid://drk8vyippefsq" path="res://Scene/UI_Items/Hub_Shop.tscn" id="2_22c4f"]
 [ext_resource type="Resource" uid="uid://bj0ig47jfcplg" path="res://Dialogues/shop_dialogue.dialogue" id="2_j6a2g"]
 [ext_resource type="AnimationLibrary" uid="uid://may6cx8jpw7e" path="res://Assets/Mixamo_Animations/Dwarf_Idle.fbx" id="3_h0hmt"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://ddjouhm76gjbx"]
 
-[ext_resource type="PackedScene" uid="uid://1e45y3wup8c4" path="res://assets/dummy/dummy.glb" id="1_rr1a5"]
+[ext_resource type="PackedScene" uid="uid://1e45y3wup8c4" path="res://Assets/Fireball_assets/dummy/dummy.glb" id="1_rr1a5"]
 [ext_resource type="Script" path="res://assets/dummy/dummy_skin.gd" id="1_uvklm"]
-[ext_resource type="Material" uid="uid://je1p01igsoee" path="res://assets/dummy/dummy_mat.tres" id="3_wu7ut"]
+[ext_resource type="Material" uid="uid://je1p01igsoee" path="res://Assets/Fireball_assets/dummy/dummy_mat.tres" id="3_wu7ut"]
 
 [sub_resource type="Animation" id="Animation_llrr7"]
 resource_name = "idle"

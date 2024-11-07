@@ -1,0 +1,106 @@
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://cbrul6erswqkf"]
+
+[ext_resource type="Texture2D" uid="uid://ce21xla7atdkf" path="res://addons/kenney_particle_pack/smoke_05.png" id="1_18t2e"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_sy44q"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_kuinj"]
+texture = ExtResource("1_18t2e")
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_v77hl"]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_b14xu"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_atoc1"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ckk4l"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_ljms8"]
+billboard_type = 3
+keep_scale = true
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_4;
+
+
+
+void vertex() {
+	mat4 n_out2p0;
+// GetBillboardMatrix:2
+	{
+		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
+		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		n_out2p0 = VIEW_MATRIX * __wm;
+	}
+
+
+// Output:0
+	MODELVIEW_MATRIX = n_out2p0;
+
+
+}
+
+void fragment() {
+// Input:8
+	vec4 n_out8p0 = COLOR;
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, UV);
+
+
+// VectorOp:3
+	vec4 n_out3p0 = n_out8p0 * n_out4p0;
+
+
+// VectorDecompose:6
+	float n_out6p0 = n_out8p0.x;
+	float n_out6p1 = n_out8p0.y;
+	float n_out6p2 = n_out8p0.z;
+	float n_out6p3 = n_out8p0.w;
+
+
+// VectorDecompose:5
+	float n_out5p0 = vec3(n_out4p0.xyz).x;
+	float n_out5p1 = vec3(n_out4p0.xyz).y;
+	float n_out5p2 = vec3(n_out4p0.xyz).z;
+
+
+// FloatOp:7
+	float n_out7p0 = n_out6p3 * n_out5p0;
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	ALPHA = n_out7p0;
+
+
+}
+"
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_ljms8")
+nodes/vertex/2/position = Vector2(40, 360)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorOp_sy44q")
+nodes/fragment/3/position = Vector2(-80, 280)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_kuinj")
+nodes/fragment/4/position = Vector2(-440, 360)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorDecompose_v77hl")
+nodes/fragment/5/position = Vector2(-116.051, 644.811)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorDecompose_b14xu")
+nodes/fragment/6/position = Vector2(-520, 60)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_atoc1")
+nodes/fragment/7/position = Vector2(120, 600)
+nodes/fragment/8/node = SubResource("VisualShaderNodeInput_ckk4l")
+nodes/fragment/8/position = Vector2(-940, 180)
+nodes/fragment/connections = PackedInt32Array(4, 0, 3, 1, 4, 0, 5, 0, 3, 0, 0, 0, 7, 0, 0, 1, 5, 0, 7, 1, 6, 3, 7, 0, 8, 0, 6, 0, 8, 0, 3, 0)

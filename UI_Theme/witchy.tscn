@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bv28ladvpb1qj"]
 
-[ext_resource type="PackedScene" uid="uid://bciiprktdqt3p" path="res://Assets/Kaykit_Characters/Witch/fbx/character_witch.fbx" id="1_bjexa"]
+[ext_resource type="PackedScene" uid="uid://bciiprktdqt3p" path="res://Assets_Imported/Kaykit_Characters/Witch/fbx/character_witch.fbx" id="1_bjexa"]
 
 [node name="SubViewportContainer" type="SubViewportContainer"]
 offset_right = 512.0

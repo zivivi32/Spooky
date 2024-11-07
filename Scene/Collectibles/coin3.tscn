@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Scripts/Animation_code/sine_animation.gd" id="2_fhwuq"]
 [ext_resource type="Shader" uid="uid://bxmtjd6qdj51r" path="res://Shaders/simple_impact_shader.tres.res" id="3_5d7o2"]
 [ext_resource type="Texture2D" uid="uid://rkas75mhekqv" path="res://addons/kenney_particle_pack/magic_05.png" id="4_7vjwc"]
-[ext_resource type="PackedScene" uid="uid://daiowjyop63yg" path="res://Assets/Kaykit_Halloween/candycorn.gltf" id="5_0hdtg"]
-[ext_resource type="Texture2D" uid="uid://dgepnrbwqj1o6" path="res://Assets/Kaykit_Halloween/halloweenbits_texture.png" id="5_qxqaj"]
+[ext_resource type="PackedScene" uid="uid://daiowjyop63yg" path="res://Assets/Mesh_Libraries_asset/Kaykit_Halloween/candycorn.gltf" id="5_0hdtg"]
+[ext_resource type="Texture2D" uid="uid://dgepnrbwqj1o6" path="res://Assets/Mesh_Libraries_asset/Kaykit_Halloween/halloweenbits_texture.png" id="5_qxqaj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yfnmc"]
 render_priority = 0

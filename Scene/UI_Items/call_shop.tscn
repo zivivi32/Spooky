@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://v6oqv05kgcx6"]
+[gd_scene load_steps=7 format=3 uid="uid://v6oqv05kgcx6"]
 
 [ext_resource type="Script" path="res://Scene/UI_Items/call_shop.gd" id="1_h1qeq"]
 [ext_resource type="PackedScene" uid="uid://dxgl86ghjo0nv" path="res://Scene/UI_Items/shop.tscn" id="2_m7asc"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/base/scripts/ui_sound_controller.gd" id="2_nnet8"]
-[ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets/Sound/SFX/UI/pluck_002.ogg" id="3_4n6ht"]
-[ext_resource type="AudioStream" uid="uid://6rw3c07kgh83" path="res://Assets/Sound/SFX/UI/Select DigiBubbles B.ogg" id="4_5ovrn"]
+[ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets_Imported/Sound/SFX/UI/pluck_002.ogg" id="3_4n6ht"]
+[ext_resource type="AudioStream" uid="uid://6rw3c07kgh83" path="res://Assets_Imported/Sound/SFX/UI/Select DigiBubbles B.ogg" id="4_5ovrn"]
+[ext_resource type="Script" path="res://Scripts/Tools/UiNavigationSetup.gd" id="6_xf67p"]
 
 [node name="CallShop" type="CanvasLayer" node_paths=PackedStringArray("shop", "message_box")]
 process_mode = 3
@@ -41,6 +42,12 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="UINavigationSetup" type="Node" parent="Call" node_paths=PackedStringArray("default_focus_button", "parent_canvas")]
+script = ExtResource("6_xf67p")
+default_focus_button = NodePath("../PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Yes")
+parent_canvas = NodePath("..")
+auto_focus_first = false
 
 [node name="PanelContainer" type="PanelContainer" parent="Call"]
 layout_mode = 2

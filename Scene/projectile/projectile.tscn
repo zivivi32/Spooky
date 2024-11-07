@@ -9,14 +9,14 @@
 offsets = PackedFloat32Array(0.285714, 0.989796)
 colors = PackedColorArray(0.960784, 0.475368, 0.0470588, 1, 1, 0.65625, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_w15m4"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_83fx2"]
 gradient = SubResource("Gradient_phdbe")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6b4bg"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ufde6"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wfsjy"]
 seamless = true
 noise = SubResource("FastNoiseLite_6b4bg")
 
@@ -24,20 +24,20 @@ noise = SubResource("FastNoiseLite_6b4bg")
 render_priority = 0
 shader = ExtResource("3_frcs6")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_ufde6")
-shader_parameter/gradient_sampler = SubResource("GradientTexture2D_w15m4")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_wfsjy")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_83fx2")
 
 [sub_resource type="Gradient" id="Gradient_qqi32"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xqq1l"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_403ui"]
 gradient = SubResource("Gradient_qqi32")
 
 [sub_resource type="Curve" id="Curve_ibj21"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_rpkyi"]
+[sub_resource type="CurveTexture" id="CurveTexture_20v7m"]
 curve = SubResource("Curve_ibj21")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vk12e"]
@@ -51,8 +51,8 @@ initial_velocity_max = 2.0
 gravity = Vector3(0, 1, 0)
 scale_min = 2.0
 scale_max = 2.5
-scale_curve = SubResource("CurveTexture_rpkyi")
-color_ramp = SubResource("GradientTexture1D_xqq1l")
+scale_curve = SubResource("CurveTexture_20v7m")
+color_ramp = SubResource("GradientTexture1D_403ui")
 anim_speed_min = 0.1
 anim_speed_max = 0.1
 anim_offset_max = 1.0

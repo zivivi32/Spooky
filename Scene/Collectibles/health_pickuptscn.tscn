@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scene/Collectibles/health_pickuptscn.gd" id="1_fitkx"]
 [ext_resource type="Script" path="res://Scripts/Animation_code/sine_animation.gd" id="2_5fqsl"]
-[ext_resource type="AudioStream" uid="uid://curbfixw0v8mk" path="res://Assets/Sound/SFX/SFX/Stimpack 003.ogg" id="2_duwch"]
+[ext_resource type="AudioStream" uid="uid://curbfixw0v8mk" path="res://Assets_Imported/Sound/SFX/SFX/Stimpack 003.ogg" id="2_duwch"]
 [ext_resource type="Shader" uid="uid://bxmtjd6qdj51r" path="res://Shaders/simple_impact_shader.tres.res" id="3_4pyje"]
 [ext_resource type="Texture2D" uid="uid://rkas75mhekqv" path="res://addons/kenney_particle_pack/magic_05.png" id="4_ag4r4"]
 

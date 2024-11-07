@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://cy18eguqs4edy"]
 
-[ext_resource type="Texture2D" uid="uid://bfboa0p7spwm5" path="res://Assets/Synty_Farm_Characters/Textures/PolygonFarm_Texture_01_A.png" id="1_m6x8g"]
+[ext_resource type="Texture2D" uid="uid://bfboa0p7spwm5" path="res://Assets/Characters/Synty_Farm/Textures/PolygonFarm_Texture_01_A.png" id="1_m6x8g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jx7d"]
 resource_name = "lambert4"

@@ -4,14 +4,14 @@
 [ext_resource type="MeshLibrary" uid="uid://bhyah837x5vq" path="res://Scene/MeshLibrary/Kaykit_Halloween.tres" id="1_845d7"]
 [ext_resource type="Script" path="res://Scene/main_bg.gd" id="1_ouiur"]
 [ext_resource type="MeshLibrary" uid="uid://bm1vpx44ideej" path="res://Scene/MeshLibrary/Kenney_Graveyard.tres" id="2_svarf"]
-[ext_resource type="Texture2D" uid="uid://bchqbsyvgy4ta" path="res://Assets/KenneyMiniCharacters/Textures/colormap.png" id="3_lut61"]
+[ext_resource type="Texture2D" uid="uid://bchqbsyvgy4ta" path="res://Assets_Imported/KenneyMiniCharacters/Textures/colormap.png" id="3_lut61"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="4_isyej"]
 [ext_resource type="Shader" path="res://Shaders/outline_shader.gdshader" id="5_k2u13"]
 [ext_resource type="PackedScene" uid="uid://cq8au55vnfwdt" path="res://Scene/Health_bar/health_bar.tscn" id="6_rd0s3"]
 [ext_resource type="PackedScene" uid="uid://uynrjvje41hx" path="res://Scene/UI_Items/UI_Ability.tscn" id="7_sar6u"]
-[ext_resource type="Texture2D" uid="uid://dwx3r4isv4pa4" path="res://Assets/Kenney-preview/pumpkin-tall-carved.png" id="8_qm54m"]
-[ext_resource type="Texture2D" uid="uid://dius5a470ps5r" path="res://Assets/Kenney-preview/character-digger.png" id="9_vu7xg"]
-[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets/Sound/Music/Menu.ogg" id="11_edkms"]
+[ext_resource type="Texture2D" uid="uid://dwx3r4isv4pa4" path="res://Assets_Imported/Kenney-preview/pumpkin-tall-carved.png" id="8_qm54m"]
+[ext_resource type="Texture2D" uid="uid://dius5a470ps5r" path="res://Assets_Imported/Kenney-preview/character-digger.png" id="9_vu7xg"]
+[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets_Imported/Sound/Music/Menu.ogg" id="11_edkms"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o242l"]
 render_priority = 0

@@ -9,14 +9,14 @@
 offsets = PackedFloat32Array(0, 0.826531)
 colors = PackedColorArray(0.335938, 1, 0, 1, 1, 0.654902, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_32q6e"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y1qkl"]
 gradient = SubResource("Gradient_huy2e")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_g8wr4"]
 noise_type = 2
 fractal_octaves = 1
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2uhco"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b8klh"]
 seamless = true
 noise = SubResource("FastNoiseLite_g8wr4")
 
@@ -26,8 +26,8 @@ render_priority = 0
 shader = ExtResource("2_4yb23")
 shader_parameter/def_x = 0.0
 shader_parameter/def_z = 0.0
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_2uhco")
-shader_parameter/gradient_sampler = SubResource("GradientTexture2D_32q6e")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_b8klh")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_y1qkl")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vjsai"]
 _surfaces = [{

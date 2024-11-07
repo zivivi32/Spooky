@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_ymjgf"]
 [ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="10_ha3uf"]
 [ext_resource type="PackedScene" uid="uid://b2i4hhofq6s54" path="res://Scene/Shop/shop.tscn" id="12_g2qn1"]
-[ext_resource type="AudioStream" uid="uid://csuvxktop0yin" path="res://Assets/Sound/Music/Countdown to Myocardial Infarction.ogg" id="12_m2wmy"]
+[ext_resource type="AudioStream" uid="uid://csuvxktop0yin" path="res://Assets_Imported/Sound/Music/Countdown to Myocardial Infarction.ogg" id="12_m2wmy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
 vertices = PackedVector3Array(-14, 0.481918, -14, -14, 0.481918, 14, 14, 0.481918, 14, 14, 0.481918, -14)
