@@ -62,6 +62,8 @@ var input: Vector3
 var can_control: bool = true
 var custom_cursor = preload("res://Assets/Cursor/target_round_big.png")
 
+var camera_angle : float = 45
+
 func _ready() -> void:
 	## Capture and hide the mouse pointer
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
@@ -183,7 +185,7 @@ func interaction(control: bool):
 	
 func to_isometric(motion_3d):
 	# Rotate the input vector to match the camera's orientation
-	motion_3d = motion_3d.rotated(Vector3(0, 1, 0), deg_to_rad(45.0))
+	motion_3d = motion_3d.rotated(Vector3(0, 1, 0), deg_to_rad(camera_angle))
 	return motion_3d
 
 # Keep your original movement code unchanged

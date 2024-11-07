@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://bax3vyxmj0jjq"]
+
+[ext_resource type="Script" path="res://Scene/Camera_movement/cinematic_camera.gd" id="1_8qjui"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="1_mfg06"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_4ewd5"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="3_xt6nw"]
+
+[sub_resource type="Resource" id="Resource_vb00m"]
+script = ExtResource("2_4ewd5")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_kv0dt"]
+script = ExtResource("3_xt6nw")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_naku7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wkdk5"]
+size = Vector3(7.72504, 3.06934, 7.80591)
+
+[node name="Cinematic_Camera" type="Node3D"]
+script = ExtResource("1_8qjui")
+
+[node name="PhantomCamera3D2" type="Node3D" parent="."]
+transform = Transform3D(-0.706795, -0.303023, 0.639233, -0.00637361, 0.906304, 0.422579, -0.70739, 0.294602, -0.642502, 5.39831, 9.67471, -44.0761)
+script = ExtResource("1_mfg06")
+priority = 20
+tween_resource = SubResource("Resource_vb00m")
+camera_3d_resource = SubResource("Resource_kv0dt")
+attributes = SubResource("CameraAttributesPhysical_naku7")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_wkdk5")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

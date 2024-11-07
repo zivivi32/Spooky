@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://uynrjvje41hx"]
+[gd_scene load_steps=6 format=3 uid="uid://uynrjvje41hx"]
 
 [ext_resource type="Script" path="res://Scene/UI_Items/ui_ability.gd" id="1_yncxy"]
+[ext_resource type="Texture2D" uid="uid://sdoowuc50ncx" path="res://Assets/Kenney-preview/pumpkin-carved.png" id="2_i34e0"]
 [ext_resource type="Texture2D" uid="uid://cuig7r6cffrej" path="res://Assets/Kenney_UI/Default/panel_border_brown.png" id="2_xg8ij"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mr03v"]
@@ -39,6 +40,7 @@ theme_override_constants/margin_bottom = 12
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
 layout_mode = 2
+texture = ExtResource("2_i34e0")
 
 [node name="bg_panel" type="Panel" parent="."]
 layout_mode = 2
