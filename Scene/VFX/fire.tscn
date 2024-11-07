@@ -1,31 +1,32 @@
-[gd_scene load_steps=20 format=4 uid="uid://bj3p7wbwvb5s2"]
+[gd_scene load_steps=29 format=4 uid="uid://bj3p7wbwvb5s2"]
 
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="2_pudyp"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_shell.gdshader" id="5_f3iss"]
 
-[sub_resource type="Gradient" id="Gradient_nr7nn"]
+[sub_resource type="Gradient" id="Gradient_4acj5"]
 offsets = PackedFloat32Array(0, 0.826531)
-colors = PackedColorArray(1, 0.304688, 0, 1, 1, 0.654902, 0, 1)
+colors = PackedColorArray(0.71875, 0.218994, 0, 1, 0.894531, 0.524139, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ni4lu"]
-gradient = SubResource("Gradient_nr7nn")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xei8i"]
+gradient = SubResource("Gradient_4acj5")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0ogq2"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_shv0y"]
 noise_type = 2
-fractal_octaves = 1
+frequency = 0.0086
+fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fvby1"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d560f"]
 seamless = true
-noise = SubResource("FastNoiseLite_0ogq2")
+noise = SubResource("FastNoiseLite_shv0y")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdf54"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_osclw"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_f3iss")
 shader_parameter/def_x = 0.0
 shader_parameter/def_z = 0.0
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_fvby1")
-shader_parameter/gradient_sampler = SubResource("GradientTexture2D_ni4lu")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_d560f")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_xei8i")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_8hlkr"]
 _surfaces = [{
@@ -42,15 +43,12 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="Gradient" id="Gradient_cieml"]
-offsets = PackedFloat32Array(0.27957, 0.989796)
-colors = PackedColorArray(0.484375, 0.484375, 0.484375, 1, 0.707031, 0.668365, 0.668365, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_o13iu"]
-gradient = SubResource("Gradient_cieml")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tw1f3"]
+gradient = SubResource("Gradient_4acj5")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lftjn"]
 noise_type = 2
+frequency = 0.0163
 fractal_octaves = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1dp5q"]
@@ -62,7 +60,7 @@ render_priority = 0
 shader = ExtResource("2_pudyp")
 shader_parameter/uv_scale = 0.3
 shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_1dp5q")
-shader_parameter/gradient_sampler = SubResource("GradientTexture2D_o13iu")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_tw1f3")
 
 [sub_resource type="Gradient" id="Gradient_preps"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -81,32 +79,87 @@ curve = SubResource("Curve_kqdwj")
 lifetime_randomness = 0.4
 emission_shape = 1
 emission_sphere_radius = 0.15
-direction = Vector3(0, 2, -1)
+direction = Vector3(0, 2, 0)
 spread = 20.0
 initial_velocity_min = 1.0
 initial_velocity_max = 2.0
 gravity = Vector3(0, 5, 0)
-scale_min = 3.0
-scale_max = 3.5
+scale_min = 7.0
+scale_max = 7.5
 scale_curve = SubResource("CurveTexture_hs2pr")
 color_ramp = SubResource("GradientTexture1D_uj8pd")
-anim_speed_min = 0.1
-anim_speed_max = 0.1
-anim_offset_max = 1.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_t47v2"]
 size = Vector2(0.5, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_ifgvm"]
+offsets = PackedFloat32Array(0, 0.826531)
+colors = PackedColorArray(0.769531, 0.769531, 0.769531, 1, 0.742188, 0.742188, 0.742188, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_58qog"]
+gradient = SubResource("Gradient_ifgvm")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_x384m"]
+noise_type = 2
+frequency = 0.0192
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h5747"]
+seamless = true
+noise = SubResource("FastNoiseLite_x384m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ep0ux"]
+render_priority = 0
+shader = ExtResource("2_pudyp")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_h5747")
+shader_parameter/gradient_sampler = SubResource("GradientTexture2D_58qog")
+
+[sub_resource type="Gradient" id="Gradient_av36g"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eojqy"]
+gradient = SubResource("Gradient_av36g")
+
+[sub_resource type="Curve" id="Curve_5xnhq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yvhdx"]
+curve = SubResource("Curve_5xnhq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o8en0"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+angle_min = -45.0
+angle_max = 45.0
+direction = Vector3(0, 2, 0)
+spread = 20.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 5, 0)
+scale_min = 6.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_yvhdx")
+color_ramp = SubResource("GradientTexture1D_eojqy")
+
 [node name="Fire" type="Node3D"]
 
 [node name="Enemy_ball" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, -0.4, -3.49691e-08, 0, 3.49691e-08, -0.4, 0, 0.0194645, 0.0414089)
-material_override = SubResource("ShaderMaterial_gdf54")
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_osclw")
 mesh = SubResource("ArrayMesh_8hlkr")
 
 [node name="FireTrail" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999171, 0.0407073, 0, -0.0407073, 0.999171, 0, 0.40034, 0.0690128)
+transform = Transform3D(1, 0, 0, 0, 0.999171, 0.0407073, 0, -0.0407073, 0.999171, 0, 0.92854, 0)
 material_override = SubResource("ShaderMaterial_vos1q")
-amount = 4
 process_material = SubResource("ParticleProcessMaterial_fqu6j")
+draw_pass_1 = SubResource("QuadMesh_t47v2")
+
+[node name="FireTrail2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999171, 0.0407073, 0, -0.0407073, 0.999171, 0, 2.26028, 0)
+material_override = SubResource("ShaderMaterial_ep0ux")
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_o8en0")
 draw_pass_1 = SubResource("QuadMesh_t47v2")

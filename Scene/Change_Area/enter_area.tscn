@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt474qmbygm4d"]
+
+[ext_resource type="PackedScene" uid="uid://b2m4cylggfn53" path="res://Scene/Interaction/interaction_area.tscn" id="1_7uim1"]
+[ext_resource type="Script" path="res://Scene/Change_Area/enter_area.gd" id="1_aint3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uljr2"]
+size = Vector3(3.3186, 3.16455, 7.77527)
+
+[node name="EnterArea" type="Node3D" node_paths=PackedStringArray("interaction_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.5086, 0, -1.45768)
+script = ExtResource("1_aint3")
+interaction_area = NodePath("InteractionArea")
+
+[node name="InteractionArea" parent="." instance=ExtResource("1_7uim1")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4447, 1.08228, -0.635315)
+shape = SubResource("BoxShape3D_uljr2")

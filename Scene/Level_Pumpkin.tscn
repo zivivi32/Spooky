@@ -1154,13 +1154,13 @@ mesh = SubResource("ArrayMesh_l5anm")
 skeleton = NodePath("")
 
 [node name="SM_Bld_Barn_01_Door_02" type="MeshInstance3D" parent="Decorations/SM_Bld_Barn_01/SM_Bld_Barn_01"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83097, -1.16081e-05, -0.945083)
+transform = Transform3D(0.909998, 8.22599e-09, 0.414614, -1.14671e-08, 1, 5.32791e-09, -0.414614, -9.60279e-09, 0.909997, -5.15616, -1.15633e-05, -0.945083)
 material_override = SubResource("StandardMaterial3D_yw1w3")
 mesh = SubResource("ArrayMesh_ev534")
 skeleton = NodePath("")
 
 [node name="SM_Bld_Barn_01_Door_01" type="MeshInstance3D" parent="Decorations/SM_Bld_Barn_01/SM_Bld_Barn_01"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83097, -1.16081e-05, 0.94913)
+transform = Transform3D(0.82086, -1.67891e-08, -0.571129, 1.03381e-08, 1, -1.45378e-08, 0.571129, 6.02915e-09, 0.82086, -5.10426, -1.15633e-05, 0.94913)
 material_override = SubResource("StandardMaterial3D_yw1w3")
 mesh = SubResource("ArrayMesh_bjgs8")
 skeleton = NodePath("")
@@ -1847,38 +1847,14 @@ spawn_time_curve = SubResource("Curve_ffr2r")
 [node name="OmniLight3D4" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.394, 8, -11.967)
 light_color = Color(0.972656, 0.646914, 0.265961, 1)
-light_energy = 5.0
+light_energy = 9.0
 shadow_enabled = true
 omni_range = 15.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.504, 8, -12.049)
 light_color = Color(0.972656, 0.646914, 0.265961, 1)
-light_energy = 7.0
-shadow_enabled = true
-omni_range = 15.0
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4795, 5.17726, 10.5219)
-visible = false
-light_color = Color(0.972656, 0.646914, 0.265961, 1)
-light_energy = 2.0
-shadow_enabled = true
-omni_range = 15.0
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5425, 4.8261, 10.6969)
-visible = false
-light_color = Color(0.972656, 0.646914, 0.265961, 1)
-light_energy = 2.0
-shadow_enabled = true
-omni_range = 15.0
-
-[node name="OmniLight3D5" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00279713, 7.12093, -0.0850892)
-visible = false
-light_color = Color(0.972656, 0.646914, 0.265961, 1)
-light_energy = 2.0
+light_energy = 9.0
 shadow_enabled = true
 omni_range = 15.0
 
@@ -1913,10 +1889,10 @@ movement_curve_x = SubResource("Curve_clrw7")
 movement_curve_z = SubResource("Curve_clrw7")
 
 [node name="Fire" parent="." instance=ExtResource("20_wyltp")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 10.467, 1.5, -12.27)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.467, 1.95617, -12.0566)
 
 [node name="Fire2" parent="." instance=ExtResource("20_wyltp")]
-transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -10.26, 1.5, -11.89)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1979, 1.5, -11.7659)
 
 [connection signal="boss_spawn" from="Enemy_spawn" to="." method="_on_enemy_spawn_boss_spawn"]
 [connection signal="wave_started" from="Enemy_spawn" to="." method="_on_enemy_spawn_wave_started"]
