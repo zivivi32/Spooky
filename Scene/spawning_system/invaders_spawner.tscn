@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wy8suxelswae"]
+
+[ext_resource type="Script" path="res://Scene/spawning_system/invaders_spawner.gd" id="1_m8ovo"]
+
+[node name="Invaders_Spawner" type="Node3D"]
+script = ExtResource("1_m8ovo")

@@ -1,16 +1,15 @@
 [gd_scene load_steps=31 format=3 uid="uid://b33qdb870ijou"]
 
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_7cyyn"]
-[ext_resource type="PackedScene" uid="uid://q6hivk3hm8xn" path="res://Scene/Enemy/enemy_base.tscn" id="2_odpd5"]
-[ext_resource type="PackedScene" uid="uid://c3l10ygdgxhh0" path="res://Scene/spawning_system/enemy_spawn.tscn" id="3_dyo3c"]
-[ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/enemy_melee.tscn" id="4_bl28x"]
-[ext_resource type="PackedScene" uid="uid://hpndn3ok4t3j" path="res://Scene/Difficulty_manager/difficulty_manager.tscn" id="4_ucx3h"]
-[ext_resource type="PackedScene" uid="uid://contpan4e10nt" path="res://Scene/Enemy/enemy_breakdown.tscn" id="5_mynpd"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_0o8vc"]
+[ext_resource type="PackedScene" uid="uid://drroxyebfewpq" path="res://Scene/Enemy/Test_enemy/test_wave_enemy.tscn" id="7_evurg"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_28gmy"]
+[ext_resource type="PackedScene" uid="uid://wy8suxelswae" path="res://Scene/spawning_system/invaders_spawner.tscn" id="8_j771r"]
+[ext_resource type="Script" path="res://Resources/Wave_Data/Wave_data.gd" id="9_1qrq0"]
+[ext_resource type="Script" path="res://Scripts/Tools/start_spawniners_sandbox.gd" id="9_2q2bf"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_ymjgf"]
 [ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="10_ha3uf"]
-[ext_resource type="PackedScene" uid="uid://b2i4hhofq6s54" path="res://Scene/Shop/shop.tscn" id="12_g2qn1"]
+[ext_resource type="Script" path="res://Resources/Wave_Data/EnemyTypeData.gd" id="10_v01h8"]
 [ext_resource type="AudioStream" uid="uid://csuvxktop0yin" path="res://Assets_Imported/Sound/Music/Countdown to Myocardial Infarction.ogg" id="12_m2wmy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
@@ -83,11 +82,6 @@ size = Vector3(100, 0.05, 100)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xyddh"]
 points = PackedVector3Array(50.7837, 0.768651, 50.7837, -50.7837, -0.818651, -50.7837, -50.7837, 0.768651, -50.7837, 50.7837, -0.818651, -50.7837, -50.7837, -0.818651, 50.7837, -50.7837, 0.768651, 50.7837, 50.7837, 0.768651, -50.7837, 50.7837, -0.818651, 50.7837)
 
-[sub_resource type="Curve" id="Curve_ffr2r"]
-min_value = 0.5
-_data = [Vector2(0.00279329, 1), 0.0, -0.501406, 0, 1, Vector2(0.99999, 0.5), -0.501406, 0.0, 1, 0]
-point_count = 2
-
 [sub_resource type="Resource" id="Resource_ygu5n"]
 script = ExtResource("8_28gmy")
 duration = 1.0
@@ -105,6 +99,25 @@ size = 1.0
 frustum_offset = Vector2(0, 0)
 near = 0.05
 far = 4000.0
+
+[sub_resource type="Resource" id="Resource_w1dyp"]
+script = ExtResource("10_v01h8")
+enemy_scene = ExtResource("7_evurg")
+count = 32
+
+[sub_resource type="Resource" id="Resource_2kxbi"]
+script = ExtResource("9_1qrq0")
+enemy_types = Array[ExtResource("10_v01h8")]([SubResource("Resource_w1dyp")])
+formation_width = 15.0
+approach_speed = 2.0
+movement_pattern = 2
+circle_radius = 10.0
+wing_angle = 45.0
+wing_length = 5.0
+x_bound_min = -20.0
+x_bound_max = 5.0
+movement_cycles = 3
+pause_duration = 2.0
 
 [node name="Sandbox" type="Node3D" groups=["world"]]
 
@@ -166,7 +179,6 @@ shape = SubResource("ConvexPolygonShape3D_mek44")
 
 [node name="Player" parent="." instance=ExtResource("1_7cyyn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122039, 1.14384, 3.703)
-start_shoot = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lifd2")
@@ -188,23 +200,6 @@ collision_mask = 4294967295
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
 shape = SubResource("ConvexPolygonShape3D_xyddh")
-
-[node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("3_dyo3c")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-visible = false
-easy_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
-medium_enemies = Array[PackedScene]([ExtResource("2_odpd5")])
-hard_enemies = Array[PackedScene]([ExtResource("5_mynpd")])
-boss_enemies = Array[PackedScene]([ExtResource("4_bl28x")])
-spawn_pos = NodePath("PathFollow3D")
-difficulty_manager = NodePath("Difficulty_manager")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Enemy_spawn"]
-transform = Transform3D(-0.00296785, 0, -0.999989, 0, 1, 0, 0.999989, 0, -0.00296785, -12.9955, 0, -13.1507)
-
-[node name="Difficulty_manager" parent="Enemy_spawn" instance=ExtResource("4_ucx3h")]
-spawn_time_curve = SubResource("Curve_ffr2r")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75004, 4.8261, 11.2536)
@@ -264,5 +259,21 @@ volume_db = 5.0
 autoplay = true
 bus = &"Music"
 
-[node name="Shop" parent="." instance=ExtResource("12_g2qn1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -9)
+[node name="Test_enemy" parent="." instance=ExtResource("7_evurg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.16541, 0.6, 4.31558)
+
+[node name="Invaders_Spawner" parent="." instance=ExtResource("8_j771r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0431, 0, 0.737444)
+spawn_distance = -14.0
+final_distance = 2.0
+loop_movement = true
+waves = Array[ExtResource("9_1qrq0")]([SubResource("Resource_2kxbi")])
+
+[node name="start_spawniners" type="Node3D" parent="." node_paths=PackedStringArray("wave_spawner")]
+script = ExtResource("9_2q2bf")
+wave_spawner = NodePath("../Invaders_Spawner")
+
+[node name="Timer" type="Timer" parent="start_spawniners"]
+wait_time = 3.0
+
+[connection signal="timeout" from="start_spawniners/Timer" to="start_spawniners" method="_on_timer_timeout"]

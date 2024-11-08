@@ -6,7 +6,7 @@
 
 [node name="Prologue" type="CanvasLayer" node_paths=PackedStringArray("level_music")]
 script = ExtResource("1_uwyv1")
-level_scene = "res://Scene/Level1.tscn"
+level_scene = "res://Scene/World/harvest_ville.tscn"
 level_music = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
