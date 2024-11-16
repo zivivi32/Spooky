@@ -3,7 +3,7 @@ extends Area3D
 @export var model_mesh: Node3D
 @export var death_sfx: Array[AudioStream]
 @export var death_particles: GPUParticles3D
-
+@export var damage_on_contact: int = 30
 
 signal destroyed
 func _ready() -> void:
@@ -27,3 +27,8 @@ func death() -> void:
 		await  death_particles.finished
 
 	queue_free()
+
+
+func _on_body_entered(body: Node3D) -> void:
+	if body is Player:
+		body.health.damage(damage_on_contact)

@@ -44,6 +44,11 @@ var spawning_boss: bool = false
 signal wave_started
 signal boss_spawn
 
+
+signal easy_wave_signal
+signal medium_wave_signal
+signal hard_wave_signal
+
 func _ready() -> void:
 	wave_number = 1
 	score = 0
@@ -121,15 +126,18 @@ func pick_enemy_type() -> PackedScene:
 
 	if wave_number <= easy_wave and !easy_enemies.is_empty():
 		# Early waves: Mostly easy enemies
+		easy_wave_signal.emit()
 		return easy_enemies.pick_random()
 	elif wave_number <= medium_wave and !medium_enemies.is_empty():
 		# Mid waves: Higher chance for medium enemies, but still some easy
+		medium_wave_signal.emit()
 		if random_choice < 70:  # 70% chance for easy enemies
 			return easy_enemies.pick_random()
 		else:
 			return medium_enemies.pick_random()  # 30% chance for medium enemies
 	elif wave_number <= hard_wave and !hard_enemies.is_empty():
 		# Later waves: A mix of easy, medium, and hard
+		hard_wave_signal.emit()
 		if random_choice < 50:
 			return easy_enemies.pick_random()  # 50% chance for easy
 		elif random_choice < 80:

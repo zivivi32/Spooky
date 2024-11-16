@@ -9,6 +9,7 @@ func _process(delta):
 	if progress_ratio >= 0.9:
 		restart.emit()
 		progress_ratio = 0.0
+		
 
 func _on_invaders_spawner_wave_completed() -> void:
 	is_wave_comlete = true

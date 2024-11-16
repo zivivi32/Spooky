@@ -360,27 +360,27 @@ albedo_color = Color(0.933594, 0.756721, 0.226105, 1)
 material = SubResource("StandardMaterial3D_8oqrb")
 size = Vector3(0.2, 0.2, 1)
 
-[sub_resource type="Gradient" id="Gradient_6i2em"]
+[sub_resource type="Gradient" id="Gradient_b2u1r"]
 offsets = PackedFloat32Array(0.4, 1)
-colors = PackedColorArray(0.960784, 0.411121, 0.0470588, 1, 1, 0.421875, 0, 1)
+colors = PackedColorArray(0.0470588, 0.489644, 0.960784, 1, 0, 0.789062, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bwog5"]
-gradient = SubResource("Gradient_6i2em")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qighm"]
+gradient = SubResource("Gradient_b2u1r")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_qresn"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a0iht"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ullh5"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k7611"]
 seamless = true
-noise = SubResource("FastNoiseLite_qresn")
+noise = SubResource("FastNoiseLite_a0iht")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c88ta"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wmcf8"]
 render_priority = 0
 shader = ExtResource("15_misyw")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_ullh5")
-shader_parameter/gradient_sampler = SubResource("GradientTexture1D_bwog5")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_k7611")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_qighm")
 
 [sub_resource type="Gradient" id="Gradient_odu8t"]
 offsets = PackedFloat32Array(0, 0.2, 1)
@@ -776,7 +776,7 @@ mesh = SubResource("BoxMesh_3qyip")
 transform = Transform3D(1, 0, 0, 0, 1.23773, 0, 0, 0, 1, 9.75142e-08, 0.0373949, 0.645808)
 
 [node name="FireAmber" type="GPUParticles3D" parent="."]
-material_override = SubResource("ShaderMaterial_c88ta")
+material_override = SubResource("ShaderMaterial_wmcf8")
 emitting = false
 amount = 16
 lifetime = 0.6
