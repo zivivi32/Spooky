@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://uynrjvje41hx" path="res://Scene/UI_Items/UI_Ability.tscn" id="7_sar6u"]
 [ext_resource type="Texture2D" uid="uid://dwx3r4isv4pa4" path="res://Assets_Imported/Kenney-preview/pumpkin-tall-carved.png" id="8_qm54m"]
 [ext_resource type="Texture2D" uid="uid://dius5a470ps5r" path="res://Assets_Imported/Kenney-preview/character-digger.png" id="9_vu7xg"]
-[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets_Imported/Sound/Music/Menu.ogg" id="11_edkms"]
+[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets/Sound/Music/Menu.ogg" id="11_edkms"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o242l"]
 render_priority = 0

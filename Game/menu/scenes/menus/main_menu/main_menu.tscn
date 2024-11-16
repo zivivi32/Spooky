@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bdvdf5v87mmrr" path="res://Game/menu/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_lqjmk"]
 [ext_resource type="PackedScene" uid="uid://c1g50h2avck3w" path="res://Game/menu/scenes/credits/credits.tscn" id="3_vmius"]
 [ext_resource type="Script" path="res://Scripts/Tools/UiNavigationSetup.gd" id="5_b2sif"]
-[ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets_Imported/Sound/SFX/UI/pluck_002.ogg" id="5_tpk1i"]
-[ext_resource type="AudioStream" uid="uid://nb01g0n5hvdc" path="res://Assets_Imported/Sound/SFX/UI/select_004.ogg" id="6_pl0qt"]
+[ext_resource type="AudioStream" uid="uid://bf5eddeanbwyb" path="res://Assets/Sound/SFX/UI/pluck_002.ogg" id="5_tpk1i"]
+[ext_resource type="AudioStream" uid="uid://nb01g0n5hvdc" path="res://Assets/Sound/SFX/UI/select_004.ogg" id="6_pl0qt"]
 [ext_resource type="FontFile" uid="uid://c4tgepgmhawn6" path="res://Assets/Fonts/BoH-b.ttf" id="7_xbp33"]
 
 [node name="MainMenu" instance=ExtResource("1_pss7b")]

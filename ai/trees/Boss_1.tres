@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://ai/tasks/spawn_Minions.gd" id="3_fehff"]
 [ext_resource type="Script" path="res://ai/tasks/player_soundfx.gd" id="3_w5rjj"]
 [ext_resource type="Script" path="res://ai/tasks/switch_default_bullet.gd" id="4_1e8d7"]
-[ext_resource type="AudioStream" uid="uid://c170l044syxr" path="res://Assets_Imported/Sound/SFX/SFX/Evil Laugh.ogg" id="4_a07ap"]
+[ext_resource type="AudioStream" uid="uid://c170l044syxr" path="res://Assets/Sound/SFX/SFX/Evil Laugh.ogg" id="4_a07ap"]
 [ext_resource type="Script" path="res://ai/tasks/start_attack.gd" id="7_hjmjv"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ni651"]

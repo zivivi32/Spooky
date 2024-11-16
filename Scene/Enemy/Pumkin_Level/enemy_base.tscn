@@ -8,17 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://b374fbrm6lwsx" path="res://Scene/projectile/projectile_enemy.tscn" id="3_fndtb"]
 [ext_resource type="Script" path="res://Scripts/States/chase_state_AI.gd" id="4_22ubw"]
 [ext_resource type="PackedScene" uid="uid://b3jgulvo0bdem" path="res://Scene/Collectibles/health_pickuptscn.tscn" id="4_g3v5e"]
-[ext_resource type="AudioStream" uid="uid://drfw2e8keyly1" path="res://Assets_Imported/Sound/SFX/SFX/Chuckle A.ogg" id="4_oh4c7"]
+[ext_resource type="AudioStream" uid="uid://drfw2e8keyly1" path="res://Assets/Sound/SFX/SFX/Chuckle A.ogg" id="4_oh4c7"]
 [ext_resource type="PackedScene" uid="uid://de1h70p5afry2" path="res://Scene/VFX/fireball/fireball_spawn/muzzle_enemy.tscn" id="5_1pksv"]
 [ext_resource type="Script" path="res://Scripts/States/attack_state_ai.gd" id="5_3bht3"]
 [ext_resource type="Texture2D" uid="uid://bi5k4geikraof" path="res://Assets/Pumpkins/Textures/atlas-universal-albedo-a.png" id="8_1iqix"]
-[ext_resource type="AudioStream" uid="uid://g6jgx0ifdy88" path="res://Assets_Imported/Sound/SFX/SFX/shoot2.ogg" id="8_efp2m"]
+[ext_resource type="AudioStream" uid="uid://g6jgx0ifdy88" path="res://Assets/Sound/SFX/SFX/shoot2.ogg" id="8_efp2m"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="9_7pit8"]
 [ext_resource type="Texture2D" uid="uid://c446rciikvl2v" path="res://Assets/Pumpkins/Textures/atlas-emission-a.png" id="9_hw6bm"]
 [ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="12_kxi06"]
 [ext_resource type="PackedScene" uid="uid://f5jq5q0phl8r" path="res://Scene/Collectibles/coin3.tscn" id="13_1u4bm"]
-[ext_resource type="AudioStream" uid="uid://dji54gncemo7y" path="res://Assets_Imported/Sound/SFX/SFX/Quaterize.ogg" id="13_mplfq"]
-[ext_resource type="AudioStream" uid="uid://beuuimfnq7que" path="res://Assets_Imported/Sound/SFX/SFX/Blood Ritual A.ogg" id="14_11gav"]
+[ext_resource type="AudioStream" uid="uid://dji54gncemo7y" path="res://Assets/Sound/SFX/SFX/Quaterize.ogg" id="13_mplfq"]
+[ext_resource type="AudioStream" uid="uid://beuuimfnq7que" path="res://Assets/Sound/SFX/SFX/Blood Ritual A.ogg" id="14_11gav"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h7fgu"]
 random_pitch = 1.2
@@ -154,14 +154,14 @@ size = Vector3(0.2, 0.2, 1)
 offsets = PackedFloat32Array(0.4, 1)
 colors = PackedColorArray(0.960784, 0.411121, 0.0470588, 1, 1, 0.421875, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_4ooxb"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bwog5"]
 gradient = SubResource("Gradient_6i2em")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qresn"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcf62"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ullh5"]
 seamless = true
 noise = SubResource("FastNoiseLite_qresn")
 
@@ -169,21 +169,21 @@ noise = SubResource("FastNoiseLite_qresn")
 render_priority = 0
 shader = ExtResource("9_7pit8")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_tcf62")
-shader_parameter/gradient_sampler = SubResource("GradientTexture1D_4ooxb")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_ullh5")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_bwog5")
 
 [sub_resource type="Gradient" id="Gradient_odu8t"]
 offsets = PackedFloat32Array(0, 0.2, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pykcn"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1fiot"]
 gradient = SubResource("Gradient_odu8t")
 
 [sub_resource type="Curve" id="Curve_1njts"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_jnqy6"]
+[sub_resource type="CurveTexture" id="CurveTexture_srywe"]
 curve = SubResource("Curve_1njts")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c6awa"]
@@ -199,8 +199,8 @@ damping_min = 0.5
 damping_max = 1.0
 scale_min = 4.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_jnqy6")
-color_ramp = SubResource("GradientTexture1D_pykcn")
+scale_curve = SubResource("CurveTexture_srywe")
+color_ramp = SubResource("GradientTexture1D_1fiot")
 anim_speed_min = 0.1
 anim_speed_max = 0.1
 anim_offset_max = 1.0
@@ -539,6 +539,7 @@ amount = 16
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.8
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_c6awa")
 draw_pass_1 = SubResource("QuadMesh_bfil1")
 

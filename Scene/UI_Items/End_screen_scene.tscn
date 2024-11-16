@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scene/UI_Items/prologue_scene.gd" id="1_cs6hu"]
 [ext_resource type="PackedScene" uid="uid://bwnxsqk0umvyj" path="res://Game/menu/scenes/credits/Prologue_Text.tscn" id="2_0w3fc"]
-[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets_Imported/Sound/Music/Menu.ogg" id="3_3a16f"]
+[ext_resource type="AudioStream" uid="uid://cd1hyold68tyy" path="res://Assets/Sound/Music/Menu.ogg" id="3_3a16f"]
 
 [node name="EndScene" type="CanvasLayer" node_paths=PackedStringArray("level_music")]
 script = ExtResource("1_cs6hu")

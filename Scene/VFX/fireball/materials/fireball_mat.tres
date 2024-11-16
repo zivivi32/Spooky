@@ -11,6 +11,7 @@ gradient = SubResource("Gradient_06tmw")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_m3502"]
 noise_type = 2
+frequency = 0.0007
 fractal_octaves = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_apkdg"]

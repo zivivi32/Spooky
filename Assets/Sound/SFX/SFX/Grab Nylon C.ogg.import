@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c5qab3kt748e7"
+path="res://.godot/imported/Grab Nylon C.ogg-af8d736d98e956a459c0005e78734195.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Sound/SFX/SFX/Grab Nylon C.ogg"
+dest_files=["res://.godot/imported/Grab Nylon C.ogg-af8d736d98e956a459c0005e78734195.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

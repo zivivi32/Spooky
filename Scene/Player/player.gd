@@ -63,6 +63,7 @@ var can_control: bool = true
 var custom_cursor = preload("res://Assets/Cursor/target_round_big.png")
 
 var camera_angle : float = 45
+var aim_direction
 
 func _ready() -> void:
 	## Capture and hide the mouse pointer
@@ -169,9 +170,9 @@ func _physics_process(delta: float) -> void:
 		#damage_on_contact(delta)
 
 		# Rotate the player model based on movement
-		if Vector2(velocity.z, velocity.x).length() > 0:
-			rotation_direction = Vector2(velocity.z, velocity.x).angle()
-		model.rotation.y = lerp_angle(model.rotation.y, rotation_direction, delta * 10)
+		#if Vector2(velocity.z, velocity.x).length() > 0:
+			#rotation_direction = Vector2(velocity.z, velocity.x).angle()
+		#model.rotation.y = lerp_angle(model.rotation.y, rotation_direction, delta * 10)
 
 		# Update the gun's rotation based on the mouse position
 		#update_gun_aim(update_player_aim())
@@ -214,8 +215,9 @@ func update_player_aim() -> Vector3:
 	if abs(right_stick_x) < deadzone and abs(right_stick_y) < deadzone:
 		return Vector3.ZERO  # Indicate no input with Vector3.ZERO
 
+	
 	# Create aim direction vector based on stick input
-	var aim_direction = Vector3(right_stick_x, 0, right_stick_y)
+	aim_direction = Vector3(right_stick_x, 0, right_stick_y)
 
 	# Adjust for isometric camera angle
 	aim_direction = to_isometric(aim_direction).normalized()
@@ -239,25 +241,31 @@ func get_mouse_aim_position() -> Vector3:
 	var space_state = get_world_3d().direct_space_state
 	var result = space_state.intersect_ray(ray_query)
 	if result:
+		aim_direction = result.position
 		return result.position
 	else:
+		aim_direction = Vector3.ZERO
 		return Vector3.ZERO
 
 # Keep your original rotation code
 func update_player_rotate(target_position : Vector3):
-	if target_position == Vector3.ZERO:
-		return  # Don't rotate if no valid target
-	# Calculate the direction from the gun to the mouse target
-	var direction_to_mouse = (target_position - model.global_position).normalized()
-	# Compute the rotation angles
-	var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
-	# Adjust only the gun's rotation to face the target
-	model.rotation.y = gun_rotation_angle
-	# Optional: Lock gun rotation on x and z axes if necessary
-	model.rotation.x = 0
-	model.rotation.z = 0
+	if target_position != Vector3.ZERO:
+		# Calculate the direction from the player to the aim target
+		var direction_to_target = (target_position - global_position).normalized()
+		# Compute the rotation angle
+		var player_rotation_angle = atan2(direction_to_target.x, direction_to_target.z)
+		# Adjust the player's rotation to face the target
+		model.rotation.y = player_rotation_angle
+	## Calculate the direction from the gun to the mouse target
+	#var direction_to_mouse = (target_position - model.global_position).normalized()
+	## Compute the rotation angles
+	#var gun_rotation_angle = atan2(direction_to_mouse.x, direction_to_mouse.z)
+	## Adjust only the gun's rotation to face the target
+	#model.rotation.y = gun_rotation_angle
+	## Optional: Lock gun rotation on x and z axes if necessary
+	#model.rotation.x = 0
+	#model.rotation.z = 0
 
-# Keep your original gun aim code
 func update_gun_aim(target_position : Vector3):
 	if target_position == Vector3.ZERO:
 		return  # Don't rotate if no valid target

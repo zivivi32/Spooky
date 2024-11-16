@@ -46,7 +46,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/3dEnemyToolkit/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/post_processing/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/3dEnemyToolkit/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/mixamo_animation_retargeter/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/post_processing/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [file_customization]
 
@@ -164,7 +164,7 @@ right_stick_down={
 [internationalization]
 
 locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_game_template/base/translations/menus_translations.fr.translation")
-locale/translations_pot_files=PackedStringArray("res://Dialogues/test.dialogue", "res://Dialogues/shop_dialogue.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogues/test.dialogue", "res://Dialogues/shop_dialogue.dialogue", "res://Dialogues/Intro_Mayor_dialogue.dialogue")
 
 [layer_names]
 
@@ -187,3 +187,10 @@ copy_path="res://Game/menu"
 
 textures/canvas_textures/default_texture_filter=0
 occlusion_culling/use_occlusion_culling=true
+
+[shader_globals]
+
+player_position={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}

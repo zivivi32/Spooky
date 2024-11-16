@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://4m4hhvu3tiwn" path="res://Assets/Explosions_textures/T_vfx_hit122.jpg" id="4_a5lv0"]
 [ext_resource type="Shader" uid="uid://d06whgyoqxi2d" path="res://Shaders/Material_Explosive_Cloud.tres" id="5_7xibq"]
 [ext_resource type="Shader" uid="uid://87qmx785q3jo" path="res://Shaders/Explosion_streaks.tres.res" id="6_qxa6f"]
-[ext_resource type="AudioStream" uid="uid://6kjh0048l5ft" path="res://Assets_Imported/Sound/SFX/SFX/explosion_pumpkin.ogg" id="7_refbd"]
+[ext_resource type="AudioStream" uid="uid://6kjh0048l5ft" path="res://Assets/Sound/SFX/SFX/explosion_pumpkin.ogg" id="7_refbd"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l67qi"]
 random_pitch = 1.2

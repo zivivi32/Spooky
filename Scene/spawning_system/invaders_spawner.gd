@@ -10,14 +10,15 @@ class_name WaveSpawner
 @export var loop_movement: bool = false
 @export var side_movement_speed: float = 2.0 
 
+@export_subgroup("Timed movement")
+@export var is_time_movement: bool = false
+@export var timer_movement: Timer
+@export var time_movement: float = 2
+@export var stop_movement_timer: Timer
+@export var stop_movement: float = 2
+
 # Wave Data Resources
 @export var waves: Array[WaveData]
-
-## Enemy scene references
-#@export var basic_enemy_scene: PackedScene
-#@export var tank_enemy_scene: PackedScene
-#@export var fast_enemy_scene: PackedScene
-#@export var bomber_enemy_scene: PackedScene
 
 # Wave tracking
 var current_wave: int = 0
@@ -35,25 +36,39 @@ signal all_waves_completed
 signal enemy_destroyed(enemy_type: String)
 signal wave_reached_position
 
-
+var can_move: bool = false
 func _ready():
 	#setup_waves()
-	print_debug(waves[current_wave].to_wave_data())
 	start_next_wave()
+	
+	if is_time_movement:
+		timer_movement.connect("timeout", movement_timeout)
+		timer_movement.start(time_movement)
+		
+		stop_movement_timer.connect("timeout", stop_movement_timeout)
+	else:
+		can_move = true
+func movement_timeout(): 
+	can_move = true
+	stop_movement_timer.start(stop_movement)
+
+func stop_movement_timeout(): 
+	can_move = false
+	timer_movement.start(time_movement)
 
 func _process(delta):
 	if wave_in_progress:
 		var wave_data = waves[current_wave-1].to_wave_data()
-		match wave_data.movement_pattern:
-			WaveData.MovementPattern.STRAIGHT:
-				move_straight(delta, wave_data)
-			WaveData.MovementPattern.CIRCLE:
-				move_in_circle(delta, wave_data)
-			WaveData.MovementPattern.V_FORMATION:
-				move_in_v_formation(delta, wave_data)
-			WaveData.MovementPattern.RANDOM_SIDE:
-				move_randomly_side(delta, wave_data)
-
+		if can_move:
+			match wave_data.movement_pattern:
+				WaveData.MovementPattern.STRAIGHT:
+					move_straight(delta, wave_data)
+				WaveData.MovementPattern.CIRCLE:
+					move_in_circle(delta, wave_data)
+				WaveData.MovementPattern.V_FORMATION:
+					move_in_v_formation(delta, wave_data)
+				WaveData.MovementPattern.RANDOM_SIDE:
+					move_randomly_side(delta, wave_data)
 func start_next_wave():
 	if current_wave >= waves.size():
 		all_waves_completed.emit()
@@ -157,7 +172,7 @@ func move_straight(delta, wave_data: Dictionary):
 		new_pos.z = current_position.z + enemy.get_meta("relative_z")
 		new_pos.x = enemy.get_meta("relative_x")
 		enemy.position = new_pos
-
+		
 func move_in_circle(delta, wave_data):
 	movement_time += delta * wave_data.approach_speed
 	var radius = wave_data.movement_data["radius"]
