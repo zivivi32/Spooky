@@ -288,27 +288,27 @@ anim_offset_max = 1.0
 [sub_resource type="QuadMesh" id="QuadMesh_e0oy8"]
 size = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_uoegy"]
-offsets = PackedFloat32Array(0.418367, 1)
-colors = PackedColorArray(0.960784, 0.389706, 0.0470588, 1, 0.453125, 1, 0, 1)
+[sub_resource type="Gradient" id="Gradient_vepfi"]
+offsets = PackedFloat32Array(0.418367, 0.995025)
+colors = PackedColorArray(0.0470588, 0.468229, 0.960784, 1, 0, 1, 0.953125, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5x7f2"]
-gradient = SubResource("Gradient_uoegy")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_453d3"]
+gradient = SubResource("Gradient_vepfi")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_61v55"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p2w3l"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fft4a"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ix6tb"]
 seamless = true
-noise = SubResource("FastNoiseLite_61v55")
+noise = SubResource("FastNoiseLite_p2w3l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwlle"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hj4g"]
 render_priority = 0
 shader = ExtResource("10_x12aw")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_fft4a")
-shader_parameter/gradient_sampler = SubResource("GradientTexture1D_5x7f2")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_ix6tb")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_453d3")
 
 [sub_resource type="Gradient" id="Gradient_78452"]
 offsets = PackedFloat32Array(0, 0.2, 1)
@@ -619,16 +619,18 @@ amount = 16
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.8
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_lj1m7")
 draw_pass_1 = SubResource("QuadMesh_e0oy8")
 
 [node name="Spawn_Particles" type="GPUParticles3D" parent="model"]
-material_override = SubResource("ShaderMaterial_vwlle")
+material_override = SubResource("ShaderMaterial_6hj4g")
 emitting = false
 amount = 16
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.8
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_b5xu8")
 draw_pass_1 = SubResource("QuadMesh_e0oy8")
 
@@ -676,6 +678,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6363, 0.521461)
 material_override = SubResource("ShaderMaterial_dfgrq")
 amount = 4
 lifetime = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_gyl6p")
 draw_pass_1 = SubResource("QuadMesh_j464y")
 

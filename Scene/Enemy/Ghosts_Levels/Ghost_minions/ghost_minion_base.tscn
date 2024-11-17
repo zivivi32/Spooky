@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://t8w3awrybpto" path="res://Assets/Environment/Opengameart/Textures/BaseColor.png" id="8_xaeft"]
 [ext_resource type="Texture2D" uid="uid://c446rciikvl2v" path="res://Assets/Pumpkins/Textures/atlas-emission-a.png" id="9_k0plg"]
 [ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="11_4gwtv"]
-[ext_resource type="PackedScene" uid="uid://b374fbrm6lwsx" path="res://Scene/projectile/projectile_enemy.tscn" id="12_w1uug"]
+[ext_resource type="PackedScene" uid="uid://bpaor86n078oc" path="res://Scene/projectile/projectile_ghost_enemy.tscn" id="12_g0q2o"]
 [ext_resource type="PackedScene" uid="uid://de1h70p5afry2" path="res://Scene/VFX/fireball/fireball_spawn/muzzle_enemy.tscn" id="13_lygdy"]
 [ext_resource type="AudioStream" uid="uid://g6jgx0ifdy88" path="res://Assets/Sound/SFX/SFX/shoot2.ogg" id="14_qd33e"]
 [ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="15_misyw"]
@@ -678,7 +678,7 @@ navigation_agent = NodePath("FollowTarget3D")
 enemy_score = 150
 spawn_particles = NodePath("Spawn_Particles")
 walking_particles = NodePath("walking_particles")
-death_particles = NodePath("FireAmber")
+death_particles = NodePath("s")
 loot = Array[PackedScene]([ExtResource("2_e142s"), ExtResource("3_jgo3c")])
 health_pickup = ExtResource("4_t2qse")
 min_spawn_loot = 1
@@ -759,10 +759,13 @@ mesh = SubResource("BoxMesh_g7mtp")
 
 [node name="Gun" parent="model" node_paths=PackedStringArray("model", "spawn_pos") instance=ExtResource("11_4gwtv")]
 transform = Transform3D(1, 0, 0, 0, 0.944079, 0, 0, 0, 1, 7.75875e-08, 0, 0.513839)
-bullet_scene = ExtResource("12_w1uug")
+bullet_scene = ExtResource("12_g0q2o")
 model = NodePath(".")
+bullet_count = 3
+max_spread = 6
 bullet_speed = 10.0
 spawn_pos = NodePath("Marker3D")
+arc = 30.0
 is_ai = true
 muzzle_flash = ExtResource("13_lygdy")
 sfx = Array[AudioStream]([ExtResource("14_qd33e")])
@@ -775,7 +778,7 @@ mesh = SubResource("BoxMesh_3qyip")
 [node name="Marker3D" type="Marker3D" parent="model/Gun"]
 transform = Transform3D(1, 0, 0, 0, 1.23773, 0, 0, 0, 1, 9.75142e-08, 0.0373949, 0.645808)
 
-[node name="FireAmber" type="GPUParticles3D" parent="."]
+[node name="s" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_wmcf8")
 emitting = false
 amount = 16
@@ -824,6 +827,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51345, 0.738274)
 material_override = SubResource("ShaderMaterial_qqbll")
 amount = 4
 lifetime = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5mcfu")
 draw_pass_1 = SubResource("QuadMesh_w8idl")
 
@@ -834,6 +838,7 @@ amount = 16
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.8
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_r8qqi")
 draw_pass_1 = SubResource("QuadMesh_cwyi2")
 

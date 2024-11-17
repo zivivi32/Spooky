@@ -581,6 +581,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51345, 0.738274)
 material_override = SubResource("ShaderMaterial_qqbll")
 amount = 4
 lifetime = 0.5
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5mcfu")
 draw_pass_1 = SubResource("QuadMesh_w8idl")
 
@@ -591,6 +592,7 @@ amount = 16
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.8
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_r8qqi")
 draw_pass_1 = SubResource("QuadMesh_cwyi2")
 
