@@ -76,7 +76,7 @@
 [ext_resource type="PackedScene" uid="uid://cejxw1st27qkc" path="res://Assets_Imported/PolyPerfect/Halloween/wall-graveyard-3m.fbx" id="74_mwp3u"]
 [ext_resource type="PackedScene" uid="uid://mrj243l5y34d" path="res://Assets_Imported/PolyPerfect/Halloween/wall-graveyard-end.fbx" id="75_vqk1t"]
 [ext_resource type="PackedScene" uid="uid://dlcemry32un4e" path="res://Assets_Imported/PolyPerfect/Halloween/wall-graveyard-pillar.fbx" id="76_khcpd"]
-[ext_resource type="PackedScene" uid="uid://keuhege5hxem" path="res://Assets_Imported/PolyPerfect/Halloween/witch-hat.fbx" id="77_fle8n"]
+[ext_resource type="PackedScene" uid="uid://keuhege5hxem" path="res://Assets/Environment/witch-hat.fbx" id="77_fle8n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r7hrp"]
 albedo_texture = ExtResource("69_cdsfy")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=4 uid="uid://bplbii47ms6te"]
+[gd_scene load_steps=133 format=4 uid="uid://bplbii47ms6te"]
 
 [ext_resource type="Script" path="res://Scene/level_1.gd" id="1_gkoqj"]
 [ext_resource type="Script" path="res://addons/post_processing/node/post_process.gd" id="2_i86md"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b4c0qf1yq75cp" path="res://Assets/Environment/Synty_Farm/Textures/PolygonFarm_Texture_01_A.png" id="6_brn2o"]
 [ext_resource type="Texture2D" uid="uid://bimdcddxdlhwm" path="res://Assets/Environment/Synty_Farm/Textures/PolygonFarm_Texture_03_A.png" id="7_8nchh"]
 [ext_resource type="Texture2D" uid="uid://d3ohsg7h0p3ni" path="res://Assets/Environment/Synty_Farm/Textures/PolygonFarm_Texture_04_A.png" id="7_wm0dr"]
+[ext_resource type="Shader" path="res://Shaders/wave_movement.gdshader" id="8_rxq3q"]
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="10_cpfj2"]
 [ext_resource type="PackedScene" uid="uid://c3l10ygdgxhh0" path="res://Scene/spawning_system/enemy_spawn.tscn" id="11_wrenr"]
 [ext_resource type="PackedScene" uid="uid://dipitv17rpxuf" path="res://Scene/Enemy/Pumkin_Level/enemy_melee.tscn" id="12_vtgdv"]
@@ -709,8 +710,29 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_wro61")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ak303"]
-albedo_texture = ExtResource("6_brn2o")
+[sub_resource type="Gradient" id="Gradient_3ubfu"]
+offsets = PackedFloat32Array(0, 0.398305, 1)
+colors = PackedColorArray(0.269531, 0.181947, 0.01474, 1, 0, 0.253906, 0.0158691, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y77xf"]
+gradient = SubResource("Gradient_3ubfu")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mnc16"]
+fractal_gain = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eip7d"]
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_mnc16")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lj73b"]
+render_priority = 0
+shader = ExtResource("8_rxq3q")
+shader_parameter/intensity = 0.45
+shader_parameter/waviness = 1.0
+shader_parameter/wind_speed = 0.05
+shader_parameter/wind_sampler = SubResource("NoiseTexture2D_eip7d")
+shader_parameter/albedo_sampler = SubResource("GradientTexture1D_y77xf")
 
 [sub_resource type="MultiMesh" id="MultiMesh_d8boa"]
 transform_format = 1
@@ -718,8 +740,14 @@ instance_count = 25
 mesh = SubResource("ArrayMesh_qc42o")
 buffer = PackedFloat32Array(-1.78835, 0.162626, 2.40444, -22.8323, 0.114433, 2.99651, -0.117559, 0.133687, -2.40722, 0.0216297, -1.79188, 16.544, 2.76505, 0.162627, -1.155, -23.7375, -0.158406, 2.99651, 0.0426929, 0.253173, 1.15559, 0.0216298, 2.7695, 6.79711, -2.72221, 0.162627, -1.25265, -26.5689, 0.138677, 2.99651, 0.0876583, 0.598692, 1.25553, 0.0216297, -2.72565, -19.7817, 2.99634, 0.162627, -0.0384793, -22.2795, -0.162887, 2.99651, -0.0195716, 0.330044, 0.0373611, 0.0216298, 3.00069, -14.8146, -2.98483, 0.162626, -0.26522, -22.3755, 0.160067, 2.99651, 0.0359698, 0.130418, 0.266773, 0.0216297, -2.98904, 13.5627, -0.818734, 0.162627, -2.88257, -26.2694, 0.0235946, 2.99651, 0.162353, 0.583277, 2.88706, 0.0216297, -0.818789, -19.898, -1.72537, 0.162626, -2.45003, -17.9199, 0.0759234, 2.99651, 0.145433, -0.151462, 2.45425, 0.0216297, -1.7269, 19.1134, 2.17758, 0.162627, 2.05856, -27.2896, -0.103295, 2.99651, -0.127457, 0.607888, -2.06239, 0.0216297, 2.17993, -15.637, -2.48386, 0.162627, -1.67631, -24.9731, 0.122679, 2.99651, 0.108927, 0.38484, 1.67971, 0.0216298, -2.48679, -2.15363, -2.79603, 0.162627, -1.07785, -26.6841, 0.143947, 2.99651, 0.0787059, 0.388294, 1.0805, 0.0216298, -2.79965, 10.2324, 2.63863, 0.162627, -1.42027, -22.7411, -0.153463, 2.99651, 0.058003, 0.398854, 1.42129, 0.0216298, 2.643, -20.8766, 2.97469, 0.162626, -0.361637, -21.4449, -0.164048, 2.99651, -0.00187751, 0.110787, 0.360995, 0.0216297, 2.97913, 9.28569, -1.44141, 0.162627, -2.62715, -19.0302, 0.059233, 2.99651, 0.152992, 0.225827, 2.63151, 0.0216298, -1.44246, -24.8075, 2.90623, 0.162626, 0.730309, -21.1742, -0.152439, 2.99651, -0.0606416, -0.00156157, -0.732503, 0.0216297, 2.91015, 22.8143, -1.72653, 0.162627, 2.44922, -21.5439, 0.111402, 2.99651, -0.120436, 0.23877, -2.45208, 0.0216298, -1.72998, -7.70058, -2.94986, 0.162627, -0.52712, -22.144, 0.156276, 2.99651, 0.0499302, 0.362268, 0.529037, 0.0216298, -2.95392, -20.2975, 2.22843, 0.162627, 2.00341, -27.3611, -0.106453, 2.99651, -0.124832, 0.615815, -2.00718, 0.0216297, 2.23087, -16.198, 2.79597, 0.162627, 1.078, -22.9152, -0.143942, 2.99651, -0.0787136, 0.404146, -1.08066, 0.0216298, 2.79959, -20.3007, -1.16924, 0.162627, 2.75906, -23.8612, 0.0833982, 2.99651, -0.14128, 0.335849, -2.76259, 0.0216298, -1.17201, -3.72682, 1.73196, 0.162626, -2.44538, -21.9439, -0.111669, 2.99651, 0.120188, 0.16946, 2.44823, 0.0216297, 1.73542, 4.90848, -0.0317377, 0.162626, 2.99642, -21.0688, 0.0233827, 2.99651, -0.162384, 0.0590421, -3.00074, 0.0216297, -0.0329573, 13.6258, 2.86995, 0.162627, 0.861934, -21.9601, -0.149519, 2.99651, -0.0675226, 0.368671, -0.864304, 0.0216298, 2.87376, -22.5674, -2.24148, 0.162627, -1.9888, -26.3357, 0.107266, 2.99651, 0.124134, 0.289216, 1.99256, 0.0216298, -2.24394, 21.3386, 0.489082, 0.162627, 2.95641, -21.8919, -0.00517087, 2.99651, -0.163977, 0.218341, -2.96087, 0.0216298, 0.488631, -2.25384, 0.0746803, 0.162627, -2.99566, -23.9581, -0.0257077, 2.99651, 0.162032, 0.42022, 2.99996, 0.0216298, 0.0759617, -14.6865)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pblxc"]
-albedo_texture = ExtResource("6_brn2o")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vgdtn"]
+render_priority = 0
+shader = ExtResource("8_rxq3q")
+shader_parameter/intensity = 0.45
+shader_parameter/waviness = 1.0
+shader_parameter/wind_speed = 0.05
+shader_parameter/wind_sampler = SubResource("NoiseTexture2D_eip7d")
+shader_parameter/albedo_sampler = SubResource("GradientTexture1D_y77xf")
 
 [sub_resource type="MultiMesh" id="MultiMesh_p6s75"]
 transform_format = 1
@@ -823,8 +851,29 @@ instance_count = 30
 mesh = SubResource("ArrayMesh_jbbbm")
 buffer = PackedFloat32Array(0.577614, 0.222349, -2.93648, 7.53743, -0.051585, 2.99274, 0.216462, 0.917018, 2.94444, 0.00881273, 0.579846, 25.4263, -2.56921, 0.222349, -1.53484, 6.61548, 0.186349, 2.99274, 0.121618, 1.08427, 1.53962, 0.00881262, -2.57594, -8.10928, -0.610753, 0.222349, 2.92977, 5.83316, 0.0540272, 2.99274, -0.215865, 1.10807, -2.9377, 0.00881263, -0.613075, 3.54475, 2.99141, 0.222349, -0.0897564, 7.30081, -0.222513, 2.99274, -0.00216457, 0.934798, 0.0893489, 0.00881273, 2.99966, 25.3584, 2.98287, 0.222349, 0.243061, 12.4028, -0.220896, 2.99274, -0.0268663, 0.592054, -0.244383, 0.00881275, 2.99102, 13.0258, 2.82627, 0.222349, 0.984248, 11.9644, -0.207073, 2.99274, -0.0814707, 0.643018, -0.987575, 0.00881272, 2.83383, 6.78135, -0.269688, 0.222349, 2.98058, 5.45737, 0.0288376, 2.99274, -0.220647, 1.14351, -2.98872, 0.00881265, -0.271083, 0.991513, -2.59309, 0.222349, 1.49414, 5.8989, 0.197067, 2.99274, -0.103351, 1.10081, -1.49768, 0.00881264, -2.60055, 4.3522, -0.918594, 0.222349, -2.84829, 14.6202, 0.059837, 2.99274, 0.214327, 0.445856, 2.85633, 0.00881273, -0.920499, 6.72774, 2.56625, 0.222349, 1.53978, 6.9409, -0.186114, 2.99274, -0.121977, 1.03303, -1.54458, 0.00881261, 2.57297, 1.08086, 2.34653, 0.222349, 1.85752, 13.8366, -0.168851, 2.99274, -0.144934, 0.525711, -1.86315, 0.00881274, 2.35258, -0.618824, -0.796334, 0.222349, 2.88486, 9.6267, 0.0676825, 2.99274, -0.211981, 0.842025, -2.89262, 0.00881273, -0.799156, -1.81987, 0.91035, 0.222349, 2.85093, 10.714, -0.0592167, 2.99274, -0.2145, 0.752602, -2.85898, 0.00881273, 0.912232, 1.11499, -2.90342, 0.222349, 0.725734, 10.7202, 0.217854, 2.99274, -0.0453456, 0.751209, -0.727096, 0.00881271, -2.91157, 1.43114, -2.43342, 0.222349, 1.74214, 6.26226, 0.185936, 2.99274, -0.122248, 1.10936, -1.7464, 0.00881262, -2.44049, -7.71704, 2.74554, 0.222349, 1.19104, 14.1335, -0.200465, 2.99274, -0.0965958, 0.526465, -1.19492, 0.00881272, 2.75284, -8.36737, -1.64418, 0.222349, 2.50064, 5.01382, 0.129539, 2.99274, -0.180932, 1.11527, -2.50717, 0.00881262, -1.64926, 21.7736, 2.65552, 0.222349, 1.38013, 10.085, -0.193218, 2.99274, -0.110379, 0.864421, -1.38451, 0.00881274, 2.66253, -20.9881, 1.19269, 0.222349, 2.74482, 6.49012, -0.0805065, 2.99274, -0.20745, 1.09002, -2.75264, 0.00881262, 1.19537, -6.9016, 1.87569, 0.222349, -2.33202, 6.71678, -0.146242, 2.99274, 0.16772, 1.01087, 2.33803, 0.00881263, 1.88137, 14.26, 2.53139, 0.222349, -1.59643, 5.4576, -0.192785, 2.99274, 0.111133, 1.07101, 1.60027, 0.00881274, 2.53871, 25.6053, -2.81458, 0.222349, 1.01721, 11.6674, 0.212114, 2.99274, -0.0672635, 0.717626, -1.0194, 0.00881274, -2.82254, -11.063, -0.357987, 0.222349, 2.97126, 9.51834, 0.0353704, 2.99274, -0.219695, 0.8704, -2.97936, 0.00881275, -0.359622, -8.72179, -2.55969, 0.222349, -1.55066, 13.1471, 0.185595, 2.99274, 0.122766, 0.60207, 1.55549, 0.00881273, -2.56639, -9.15483, 0.799621, 0.222349, 2.88395, 6.72003, -0.0508927, 2.99274, -0.216626, 1.12155, -2.89206, 0.00881262, 0.80119, -23.4088, 2.93465, 0.222349, 0.586849, 13.7866, -0.216299, 2.99274, -0.0522657, 0.526926, -0.589106, 0.00881274, 2.9426, 0.22978, -1.32621, 0.222349, 2.68286, 9.69058, 0.106453, 2.99274, -0.195408, 0.814431, -2.68995, 0.00881272, -1.33044, 5.93917, 1.3476, 0.222349, 2.67218, 13.3528, -0.0922304, 2.99274, -0.20251, 0.509265, -2.67983, 0.00881272, 1.35073, 17.1712, 2.34025, 0.222349, -1.86542, 9.84947, -0.179379, 2.99274, 0.131682, 0.883798, 1.87004, 0.00881271, 2.3471, -21.6262, 2.14477, 0.222349, -2.08723, 10.5421, -0.16551, 2.99274, 0.148739, 0.690937, 2.0925, 0.00881273, 2.15113, 26.3919)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjcry"]
-albedo_texture = ExtResource("6_brn2o")
+[sub_resource type="Gradient" id="Gradient_vm3qv"]
+offsets = PackedFloat32Array(0.0497512, 0.41791, 1)
+colors = PackedColorArray(0.15625, 0.105476, 0.00854492, 1, 0.527344, 0.334225, 0.032959, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_47o3s"]
+gradient = SubResource("Gradient_vm3qv")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o530c"]
+fractal_gain = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f3e8h"]
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_o530c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nxvew"]
+render_priority = 0
+shader = ExtResource("8_rxq3q")
+shader_parameter/intensity = 0.45
+shader_parameter/waviness = 1.0
+shader_parameter/wind_speed = 0.15
+shader_parameter/wind_sampler = SubResource("NoiseTexture2D_f3e8h")
+shader_parameter/albedo_sampler = SubResource("GradientTexture1D_47o3s")
 
 [sub_resource type="MultiMesh" id="MultiMesh_yyue3"]
 transform_format = 1
@@ -1269,22 +1318,22 @@ transform = Transform3D(1, 4.30737e-09, 7.45058e-09, -2.93949e-09, 1, 9.31323e-1
 
 [node name="Trees" type="MultiMeshInstance3D" parent="Decorations/Tree"]
 transform = Transform3D(0.998331, 0.0204114, -0.0540339, -0.0199914, 0.999765, 0.00830162, 0.0541907, -0.00720754, 0.998504, -0.0166733, -0.816672, 0.00588758)
-material_override = SubResource("StandardMaterial3D_ak303")
+material_override = SubResource("ShaderMaterial_lj73b")
 multimesh = SubResource("MultiMesh_d8boa")
 
 [node name="Trees4" type="MultiMeshInstance3D" parent="Decorations/Tree"]
 transform = Transform3D(0.998331, 0.0204114, -0.0540339, -0.0199914, 0.999765, 0.00830162, 0.0541907, -0.00720754, 0.998504, 57.6181, -1.99902, -0.779833)
-material_override = SubResource("StandardMaterial3D_ak303")
+material_override = SubResource("ShaderMaterial_vgdtn")
 multimesh = SubResource("MultiMesh_d8boa")
 
 [node name="Trees2" type="MultiMeshInstance3D" parent="Decorations/Tree"]
 transform = Transform3D(1, 4.30737e-09, 7.45058e-09, -2.93949e-09, 1, 9.31323e-10, 0, 0, 1, 22.8961, -0.45849, 1.24283)
-material_override = SubResource("StandardMaterial3D_pblxc")
+material_override = SubResource("ShaderMaterial_vgdtn")
 multimesh = SubResource("MultiMesh_p6s75")
 
 [node name="Trees3" type="MultiMeshInstance3D" parent="Decorations/Tree"]
 transform = Transform3D(1, 6.1118e-09, 7.45058e-09, -2.88128e-09, 1, 9.31323e-10, 3.72529e-09, 0, 1, -33.7811, 0.676462, -1.83368)
-material_override = SubResource("StandardMaterial3D_pblxc")
+material_override = SubResource("ShaderMaterial_vgdtn")
 multimesh = SubResource("MultiMesh_p6s75")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Decorations"]
@@ -1329,7 +1378,7 @@ multimesh = SubResource("MultiMesh_0hqlf")
 
 [node name="Grass" type="MultiMeshInstance3D" parent="Decorations"]
 transform = Transform3D(1, 2.44472e-09, 3.72529e-09, -1.07684e-09, 1, 9.31323e-10, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_pjcry")
+material_override = SubResource("ShaderMaterial_nxvew")
 multimesh = SubResource("MultiMesh_yyue3")
 
 [node name="ground" type="MeshInstance3D" parent="Decorations"]

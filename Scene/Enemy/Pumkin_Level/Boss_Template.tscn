@@ -2350,11 +2350,12 @@ alpha_curve = SubResource("CurveTexture_c0c57")
 
 [sub_resource type="SphereMesh" id="SphereMesh_4mmki"]
 
-[node name="Boss_Template" type="CharacterBody3D" node_paths=PackedStringArray("model", "health", "navigation_agent", "random_target_point", "bt", "death_particles", "weapon")]
+[node name="Boss_Template" type="CharacterBody3D" node_paths=PackedStringArray("model", "model_mesh", "health", "navigation_agent", "random_target_point", "bt", "death_particles", "weapon")]
 collision_layer = 8
 collision_mask = 11
 script = ExtResource("1_0lk05")
 model = NodePath("SK_Chr_Scarecrow_01")
+model_mesh = NodePath("SK_Chr_Scarecrow_01")
 speed = 2
 health = NodePath("Health_System")
 navigation_agent = NodePath("FollowTarget3D")

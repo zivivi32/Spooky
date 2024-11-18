@@ -10,6 +10,8 @@ class_name Special_Abilities
 @export var max_ammo: int = 20  # Max ammo for the ability
 @export var initial_ammo: int = 2  # Initial ammo when ability is added
 
+var cool_down_wait: float = 1
+
 var current_ammo: int = 2
 var can_use: bool = true
 
@@ -35,16 +37,15 @@ func launch_ability():
 		ability_used.emit()
 		
 		process_ability()
-		# Check if ammo is depleted
-		if current_ammo <= 0:
-			ammo_depleted.emit()
 
-			
 func process_cooldown():
 	pass
 	
 func start_cooldown(): 
 	process_cooldown()
+	# Check if ammo is depleted
+	if current_ammo <= 0:
+		ammo_depleted.emit()
 
 func cool_down_off(): 
 	can_use = true

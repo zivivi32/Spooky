@@ -59,10 +59,15 @@ func ability_ready() -> void:
 	time_label.hide()
 
 func ability_used() -> void:
+	if ability.current_ammo <= 0:
+		hide()
 	used.visible = true
+	ammo_label.text = str(ability.current_ammo)
 
 func on_cooldown() -> void:
-	cool_down = ability.cool_down_timer.wait_time
+	cool_down = ability.cool_down_wait
+	print_debug(cool_down)
+	print_debug(ability.cool_down_wait)
 	if timer.is_stopped():
 		timer.start(cool_down)
 	time_label.show()

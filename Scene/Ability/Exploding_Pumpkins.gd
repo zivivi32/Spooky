@@ -9,5 +9,6 @@ func process_ability():
 
 func process_cooldown():
 	cool_down_timer.start(weapon.cooldown)
+	cool_down_wait = weapon.cooldown
 	on_cool_down.emit()
 	player.set_default_bullet()

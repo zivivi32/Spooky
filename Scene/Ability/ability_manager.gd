@@ -41,6 +41,7 @@ func refresh_ability() -> void:
 func launch_ability(index: int) -> void:
 	if index >= 0 and index < abilities.size() and abilities[index] != null:
 		abilities[index].launch_ability()
+		
 
 func empty_abilities() -> void:
 	# Clear all UI first
