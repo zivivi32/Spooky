@@ -44,7 +44,7 @@ class_name Ghost_Boss
 
 @export_subgroup("Invaders Minions")
 @export var invaders_spawner_scene: PackedScene
-var invader_spawner : InvaderWaveSpawner
+var invader_spawner 
 @export var spawner_location: Marker3D
 @export var teleport_location: Marker3D
 
@@ -113,24 +113,29 @@ func switch_bullet(new_bullet: PackedScene):
 	weapon.bullet_scene = new_bullet
 	
 func spawn_invaders():
+	print_debug("spawn invaders")
 	invader_spawner = invaders_spawner_scene.instantiate()
+	invader_spawner.boss_wave = true
 	get_tree().root.add_child(invader_spawner)
 	invader_spawner.all_waves_completed.connect(bt_wave_done)
 	invader_spawner.global_position = spawner_location.global_position
-	invader_spawner.current_wave = 0
+	#invader_spawner.current_wave = 0
 	invader_spawner.start_next_wave()
 	bt.blackboard.set_var(&"quarter_life", false)
 	bt.blackboard.set_var(&"wave_spawned", true)
 
 func teleport():
+	print_debug("teleport")
 	global_position = teleport_location.global_position
 	bt.blackboard.set_var(&"is_wave_done", false)
 	
 func bt_wave_done():
+	print_debug("NOT MOVING!")
 	bt.blackboard.set_var(&"is_wave_done", true)
 	bt.blackboard.set_var(&"wave_spawned", false)
-func spawn_minions() -> void:
 	
+func spawn_minions() -> void:
+	print_debug("spawn_minions")
 	navigation_agent.Speed = 0
 	velocity = Vector3.ZERO
 	
@@ -183,6 +188,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func death() -> void:
+	print_debug("died")
 	enemy_death.emit(self)
 	
 	if bt: 
@@ -226,7 +232,9 @@ func check_health_thresholds():
 	var thresholds = [0.75, 0.50, 0.25]
 	
 	# Current health percentage
-	var current_health_percentage = health.health / health.max_health
+	var current_health_percentage : float = float(health.health) / float(health.max_health)
+	
+	print_debug(current_health_percentage)
 	
 	# Check each threshold
 	for threshold in thresholds:

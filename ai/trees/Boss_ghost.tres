@@ -37,15 +37,15 @@ resource_name = "true"
 variable = &"quarter_life"
 value = SubResource("BBVariant_pjeeo")
 
-[sub_resource type="BTAction" id="BTAction_wbtu8"]
-script = ExtResource("2_kh1gl")
-
 [sub_resource type="BTAction" id="BTAction_gp1br"]
 script = ExtResource("2_2qk28")
 
+[sub_resource type="BTAction" id="BTAction_wbtu8"]
+script = ExtResource("2_kh1gl")
+
 [sub_resource type="BTSequence" id="BTSequence_qedgi"]
 custom_name = "handle_phase"
-children = [SubResource("BTCheckVar_hneno"), SubResource("BTAction_wbtu8"), SubResource("BTAction_gp1br")]
+children = [SubResource("BTCheckVar_hneno"), SubResource("BTAction_gp1br"), SubResource("BTAction_wbtu8")]
 
 [sub_resource type="BBVariant" id="BBVariant_jle4h"]
 type = 1
@@ -57,12 +57,12 @@ variable = &"is_wave_done"
 value = SubResource("BBVariant_jle4h")
 
 [sub_resource type="BBNode" id="BBNode_2t2gy"]
-saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
-resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
+saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
+resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ondk0"]
 animation_player = SubResource("BBNode_2t2gy")
-animation_name = &"Scary Clown Idle/mixamo_com"
+animation_name = &"Goalkeeper_Idle/mixamo_com"
 
 [sub_resource type="BTAction" id="BTAction_50anh"]
 script = ExtResource("1_ajqsp")
@@ -87,12 +87,12 @@ variable = &"is_wave_done"
 value = SubResource("BBVariant_r0o1d")
 
 [sub_resource type="BBNode" id="BBNode_xxwou"]
-saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
-resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
+saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
+resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_bmqjm"]
 animation_player = SubResource("BBNode_xxwou")
-animation_name = &"Scary Clown Idle/mixamo_com"
+animation_name = &"Goalkeeper_Idle/mixamo_com"
 
 [sub_resource type="BTAction" id="BTAction_o68bi"]
 script = ExtResource("1_ajqsp")
@@ -109,12 +109,12 @@ custom_name = "Idle"
 children = [SubResource("BTSequence_jp6ju")]
 
 [sub_resource type="BBNode" id="BBNode_b5vqn"]
-saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
-resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
+saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
+resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6rbal"]
 animation_player = SubResource("BBNode_b5vqn")
-animation_name = &"Scary Clown Walk/mixamo_com"
+animation_name = &"Goalkeeper_Idle/mixamo_com"
 
 [sub_resource type="BTAction" id="BTAction_85v26"]
 script = ExtResource("2_qlvh8")
@@ -137,13 +137,13 @@ children = [SubResource("BTSequence_ru17y")]
 script = ExtResource("3_d7jrt")
 
 [sub_resource type="BBNode" id="BBNode_or40g"]
-saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
-resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
+saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
+resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ae5dh"]
 await_completion = 100.0
 animation_player = SubResource("BBNode_or40g")
-animation_name = &"Zombie Scream/mixamo_com"
+animation_name = &"Goalkeeper_Idle/mixamo_com"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hdgal"]
 random_pitch = 1.2
@@ -170,13 +170,13 @@ custom_name = "Spawn_minion"
 children = [SubResource("BTSequence_c53sd")]
 
 [sub_resource type="BBNode" id="BBNode_4gyl8"]
-saved_value = NodePath("SK_Chr_Scarecrow_01/AnimationPlayer")
-resource_name = "SK_Chr_Scarecrow_01/AnimationPlayer"
+saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
+resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_su4j1"]
 await_completion = 100.0
 animation_player = SubResource("BBNode_4gyl8")
-animation_name = &"Zombie Attack/mixamo_com"
+animation_name = &"Goalkeeper_Idle/mixamo_com"
 
 [sub_resource type="BTRepeat" id="BTRepeat_b5w2w"]
 times = 3

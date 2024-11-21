@@ -37,8 +37,10 @@ signal enemy_destroyed(enemy_type: String)
 signal wave_reached_position
 
 var can_move: bool = false
+var boss_wave: bool = false
 func _ready():
 	#setup_waves()
+	#if !boss_wave:
 	start_next_wave()
 	
 	if is_time_movement:
@@ -73,7 +75,7 @@ func start_next_wave():
 	if current_wave >= waves.size():
 		all_waves_completed.emit()
 		return
-		
+	
 	var wave_data = waves[current_wave].to_wave_data()
 	enemies_alive = get_total_enemies(wave_data)
 	wave_in_progress = true
