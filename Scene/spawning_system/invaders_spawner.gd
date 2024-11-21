@@ -1,6 +1,6 @@
 extends Node3D
 
-class_name WaveSpawner
+class_name InvaderWaveSpawner
 
 # Wave configuration
 @export var spawn_distance: float = 50.0

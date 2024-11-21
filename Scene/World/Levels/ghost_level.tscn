@@ -521,7 +521,7 @@ instance_count = 50
 mesh = SubResource("ArrayMesh_l5le7")
 buffer = PackedFloat32Array(-1.001, 0, 0, -4.2448, 0, 1.001, -4.37551e-08, -4.60825e-07, 0, -4.37551e-08, -1.001, -10.5424, 0, 0, -1.001, 11.2688, 4.37551e-08, 1.001, 0, -2.88033e-07, 1.001, -4.37551e-08, 0, -6.58943, -1.001, 0, 0, -11.9558, 0, 1.001, -4.37551e-08, 3.20895e-07, 0, -4.37551e-08, -1.001, 7.34122, 0, 0, -1.001, 9.95722, 4.37551e-08, 1.001, 0, 3.26587e-07, 1.001, -4.37551e-08, 0, 7.47145, -1.001, 0, 0, -5.9066, 0, 1.001, -4.37551e-08, -2.74067e-07, 0, -4.37551e-08, -1.001, -6.26993, 0, 0, -1.001, 8.2269, 4.37551e-08, 1.001, 0, -1.7649e-07, 1.001, -4.37551e-08, 0, -4.03761, 0, 0, -1.001, -8.28729, 4.37551e-08, 1.001, 0, 3.99343e-07, 1.001, -4.37551e-08, 0, 9.1359, 0, 0, -1.001, -2.20254, 4.37551e-08, 1.001, 0, 3.95683e-07, 1.001, -4.37551e-08, 0, 9.05217, -1.001, 0, 0, -10.5328, 0, 1.001, -4.37551e-08, -2.8643e-07, 0, -4.37551e-08, -1.001, -6.55275, -1.001, 0, 0, 1.60618, 0, 1.001, -4.37551e-08, -4.73401e-07, 0, -4.37551e-08, -1.001, -10.8302, -1.001, 0, 0, -12.2437, 0, 1.001, -4.37551e-08, 3.67088e-07, 0, -4.37551e-08, -1.001, 8.39799, -1.001, 0, 0, -2.4561, 0, 1.001, -4.37551e-08, -5.2595e-07, 0, -4.37551e-08, -1.001, -12.0323, 0, 0, -1.001, 10.4937, 4.37551e-08, 1.001, 0, 4.56103e-07, 1.001, -4.37551e-08, 0, 10.4344, -1.001, 0, 0, 6.31639, 0, 1.001, -4.37551e-08, -3.54077e-07, 0, -4.37551e-08, -1.001, -8.10033, -1.001, 0, 0, 2.30409, 0, 1.001, -4.37551e-08, -2.29822e-07, 0, -4.37551e-08, -1.001, -5.25771, -1.001, 0, 0, -0.296788, 0, 1.001, -4.37551e-08, -1.34156e-07, 0, -4.37551e-08, -1.001, -3.06913, -1.001, 0, 0, 1.58683, 0, 1.001, -4.37551e-08, -1.74063e-07, 0, -4.37551e-08, -1.001, -3.9821, -1.001, 0, 0, -12.0029, 0, 1.001, -4.37551e-08, 2.00123e-07, 0, -4.37551e-08, -1.001, 4.57828, -1.001, 0, 0, -10.297, 0, 1.001, -4.37551e-08, -3.09614e-07, 0, -4.37551e-08, -1.001, -7.08315, 0, 0, -1.001, 6.50566, 4.37551e-08, 1.001, 0, 1.44513e-07, 1.001, -4.37551e-08, 0, 3.30608, 0, 0, -1.001, 6.6335, 4.37551e-08, 1.001, 0, 4.92183e-07, 1.001, -4.37551e-08, 0, 11.2598, 0, 0, -1.001, 4.43371, 4.37551e-08, 1.001, 0, -1.81762e-07, 1.001, -4.37551e-08, 0, -4.15822, 0, 0, -1.001, 10.0933, 4.37551e-08, 1.001, 0, -5.38077e-09, 1.001, -4.37551e-08, 0, -0.123098, -1.001, 0, 0, -3.24905, 0, 1.001, -4.37551e-08, 5.79935e-08, 0, -4.37551e-08, -1.001, 1.32674, 0, 0, -1.001, -2.43007, 4.37551e-08, 1.001, 0, 3.46714e-07, 1.001, -4.37551e-08, 0, 7.93188, 0, 0, -1.001, -0.496072, 4.37551e-08, 1.001, 0, 2.27915e-08, 1.001, -4.37551e-08, 0, 0.521408, -1.001, 0, 0, -12.3719, 0, 1.001, -4.37551e-08, -4.04789e-07, 0, -4.37551e-08, -1.001, -9.2605, 0, 0, -1.001, 5.70603, 4.37551e-08, 1.001, 0, 2.7156e-07, 1.001, -4.37551e-08, 0, 6.21257, -1.001, 0, 0, -4.94214, 0, 1.001, -4.37551e-08, -4.58664e-07, 0, -4.37551e-08, -1.001, -10.493, -1.001, 0, 0, -10.5431, 0, 1.001, -4.37551e-08, -3.98664e-07, 0, -4.37551e-08, -1.001, -9.12036, 0, 0, -1.001, -0.595016, 4.37551e-08, 1.001, 0, 2.80118e-07, 1.001, -4.37551e-08, 0, 6.40834, 0, 0, -1.001, 11.0861, 4.37551e-08, 1.001, 0, 1.12632e-07, 1.001, -4.37551e-08, 0, 2.57672, 0, 0, -1.001, 3.28507, 4.37551e-08, 1.001, 0, 4.41507e-07, 1.001, -4.37551e-08, 0, 10.1005, -1.001, 0, 0, -1.23934, 0, 1.001, -4.37551e-08, -7.89123e-08, 0, -4.37551e-08, -1.001, -1.8053, -1.001, 0, 0, -5.25082, 0, 1.001, -4.37551e-08, -3.4363e-07, 0, -4.37551e-08, -1.001, -7.86133, -1.001, 0, 0, 3.42108, 0, 1.001, -4.37551e-08, -4.08608e-07, 0, -4.37551e-08, -1.001, -9.34787, -1.001, 0, 0, -11.0863, 0, 1.001, -4.37551e-08, 2.49155e-07, 0, -4.37551e-08, -1.001, 5.70001, -1.001, 0, 0, 1.08942, 0, 1.001, -4.37551e-08, -4.81599e-07, 0, -4.37551e-08, -1.001, -11.0177, -1.001, 0, 0, 4.18155, 0, 1.001, -4.37551e-08, -2.90652e-07, 0, -4.37551e-08, -1.001, -6.64935, 0, 0, -1.001, -9.71696, 4.37551e-08, 1.001, 0, 5.15302e-07, 1.001, -4.37551e-08, 0, 11.7887, -1.001, 0, 0, -7.38333, 0, 1.001, -4.37551e-08, -4.48873e-07, 0, -4.37551e-08, -1.001, -10.269, -1.001, 0, 0, 1.04515, 0, 1.001, -4.37551e-08, -1.59646e-07, 0, -4.37551e-08, -1.001, -3.65228, 0, 0, -1.001, 7.58824, 4.37551e-08, 1.001, 0, 1.7956e-07, 1.001, -4.37551e-08, 0, 4.10786, -1.001, 0, 0, 0.62556, 0, 1.001, -4.37551e-08, -2.60887e-07, 0, -4.37551e-08, -1.001, -5.96839, -1.001, 0, 0, -8.22011, 0, 1.001, -4.37551e-08, -3.47438e-07, 0, -4.37551e-08, -1.001, -7.94845, 0, 0, -1.001, 2.90576, 4.37551e-08, 1.001, 0, 1.17957e-08, 1.001, -4.37551e-08, 0, 0.269855, -1.001, 0, 0, -9.90196, 0, 1.001, -4.37551e-08, 2.47393e-07, 0, -4.37551e-08, -1.001, 5.6597, 0, 0, -1.001, 7.13347, 4.37551e-08, 1.001, 0, 2.06241e-07, 1.001, -4.37551e-08, 0, 4.71825, -1.001, 0, 0, -5.23164, 0, 1.001, -4.37551e-08, -2.91448e-07, 0, -4.37551e-08, -1.001, -6.66755, -1.001, 0, 0, -2.66098, 0, 1.001, -4.37551e-08, -4.87242e-07, 0, -4.37551e-08, -1.001, -11.1468)
 
-[sub_resource type="Resource" id="Resource_w74x6"]
+[sub_resource type="Resource" id="Resource_n0817"]
 script = ExtResource("14_wl457")
 spacing = 1.5
 offset = 13.0
@@ -533,7 +533,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_p07qn"]
+[sub_resource type="Resource" id="Resource_042c4"]
 script = ExtResource("15_0y70e")
 operation = 0
 rotation = Vector3(0, 90, 90)
@@ -543,7 +543,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_is2ix"]
+[sub_resource type="Resource" id="Resource_uhsow"]
 script = ExtResource("16_c6ess")
 negative_shapes_only = true
 enabled = false
@@ -552,7 +552,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_nbqwf"]
+[sub_resource type="Resource" id="Resource_rxtbw"]
 script = ExtResource("17_ovqwt")
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
@@ -563,9 +563,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_k86mp"]
+[sub_resource type="Resource" id="Resource_wsist"]
 script = ExtResource("12_1aaea")
-stack = Array[ExtResource("13_v4joi")]([SubResource("Resource_w74x6"), SubResource("Resource_p07qn"), SubResource("Resource_is2ix"), SubResource("Resource_nbqwf")])
+stack = Array[ExtResource("13_v4joi")]([SubResource("Resource_n0817"), SubResource("Resource_042c4"), SubResource("Resource_uhsow"), SubResource("Resource_rxtbw")])
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_purcx"]
 albedo_color = Color(0.371094, 0.371094, 0.371094, 1)
@@ -686,7 +686,7 @@ medium_wave = 3
 medium_enemies = Array[PackedScene]([ExtResource("7_kra5v")])
 hard_wave = 7
 hard_enemies = Array[PackedScene]([ExtResource("9_xurul")])
-boss_wave = 1
+boss_wave = 9
 boss_enemies = Array[PackedScene]([ExtResource("10_4wefu")])
 spawn_pos = NodePath("PathFollow3D")
 min_number = 2
@@ -882,7 +882,7 @@ visible = false
 [node name="Fence" type="Node3D" parent="Decorations"]
 script = ExtResource("11_8tf12")
 render_mode = 2
-modifier_stack = SubResource("Resource_k86mp")
+modifier_stack = SubResource("Resource_wsist")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -924,10 +924,11 @@ mesh = SubResource("QuadMesh_s57nu")
 [node name="Path3D" type="Path3D" parent="."]
 curve = SubResource("Curve3D_2ybcd")
 
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" node_paths=PackedStringArray("invader_spawner")]
 transform = Transform3D(0.631656, 0, -0.775234, 0, 0.999997, 0, 0.775234, 0, 0.631656, -40.1088, 0, -0.915359)
 script = ExtResource("23_ogxff")
 speed = 0.05
+invader_spawner = NodePath("Invaders_Spawner")
 easy_wave_configurations = SubResource("Resource_6dkbn")
 
 [node name="Invaders_Spawner" parent="Path3D/PathFollow3D" instance=ExtResource("24_rtl5e")]
@@ -941,6 +942,13 @@ loop_movement = true
 visible = false
 material_override = SubResource("StandardMaterial3D_m8qxl")
 mesh = SubResource("SphereMesh_pu0it")
+
+[node name="Boss_Markers" type="Node3D" parent="."]
+
+[node name="boss_teleport" type="Marker3D" parent="Boss_Markers" groups=["boss_teleport"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.3594)
+
+[node name="spawn_marker1" type="Marker3D" parent="Boss_Markers" groups=["invader_spawn_markers"]]
 
 [connection signal="easy_wave_signal" from="Enemy_spawn" to="Path3D/PathFollow3D" method="_on_enemy_spawn_easy_wave_signal"]
 [connection signal="hard_wave_signal" from="Enemy_spawn" to="Path3D/PathFollow3D" method="_on_enemy_spawn_hard_wave_signal"]

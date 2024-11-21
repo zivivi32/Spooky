@@ -34,6 +34,7 @@ var is_alive: bool :
 var can_hurt: bool = true
 
 signal health_changed(changed_health)
+signal hurt
 signal death
 
 func _ready() -> void:
@@ -57,3 +58,4 @@ func damage(amount):
 		if damange_number_origin:
 			DamageNumbers.display_number(amount, damange_number_origin.global_position)
 		health -= amount
+		hurt.emit()

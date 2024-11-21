@@ -69,6 +69,8 @@ Enemy=""
 phantom_camera=""
 animation_player=""
 animation_tree=""
+boss_teleport=""
+invader_spawn_markers=""
 
 [gui]
 
