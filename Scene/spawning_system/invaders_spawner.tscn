@@ -8,7 +8,9 @@ timer_movement = NodePath("start_movement")
 stop_movement_timer = NodePath("stop_movement")
 
 [node name="start_movement" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true
 
 [node name="stop_movement" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true

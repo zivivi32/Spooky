@@ -116,11 +116,11 @@ func spawn_invaders():
 	print_debug("spawn invaders")
 	invader_spawner = invaders_spawner_scene.instantiate()
 	invader_spawner.boss_wave = true
-	get_tree().root.add_child(invader_spawner)
-	invader_spawner.all_waves_completed.connect(bt_wave_done)
-	invader_spawner.global_position = spawner_location.global_position
-	#invader_spawner.current_wave = 0
-	invader_spawner.start_next_wave()
+	spawner_location.add_child(invader_spawner)
+	#invader_spawner.all_waves_completed.connect(bt_wave_done)
+	#invader_spawner.global_position = spawner_location.global_position
+	##invader_spawner.current_wave = 0
+	#invader_spawner.start_next_wave()
 	bt.blackboard.set_var(&"quarter_life", false)
 	bt.blackboard.set_var(&"wave_spawned", true)
 
@@ -233,8 +233,6 @@ func check_health_thresholds():
 	
 	# Current health percentage
 	var current_health_percentage : float = float(health.health) / float(health.max_health)
-	
-	print_debug(current_health_percentage)
 	
 	# Check each threshold
 	for threshold in thresholds:

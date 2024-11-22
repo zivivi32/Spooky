@@ -33,9 +33,11 @@ stop_movement_timer = NodePath("stop_movement")
 waves = Array[ExtResource("2_ljn8u")]([SubResource("Resource_qd5jk")])
 
 [node name="start_movement" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true
 
 [node name="stop_movement" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

@@ -2,12 +2,17 @@ extends Node3D
 
 class_name InvaderWaveSpawner
 
+## TO DO:
+# Correct the move straight functo move around the origin
+# Create container to and change clean up enemies to avoid 
+# overboard
+
 # Wave configuration
-@export var spawn_distance: float = 50.0
-@export var final_distance: float = 20.0
+@export var spawn_offset: float = 50.0  # Offset from origin where wave starts
+@export var final_distance: float = 20.0  # Distance to move towards
 @export var enemy_spacing: float = 2.0
 @export var formation_spacing: float = 1.0
-@export var loop_movement: bool = false
+@export var loop_movement: bool = true
 @export var side_movement_speed: float = 2.0 
 
 @export_subgroup("Timed movement")
@@ -29,7 +34,6 @@ var initial_x_positions: Dictionary = {}
 var movement_time: float = 0.0
 var moving_forward: bool = true
 
-
 # Signals
 signal wave_completed
 signal all_waves_completed
@@ -38,9 +42,8 @@ signal wave_reached_position
 
 var can_move: bool = false
 var boss_wave: bool = false
+
 func _ready():
-	#setup_waves()
-	#if !boss_wave:
 	start_next_wave()
 	
 	if is_time_movement:
@@ -50,6 +53,7 @@ func _ready():
 		stop_movement_timer.connect("timeout", stop_movement_timeout)
 	else:
 		can_move = true
+
 func movement_timeout(): 
 	can_move = true
 	stop_movement_timer.start(stop_movement)
@@ -71,6 +75,7 @@ func _process(delta):
 					move_in_v_formation(delta, wave_data)
 				WaveData.MovementPattern.RANDOM_SIDE:
 					move_randomly_side(delta, wave_data)
+
 func start_next_wave():
 	if current_wave >= waves.size():
 		all_waves_completed.emit()
@@ -79,7 +84,9 @@ func start_next_wave():
 	var wave_data = waves[current_wave].to_wave_data()
 	enemies_alive = get_total_enemies(wave_data)
 	wave_in_progress = true
-	current_position = Vector3(0, 0, spawn_distance)
+	
+	# Set initial position with spawn offset
+	current_position = Vector3(0, 0, spawn_offset)
 	movement_time = 0.0
 	
 	spawn_wave_enemies(wave_data)
@@ -90,7 +97,6 @@ func get_total_enemies(wave_data: Dictionary) -> int:
 	for enemy_type in wave_data.enemy_types:
 		total += enemy_type.count
 	return total
-
 func spawn_wave_enemies(wave_data: Dictionary):
 	var total_enemies = get_total_enemies(wave_data)
 	var cols = ceil(sqrt(total_enemies)) * formation_spacing
@@ -121,8 +127,8 @@ func spawn_wave_enemies(wave_data: Dictionary):
 			enemy.set_meta("relative_z", z)
 			initial_x_positions[enemy.get_instance_id()] = x
 			
-			# Set initial position
-			enemy.position = Vector3(x, 0, spawn_distance + z)
+			# Set initial position at spawn offset
+			enemy.position = Vector3(x, 0, spawn_offset + z)
 			
 			# Store enemy type for scoring/effects
 			enemy.set_meta("enemy_type", enemy_scene.resource_path.get_file().split(".")[0])
@@ -152,10 +158,10 @@ func move_straight(delta, wave_data: Dictionary):
 		else:
 			current_position.z = move_toward(
 				current_position.z,
-				spawn_distance,
+				spawn_offset,
 				wave_data.approach_speed * delta
 			)
-			if abs(current_position.z - spawn_distance) < 0.1:
+			if abs(current_position.z - spawn_offset) < 0.1:
 				moving_forward = true
 	else:
 		current_position.z = move_toward(
