@@ -3,17 +3,17 @@ extends Node3D
 class_name InvaderWaveSpawner
 
 ## TO DO:
-# Correct the move straight functo move around the origin
 # Create container to and change clean up enemies to avoid 
 # overboard
 
 # Wave configuration
-@export var spawn_offset: float = 50.0  # Offset from origin where wave starts
-@export var final_distance: float = 20.0  # Distance to move towards
+@export var spawn_offset: float = 0 # Offset from origin where wave starts
+@export var final_distance: float = 0  # Distance to move towards
 @export var enemy_spacing: float = 2.0
 @export var formation_spacing: float = 1.0
 @export var loop_movement: bool = true
 @export var side_movement_speed: float = 2.0 
+@export var spawn_container: Node3D
 
 @export_subgroup("Timed movement")
 @export var is_time_movement: bool = false
@@ -97,6 +97,7 @@ func get_total_enemies(wave_data: Dictionary) -> int:
 	for enemy_type in wave_data.enemy_types:
 		total += enemy_type.count
 	return total
+	
 func spawn_wave_enemies(wave_data: Dictionary):
 	var total_enemies = get_total_enemies(wave_data)
 	var cols = ceil(sqrt(total_enemies)) * formation_spacing
@@ -136,7 +137,7 @@ func spawn_wave_enemies(wave_data: Dictionary):
 			# Connect enemy's destroyed signal
 			enemy.connect("destroyed", _on_enemy_destroyed.bind(enemy))
 			enemy.connect("tree_exiting", _on_enemy_tree_exiting.bind(enemy))
-			add_child(enemy)
+			spawn_container.add_child(enemy)
 			
 			# Move to next position in formation
 			current_col += 1
@@ -145,23 +146,31 @@ func spawn_wave_enemies(wave_data: Dictionary):
 				current_row += 1
 
 func move_straight(delta, wave_data: Dictionary):
+	
+	var halfway: float = final_distance * 0.5
+	var right_direction: float = 0
+	var left_direction: float = 0
+	if halfway != 0:
+		right_direction = -halfway
+		left_direction = halfway
+		
 	if loop_movement:
 		if moving_forward:
 			current_position.z = move_toward(
 				current_position.z,
-				final_distance,
+				right_direction,
 				wave_data.approach_speed * delta
 			)
-			if abs(current_position.z - final_distance) < 0.1:
+			if abs(current_position.z - right_direction) < 0.1:
 				moving_forward = false
 				wave_reached_position.emit()
 		else:
 			current_position.z = move_toward(
 				current_position.z,
-				spawn_offset,
+				left_direction,
 				wave_data.approach_speed * delta
 			)
-			if abs(current_position.z - spawn_offset) < 0.1:
+			if abs(current_position.z - left_direction) < 0.1:
 				moving_forward = true
 	else:
 		current_position.z = move_toward(
@@ -171,11 +180,11 @@ func move_straight(delta, wave_data: Dictionary):
 		)
 		if abs(current_position.z - final_distance) < 0.1:
 			wave_reached_position.emit()
-			for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+			for enemy in spawn_container.get_children():
 				enemy.queue_free()
 	
 	# Update all enemy positions
-	for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+	for enemy in spawn_container.get_children():
 		var new_pos = enemy.position
 		new_pos.z = current_position.z + enemy.get_meta("relative_z")
 		new_pos.x = enemy.get_meta("relative_x")
@@ -187,7 +196,7 @@ func move_in_circle(delta, wave_data):
 	
 	if not loop_movement and movement_time >= TAU:
 		wave_reached_position.emit()
-		for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+		for enemy in spawn_container.get_children():
 			enemy.queue_free()
 		return
 	
@@ -197,7 +206,7 @@ func move_in_circle(delta, wave_data):
 		wave_reached_position.emit()
 	
 	# Update all enemy positions
-	for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+	for enemy in spawn_container.get_children():
 		var relative_x = enemy.get_meta("relative_x")
 		var relative_z = enemy.get_meta("relative_z")
 		var x = radius * cos(movement_time) + relative_x
@@ -218,7 +227,7 @@ func move_in_v_formation(delta, wave_data):
 		
 		if abs(current_position.z - final_distance) < 0.1:
 			wave_reached_position.emit()
-			for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+			for enemy in spawn_container.get_children():
 				enemy.queue_free()
 			return
 	
@@ -228,7 +237,7 @@ func move_in_v_formation(delta, wave_data):
 		wave_reached_position.emit()
 	
 	# Update all enemy positions
-	for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+	for enemy in spawn_container.get_children():
 		var relative_x = enemy.get_meta("relative_x")
 		var relative_z = enemy.get_meta("relative_z")
 		var x = relative_x + wing_length * cos(movement_time + relative_z * wing_angle)
@@ -243,7 +252,7 @@ func move_randomly_side(delta, wave_data):
 	
 	if not loop_movement and movement_time >= cycles * TAU + pause_duration:
 		wave_reached_position.emit()
-		for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+		for enemy in spawn_container.get_children():
 			enemy.queue_free()
 		return
 	
@@ -253,7 +262,7 @@ func move_randomly_side(delta, wave_data):
 		wave_reached_position.emit()
 	
 	# Update all enemy positions
-	for enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+	for enemy in spawn_container.get_children():
 		var relative_x = enemy.get_meta("relative_x")
 		var relative_z = enemy.get_meta("relative_z")
 		var x = relative_x + sin(movement_time * side_movement_speed) * (x_bounds[1] - x_bounds[0]) / 2.0
@@ -268,7 +277,7 @@ func _on_enemy_destroyed(enemy: Node3D):
 	if enemies_alive <= 0:
 		wave_in_progress = false
 		# Clear any remaining enemies
-		for remaining_enemy in get_tree().get_nodes_in_group("current_wave_enemies"):
+		for remaining_enemy in spawn_container.get_children():
 			remaining_enemy.queue_free()
 		wave_completed.emit()
 		start_next_wave()

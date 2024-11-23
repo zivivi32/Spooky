@@ -61,6 +61,7 @@ signal enemy_death
 func _ready() -> void:
 	health.connect("death", death)
 	weapon.bullet_count = bullet_count
+	bt.blackboard.set_var(&"is_wave_done", true)
 
 	nav_region = get_tree().get_first_node_in_group("navigation_region")
 	teleport_location = get_tree().get_first_node_in_group("boss_teleport")
@@ -101,6 +102,13 @@ func switch_default_bullet():
 	weapon.bullet_count = bullet_count
 	weapon.arc = default_arc
 	start_attack()
+	
+func handle_gravity(delta):
+	
+	gravity += 25 * delta
+	
+	if gravity > 0 and is_on_floor():
+		gravity = 0
 
 func stop_attack(): 
 	weapon.attack_timer.stop()
@@ -113,29 +121,26 @@ func switch_bullet(new_bullet: PackedScene):
 	weapon.bullet_scene = new_bullet
 	
 func spawn_invaders():
-	print_debug("spawn invaders")
 	invader_spawner = invaders_spawner_scene.instantiate()
 	invader_spawner.boss_wave = true
 	spawner_location.add_child(invader_spawner)
-	#invader_spawner.all_waves_completed.connect(bt_wave_done)
-	#invader_spawner.global_position = spawner_location.global_position
+	invader_spawner.all_waves_completed.connect(bt_wave_done)
+	invader_spawner.global_position = spawner_location.global_position
 	##invader_spawner.current_wave = 0
-	#invader_spawner.start_next_wave()
+	invader_spawner.start_next_wave()
 	bt.blackboard.set_var(&"quarter_life", false)
 	bt.blackboard.set_var(&"wave_spawned", true)
-
+	bt.blackboard.set_var(&"is_wave_done", false)
+	
 func teleport():
-	print_debug("teleport")
 	global_position = teleport_location.global_position
 	bt.blackboard.set_var(&"is_wave_done", false)
 	
 func bt_wave_done():
-	print_debug("NOT MOVING!")
 	bt.blackboard.set_var(&"is_wave_done", true)
 	bt.blackboard.set_var(&"wave_spawned", false)
 	
 func spawn_minions() -> void:
-	print_debug("spawn_minions")
 	navigation_agent.Speed = 0
 	velocity = Vector3.ZERO
 	
@@ -175,7 +180,8 @@ func spawn_minions() -> void:
 		
 ###############################################################
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	handle_gravity(delta)
 	if walking_particles:
 		var animation_velocity = Vector2(velocity.x,velocity.z)
 		walking_particles.emitting = (animation_velocity != Vector2.ZERO)
@@ -186,9 +192,11 @@ func _physics_process(_delta: float) -> void:
 	else: 
 		get_player()
 
-
+	if position.y < -10:
+		## Teleport to safety
+		get_tree().reload_current_scene()
+		
 func death() -> void:
-	print_debug("died")
 	enemy_death.emit(self)
 	
 	if bt: 

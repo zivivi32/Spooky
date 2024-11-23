@@ -14,8 +14,8 @@ count = 16
 script = ExtResource("2_ljn8u")
 enemy_types = Array[ExtResource("3_jk0a8")]([SubResource("Resource_xgy85")])
 formation_width = 15.0
-approach_speed = 5.0
-movement_pattern = 0
+approach_speed = 1.0
+movement_pattern = 1
 circle_radius = 10.0
 wing_angle = 45.0
 wing_length = 10.0
@@ -26,8 +26,9 @@ pause_duration = 2.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xybaj"]
 
-[node name="Boss_Invaders_Spawner" type="Node3D" node_paths=PackedStringArray("timer_movement", "stop_movement_timer")]
+[node name="Boss_Invaders_Spawner" type="Node3D" node_paths=PackedStringArray("spawn_container", "timer_movement", "stop_movement_timer")]
 script = ExtResource("1_4wger")
+spawn_container = NodePath("Container")
 timer_movement = NodePath("start_movement")
 stop_movement_timer = NodePath("stop_movement")
 waves = Array[ExtResource("2_ljn8u")]([SubResource("Resource_qd5jk")])
@@ -42,3 +43,5 @@ one_shot = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_xybaj")
+
+[node name="Container" type="Node3D" parent="."]

@@ -43,9 +43,15 @@ script = ExtResource("2_2qk28")
 [sub_resource type="BTAction" id="BTAction_wbtu8"]
 script = ExtResource("2_kh1gl")
 
+[sub_resource type="BTSequence" id="BTSequence_dk1c0"]
+children = [SubResource("BTCheckVar_hneno"), SubResource("BTAction_gp1br"), SubResource("BTAction_wbtu8")]
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_mqj6c"]
+children = [SubResource("BTSequence_dk1c0")]
+
 [sub_resource type="BTSequence" id="BTSequence_qedgi"]
 custom_name = "handle_phase"
-children = [SubResource("BTCheckVar_hneno"), SubResource("BTAction_gp1br"), SubResource("BTAction_wbtu8")]
+children = [SubResource("BTTimeLimit_mqj6c")]
 
 [sub_resource type="BBVariant" id="BBVariant_jle4h"]
 type = 1
@@ -136,15 +142,6 @@ children = [SubResource("BTSequence_ru17y")]
 [sub_resource type="BTAction" id="BTAction_wojhy"]
 script = ExtResource("3_d7jrt")
 
-[sub_resource type="BBNode" id="BBNode_or40g"]
-saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
-resource_name = "man-ghost-halloween/AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ae5dh"]
-await_completion = 100.0
-animation_player = SubResource("BBNode_or40g")
-animation_name = &"Goalkeeper_Idle/mixamo_com"
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hdgal"]
 random_pitch = 1.2
 streams_count = 1
@@ -162,7 +159,7 @@ script = ExtResource("7_7iyxq")
 
 [sub_resource type="BTSequence" id="BTSequence_c53sd"]
 custom_name = "Spawn_Minions"
-children = [SubResource("BTAction_wojhy"), SubResource("BTPlayAnimation_ae5dh"), SubResource("BTAction_2eea7"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
+children = [SubResource("BTAction_wojhy"), SubResource("BTAction_2eea7"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
 
 [sub_resource type="BTProbability" id="BTProbability_ojjha"]
 run_chance = 0.4
@@ -197,12 +194,12 @@ children = [SubResource("BTSequence_glyoj")]
 [sub_resource type="BTSelector" id="BTSelector_pdimi"]
 children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha"), SubResource("BTProbability_c3my0")]
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_6kkdu"]
-time_limit = 15.0
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_57ssc"]
+children = [SubResource("BTSelector_pdimi")]
 
 [sub_resource type="BTSequence" id="BTSequence_yccfq"]
 custom_name = "combat_phase"
-children = [SubResource("BTCheckVar_wfi50"), SubResource("BTSelector_pdimi"), SubResource("BTTimeLimit_6kkdu")]
+children = [SubResource("BTCheckVar_wfi50"), SubResource("BTTimeLimit_57ssc")]
 
 [sub_resource type="BTSelector" id="BTSelector_f42ow"]
 children = [SubResource("BTSequence_qedgi"), SubResource("BTSequence_5r1ab"), SubResource("BTSequence_yccfq")]
