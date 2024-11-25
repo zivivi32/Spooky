@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=58 format=3 uid="uid://d3frpsxs8dofs"]
+[gd_resource type="BehaviorTree" load_steps=48 format=3 uid="uid://d3frpsxs8dofs"]
 
 [ext_resource type="Script" path="res://ai/tasks/idle_phase.gd" id="1_ajqsp"]
 [ext_resource type="Script" path="res://ai/tasks/teleport.gd" id="2_2qk28"]
@@ -28,77 +28,13 @@ var/quarter_life/value = false
 var/quarter_life/hint = 0
 var/quarter_life/hint_string = ""
 
-[sub_resource type="BBVariant" id="BBVariant_pjeeo"]
-type = 1
-saved_value = true
-resource_name = "true"
-
-[sub_resource type="BTCheckVar" id="BTCheckVar_hneno"]
-variable = &"quarter_life"
-value = SubResource("BBVariant_pjeeo")
-
-[sub_resource type="BTAction" id="BTAction_gp1br"]
-script = ExtResource("2_2qk28")
-
-[sub_resource type="BTAction" id="BTAction_wbtu8"]
-script = ExtResource("2_kh1gl")
-
-[sub_resource type="BTSequence" id="BTSequence_dk1c0"]
-children = [SubResource("BTCheckVar_hneno"), SubResource("BTAction_gp1br"), SubResource("BTAction_wbtu8")]
-
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_mqj6c"]
-children = [SubResource("BTSequence_dk1c0")]
-
-[sub_resource type="BTSequence" id="BTSequence_qedgi"]
-custom_name = "handle_phase"
-children = [SubResource("BTTimeLimit_mqj6c")]
-
-[sub_resource type="BBVariant" id="BBVariant_jle4h"]
-type = 1
-saved_value = false
-resource_name = "false"
-
-[sub_resource type="BTCheckVar" id="BTCheckVar_hbn5e"]
-variable = &"is_wave_done"
-value = SubResource("BBVariant_jle4h")
-
-[sub_resource type="BBNode" id="BBNode_2t2gy"]
-saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
-resource_name = "man-ghost-halloween/AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ondk0"]
-animation_player = SubResource("BBNode_2t2gy")
-animation_name = &"Goalkeeper_Idle/mixamo_com"
-
-[sub_resource type="BTAction" id="BTAction_50anh"]
-script = ExtResource("1_ajqsp")
-
-[sub_resource type="BTRandomWait" id="BTRandomWait_88it8"]
-
-[sub_resource type="BTSequence" id="BTSequence_sq8t7"]
-custom_name = "Idle"
-children = [SubResource("BTPlayAnimation_ondk0"), SubResource("BTAction_50anh"), SubResource("BTRandomWait_88it8")]
-
-[sub_resource type="BTSequence" id="BTSequence_5r1ab"]
-custom_name = "wave_phase"
-children = [SubResource("BTCheckVar_hbn5e"), SubResource("BTSequence_sq8t7")]
-
-[sub_resource type="BBVariant" id="BBVariant_r0o1d"]
-type = 1
-saved_value = true
-resource_name = "true"
-
-[sub_resource type="BTCheckVar" id="BTCheckVar_wfi50"]
-variable = &"is_wave_done"
-value = SubResource("BBVariant_r0o1d")
-
 [sub_resource type="BBNode" id="BBNode_xxwou"]
 saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
 resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_bmqjm"]
 animation_player = SubResource("BBNode_xxwou")
-animation_name = &"Goalkeeper_Idle/mixamo_com"
+animation_name = &"Idle/Idle"
 
 [sub_resource type="BTAction" id="BTAction_o68bi"]
 script = ExtResource("1_ajqsp")
@@ -120,7 +56,7 @@ resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6rbal"]
 animation_player = SubResource("BBNode_b5vqn")
-animation_name = &"Goalkeeper_Idle/mixamo_com"
+animation_name = &"Idle/Idle"
 
 [sub_resource type="BTAction" id="BTAction_85v26"]
 script = ExtResource("2_qlvh8")
@@ -171,9 +107,9 @@ saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
 resource_name = "man-ghost-halloween/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_su4j1"]
-await_completion = 100.0
+await_completion = 10.0
 animation_player = SubResource("BBNode_4gyl8")
-animation_name = &"Goalkeeper_Idle/mixamo_com"
+animation_name = &"Attack"
 
 [sub_resource type="BTRepeat" id="BTRepeat_b5w2w"]
 times = 3
@@ -191,18 +127,45 @@ run_chance = 0.4
 custom_name = "Special_Attack"
 children = [SubResource("BTSequence_glyoj")]
 
-[sub_resource type="BTSelector" id="BTSelector_pdimi"]
-children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha"), SubResource("BTProbability_c3my0")]
+[sub_resource type="BTAction" id="BTAction_gp1br"]
+script = ExtResource("2_2qk28")
+teleport_back = true
 
-[sub_resource type="BTTimeLimit" id="BTTimeLimit_57ssc"]
-children = [SubResource("BTSelector_pdimi")]
+[sub_resource type="BTAction" id="BTAction_wbtu8"]
+script = ExtResource("2_kh1gl")
 
-[sub_resource type="BTSequence" id="BTSequence_yccfq"]
-custom_name = "combat_phase"
-children = [SubResource("BTCheckVar_wfi50"), SubResource("BTTimeLimit_57ssc")]
+[sub_resource type="BBNode" id="BBNode_2t2gy"]
+saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
+resource_name = "man-ghost-halloween/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ondk0"]
+animation_player = SubResource("BBNode_2t2gy")
+animation_name = &"Idle/Idle"
+
+[sub_resource type="BTAction" id="BTAction_50anh"]
+script = ExtResource("1_ajqsp")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_88it8"]
+min_duration = 10.0
+max_duration = 20.0
+
+[sub_resource type="BTAction" id="BTAction_0gxp5"]
+script = ExtResource("2_2qk28")
+teleport_back = false
+
+[sub_resource type="BTSequence" id="BTSequence_sq8t7"]
+custom_name = "Idle"
+children = [SubResource("BTPlayAnimation_ondk0"), SubResource("BTAction_50anh"), SubResource("BTRandomWait_88it8"), SubResource("BTAction_0gxp5")]
+
+[sub_resource type="BTSequence" id="BTSequence_dk1c0"]
+children = [SubResource("BTAction_gp1br"), SubResource("BTAction_wbtu8"), SubResource("BTSequence_sq8t7")]
+
+[sub_resource type="BTProbability" id="BTProbability_t7nh8"]
+custom_name = "Spawn Invader wave"
+children = [SubResource("BTSequence_dk1c0")]
 
 [sub_resource type="BTSelector" id="BTSelector_f42ow"]
-children = [SubResource("BTSequence_qedgi"), SubResource("BTSequence_5r1ab"), SubResource("BTSequence_yccfq")]
+children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha"), SubResource("BTProbability_c3my0"), SubResource("BTProbability_t7nh8")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_ni651")

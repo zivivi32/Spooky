@@ -2,10 +2,6 @@ extends Node3D
 
 class_name InvaderWaveSpawner
 
-## TO DO:
-# Create container to and change clean up enemies to avoid 
-# overboard
-
 # Wave configuration
 @export var spawn_offset: float = 0 # Offset from origin where wave starts
 @export var final_distance: float = 0  # Distance to move towards
@@ -14,6 +10,7 @@ class_name InvaderWaveSpawner
 @export var loop_movement: bool = true
 @export var side_movement_speed: float = 2.0 
 @export var spawn_container: Node3D
+@export var delete_after_waves: bool = false
 
 @export_subgroup("Timed movement")
 @export var is_time_movement: bool = false
@@ -280,7 +277,10 @@ func _on_enemy_destroyed(enemy: Node3D):
 		for remaining_enemy in spawn_container.get_children():
 			remaining_enemy.queue_free()
 		wave_completed.emit()
-		start_next_wave()
+		if delete_after_waves:
+			queue_free()
+		else:
+			start_next_wave()
 
 func _on_enemy_tree_exiting(enemy: Node3D):
 	# Clean up stored positions when enemy is freed

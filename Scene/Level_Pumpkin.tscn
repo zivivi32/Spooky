@@ -1800,7 +1800,7 @@ collision_mask = 4294967295
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mouse_Plane/Area3D"]
 shape = SubResource("ConvexPolygonShape3D_xyddh")
 
-[node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("11_wrenr")]
+[node name="Enemy_spawn" parent="." node_paths=PackedStringArray("boss_spawn_pos", "difficulty_manager", "nav_region") instance=ExtResource("11_wrenr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 easy_enemies = Array[PackedScene]([ExtResource("12_vtgdv")])
 medium_wave = 3
@@ -1809,14 +1809,15 @@ hard_wave = 7
 hard_enemies = Array[PackedScene]([ExtResource("14_rw1yq")])
 boss_wave = 9
 boss_enemies = Array[PackedScene]([ExtResource("15_r76nt")])
-spawn_pos = NodePath("PathFollow3D")
+boss_spawn_pos = NodePath("Boss_Spawn")
 difficulty_manager = NodePath("Difficulty_manager")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Enemy_spawn"]
-transform = Transform3D(-0.00296783, 0, -0.99998, 0, 1, 0, 0.99998, 0, -0.00296783, -12.9955, 0, -13.1507)
+spawn_radius = 15.0
+nav_region = NodePath("../NavigationRegion3D")
 
 [node name="Difficulty_manager" parent="Enemy_spawn" instance=ExtResource("16_8w524")]
 spawn_time_curve = SubResource("Curve_ffr2r")
+
+[node name="Boss_Spawn" type="Marker3D" parent="Enemy_spawn"]
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.394, 8, -11.967)

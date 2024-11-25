@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://crv8g7x1vrp0a"]
+
+[ext_resource type="Script" path="res://Scene/Arena_Limits/limits.gd" id="1_sirxv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ldyyq"]
+size = Vector3(32.1975, 5.66788, 30.7655)
+
+[node name="Limits" type="Area3D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_sirxv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.383423, 2.33394, -0.0162506)
+shape = SubResource("BoxShape3D_ldyyq")
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

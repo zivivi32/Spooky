@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=4 uid="uid://b0f653sk1nnmq"]
+[gd_scene load_steps=116 format=4 uid="uid://b0f653sk1nnmq"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="1_00i3p"]
 [ext_resource type="Texture2D" uid="uid://bimdcddxdlhwm" path="res://Assets/Environment/Synty_Farm/Textures/PolygonFarm_Texture_03_A.png" id="1_3ghov"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://Resources/Wave_Data/Wave_data.gd" id="25_xeymk"]
 [ext_resource type="Script" path="res://Resources/Wave_Data/EnemyTypeData.gd" id="26_b025e"]
 [ext_resource type="PackedScene" uid="uid://cvk32pooepg37" path="res://Scene/Enemy/Ghosts_Levels/ghost_base.tscn" id="27_sryhi"]
+[ext_resource type="PackedScene" uid="uid://crv8g7x1vrp0a" path="res://Scene/Arena_Limits/limits.tscn" id="34_ixjaq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_schpv"]
 size = Vector3(100, 0.05, 100)
@@ -83,9 +84,9 @@ script = ExtResource("3_xy46k")
 cull_mask = 1048575
 h_offset = 0.0
 v_offset = 0.0
-projection = 1
-fov = 150.0
-size = 50.0
+projection = 0
+fov = 50.0
+size = 20.0
 frustum_offset = Vector2(0, 0)
 near = 0.001
 far = 4000.0
@@ -147,10 +148,10 @@ albedo_color = Color(0.489622, 0.489622, 0.489622, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1udlb"]
 material = SubResource("StandardMaterial3D_ud10v")
-size = Vector3(150, 0.2, 150)
+size = Vector3(50, 0.2, 50)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6vrs7"]
-points = PackedVector3Array(-75, -0.1, -75, -75, 0.1, -75, 75, -0.1, -75, -75, -0.1, 75, -75, 0.1, 75, 75, 0.1, -75, 75, -0.1, 75, 75, 0.1, 75)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a6wnq"]
+points = PackedVector3Array(25.3919, 0.296748, 25.3919, -25.3919, -0.496748, -25.3919, -25.3919, 0.296748, -25.3919, 25.3919, -0.496748, -25.3919, -25.3919, -0.496748, 25.3919, -25.3919, 0.296748, 25.3919, 25.3919, 0.296748, -25.3919, 25.3919, -0.496748, 25.3919)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tapme"]
 albedo_color = Color(0.162066, 0.162066, 0.162066, 1)
@@ -521,7 +522,7 @@ instance_count = 50
 mesh = SubResource("ArrayMesh_l5le7")
 buffer = PackedFloat32Array(-1.001, 0, 0, -4.2448, 0, 1.001, -4.37551e-08, -4.60825e-07, 0, -4.37551e-08, -1.001, -10.5424, 0, 0, -1.001, 11.2688, 4.37551e-08, 1.001, 0, -2.88033e-07, 1.001, -4.37551e-08, 0, -6.58943, -1.001, 0, 0, -11.9558, 0, 1.001, -4.37551e-08, 3.20895e-07, 0, -4.37551e-08, -1.001, 7.34122, 0, 0, -1.001, 9.95722, 4.37551e-08, 1.001, 0, 3.26587e-07, 1.001, -4.37551e-08, 0, 7.47145, -1.001, 0, 0, -5.9066, 0, 1.001, -4.37551e-08, -2.74067e-07, 0, -4.37551e-08, -1.001, -6.26993, 0, 0, -1.001, 8.2269, 4.37551e-08, 1.001, 0, -1.7649e-07, 1.001, -4.37551e-08, 0, -4.03761, 0, 0, -1.001, -8.28729, 4.37551e-08, 1.001, 0, 3.99343e-07, 1.001, -4.37551e-08, 0, 9.1359, 0, 0, -1.001, -2.20254, 4.37551e-08, 1.001, 0, 3.95683e-07, 1.001, -4.37551e-08, 0, 9.05217, -1.001, 0, 0, -10.5328, 0, 1.001, -4.37551e-08, -2.8643e-07, 0, -4.37551e-08, -1.001, -6.55275, -1.001, 0, 0, 1.60618, 0, 1.001, -4.37551e-08, -4.73401e-07, 0, -4.37551e-08, -1.001, -10.8302, -1.001, 0, 0, -12.2437, 0, 1.001, -4.37551e-08, 3.67088e-07, 0, -4.37551e-08, -1.001, 8.39799, -1.001, 0, 0, -2.4561, 0, 1.001, -4.37551e-08, -5.2595e-07, 0, -4.37551e-08, -1.001, -12.0323, 0, 0, -1.001, 10.4937, 4.37551e-08, 1.001, 0, 4.56103e-07, 1.001, -4.37551e-08, 0, 10.4344, -1.001, 0, 0, 6.31639, 0, 1.001, -4.37551e-08, -3.54077e-07, 0, -4.37551e-08, -1.001, -8.10033, -1.001, 0, 0, 2.30409, 0, 1.001, -4.37551e-08, -2.29822e-07, 0, -4.37551e-08, -1.001, -5.25771, -1.001, 0, 0, -0.296788, 0, 1.001, -4.37551e-08, -1.34156e-07, 0, -4.37551e-08, -1.001, -3.06913, -1.001, 0, 0, 1.58683, 0, 1.001, -4.37551e-08, -1.74063e-07, 0, -4.37551e-08, -1.001, -3.9821, -1.001, 0, 0, -12.0029, 0, 1.001, -4.37551e-08, 2.00123e-07, 0, -4.37551e-08, -1.001, 4.57828, -1.001, 0, 0, -10.297, 0, 1.001, -4.37551e-08, -3.09614e-07, 0, -4.37551e-08, -1.001, -7.08315, 0, 0, -1.001, 6.50566, 4.37551e-08, 1.001, 0, 1.44513e-07, 1.001, -4.37551e-08, 0, 3.30608, 0, 0, -1.001, 6.6335, 4.37551e-08, 1.001, 0, 4.92183e-07, 1.001, -4.37551e-08, 0, 11.2598, 0, 0, -1.001, 4.43371, 4.37551e-08, 1.001, 0, -1.81762e-07, 1.001, -4.37551e-08, 0, -4.15822, 0, 0, -1.001, 10.0933, 4.37551e-08, 1.001, 0, -5.38077e-09, 1.001, -4.37551e-08, 0, -0.123098, -1.001, 0, 0, -3.24905, 0, 1.001, -4.37551e-08, 5.79935e-08, 0, -4.37551e-08, -1.001, 1.32674, 0, 0, -1.001, -2.43007, 4.37551e-08, 1.001, 0, 3.46714e-07, 1.001, -4.37551e-08, 0, 7.93188, 0, 0, -1.001, -0.496072, 4.37551e-08, 1.001, 0, 2.27915e-08, 1.001, -4.37551e-08, 0, 0.521408, -1.001, 0, 0, -12.3719, 0, 1.001, -4.37551e-08, -4.04789e-07, 0, -4.37551e-08, -1.001, -9.2605, 0, 0, -1.001, 5.70603, 4.37551e-08, 1.001, 0, 2.7156e-07, 1.001, -4.37551e-08, 0, 6.21257, -1.001, 0, 0, -4.94214, 0, 1.001, -4.37551e-08, -4.58664e-07, 0, -4.37551e-08, -1.001, -10.493, -1.001, 0, 0, -10.5431, 0, 1.001, -4.37551e-08, -3.98664e-07, 0, -4.37551e-08, -1.001, -9.12036, 0, 0, -1.001, -0.595016, 4.37551e-08, 1.001, 0, 2.80118e-07, 1.001, -4.37551e-08, 0, 6.40834, 0, 0, -1.001, 11.0861, 4.37551e-08, 1.001, 0, 1.12632e-07, 1.001, -4.37551e-08, 0, 2.57672, 0, 0, -1.001, 3.28507, 4.37551e-08, 1.001, 0, 4.41507e-07, 1.001, -4.37551e-08, 0, 10.1005, -1.001, 0, 0, -1.23934, 0, 1.001, -4.37551e-08, -7.89123e-08, 0, -4.37551e-08, -1.001, -1.8053, -1.001, 0, 0, -5.25082, 0, 1.001, -4.37551e-08, -3.4363e-07, 0, -4.37551e-08, -1.001, -7.86133, -1.001, 0, 0, 3.42108, 0, 1.001, -4.37551e-08, -4.08608e-07, 0, -4.37551e-08, -1.001, -9.34787, -1.001, 0, 0, -11.0863, 0, 1.001, -4.37551e-08, 2.49155e-07, 0, -4.37551e-08, -1.001, 5.70001, -1.001, 0, 0, 1.08942, 0, 1.001, -4.37551e-08, -4.81599e-07, 0, -4.37551e-08, -1.001, -11.0177, -1.001, 0, 0, 4.18155, 0, 1.001, -4.37551e-08, -2.90652e-07, 0, -4.37551e-08, -1.001, -6.64935, 0, 0, -1.001, -9.71696, 4.37551e-08, 1.001, 0, 5.15302e-07, 1.001, -4.37551e-08, 0, 11.7887, -1.001, 0, 0, -7.38333, 0, 1.001, -4.37551e-08, -4.48873e-07, 0, -4.37551e-08, -1.001, -10.269, -1.001, 0, 0, 1.04515, 0, 1.001, -4.37551e-08, -1.59646e-07, 0, -4.37551e-08, -1.001, -3.65228, 0, 0, -1.001, 7.58824, 4.37551e-08, 1.001, 0, 1.7956e-07, 1.001, -4.37551e-08, 0, 4.10786, -1.001, 0, 0, 0.62556, 0, 1.001, -4.37551e-08, -2.60887e-07, 0, -4.37551e-08, -1.001, -5.96839, -1.001, 0, 0, -8.22011, 0, 1.001, -4.37551e-08, -3.47438e-07, 0, -4.37551e-08, -1.001, -7.94845, 0, 0, -1.001, 2.90576, 4.37551e-08, 1.001, 0, 1.17957e-08, 1.001, -4.37551e-08, 0, 0.269855, -1.001, 0, 0, -9.90196, 0, 1.001, -4.37551e-08, 2.47393e-07, 0, -4.37551e-08, -1.001, 5.6597, 0, 0, -1.001, 7.13347, 4.37551e-08, 1.001, 0, 2.06241e-07, 1.001, -4.37551e-08, 0, 4.71825, -1.001, 0, 0, -5.23164, 0, 1.001, -4.37551e-08, -2.91448e-07, 0, -4.37551e-08, -1.001, -6.66755, -1.001, 0, 0, -2.66098, 0, 1.001, -4.37551e-08, -4.87242e-07, 0, -4.37551e-08, -1.001, -11.1468)
 
-[sub_resource type="Resource" id="Resource_e1hxk"]
+[sub_resource type="Resource" id="Resource_m4gwk"]
 script = ExtResource("14_wl457")
 spacing = 1.5
 offset = 13.0
@@ -533,7 +534,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_xuks3"]
+[sub_resource type="Resource" id="Resource_ckk4d"]
 script = ExtResource("15_0y70e")
 operation = 0
 rotation = Vector3(0, 90, 90)
@@ -543,7 +544,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_d5mdb"]
+[sub_resource type="Resource" id="Resource_q6ngh"]
 script = ExtResource("16_c6ess")
 negative_shapes_only = true
 enabled = false
@@ -552,7 +553,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_bgf8b"]
+[sub_resource type="Resource" id="Resource_763vt"]
 script = ExtResource("17_ovqwt")
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
@@ -563,9 +564,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_6tjjv"]
+[sub_resource type="Resource" id="Resource_0dwyy"]
 script = ExtResource("12_1aaea")
-stack = Array[ExtResource("13_v4joi")]([SubResource("Resource_e1hxk"), SubResource("Resource_xuks3"), SubResource("Resource_d5mdb"), SubResource("Resource_bgf8b")])
+stack = Array[ExtResource("13_v4joi")]([SubResource("Resource_m4gwk"), SubResource("Resource_ckk4d"), SubResource("Resource_q6ngh"), SubResource("Resource_763vt")])
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_purcx"]
 albedo_color = Color(0.371094, 0.371094, 0.371094, 1)
@@ -687,17 +688,6 @@ follow_damping_value = Vector3(0.5, 0.5, 0.5)
 follow_distance = 20.0
 spring_length = 20.0
 
-[node name="PhantomCamera3D2" type="Node3D" parent="."]
-transform = Transform3D(0.707107, -0.612372, 0.353553, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353553, 7.07106, 18.4643, 8.9264)
-script = ExtResource("1_00i3p")
-priority = 10
-tween_resource = SubResource("Resource_j7mcs")
-camera_3d_resource = SubResource("Resource_o173c")
-follow_damping = true
-follow_damping_value = Vector3(0.5, 0.5, 0.5)
-follow_distance = 20.0
-spring_length = 20.0
-
 [node name="Player" parent="." instance=ExtResource("3_gnmvr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14384, 1.85534)
 
@@ -709,7 +699,7 @@ material_override = SubResource("StandardMaterial3D_u3h82")
 mesh = SubResource("ArrayMesh_a7nks")
 skeleton = NodePath("")
 
-[node name="Enemy_spawn" parent="." node_paths=PackedStringArray("spawn_pos", "difficulty_manager") instance=ExtResource("6_rj6oe")]
+[node name="Enemy_spawn" parent="." node_paths=PackedStringArray("boss_spawn_pos", "difficulty_manager", "nav_region") instance=ExtResource("6_rj6oe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 easy_enemies = Array[PackedScene]([ExtResource("7_6ba0b")])
 medium_wave = 3
@@ -718,16 +708,18 @@ hard_wave = 7
 hard_enemies = Array[PackedScene]([ExtResource("9_xurul")])
 boss_wave = 1
 boss_enemies = Array[PackedScene]([ExtResource("10_a0qh8")])
-spawn_pos = NodePath("PathFollow3D")
+boss_spawn_pos = NodePath("Boss_Spawn")
 min_number = 2
 max_number = 7
 difficulty_manager = NodePath("Difficulty_manager")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Enemy_spawn"]
-transform = Transform3D(-0.00296783, 0, -0.99998, 0, 1, 0, 0.99998, 0, -0.00296783, -12.9955, 0, -13.1507)
+spawn_radius = 15.0
+nav_region = NodePath("../NavigationRegion3D")
 
 [node name="Difficulty_manager" parent="Enemy_spawn" instance=ExtResource("11_nadsu")]
 spawn_time_curve = SubResource("Curve_m3tlr")
+
+[node name="Boss_Spawn" type="Marker3D" parent="Enemy_spawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.90865, -12.2809)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." groups=["navigation_region"]]
 navigation_mesh = SubResource("NavigationMesh_i1p17")
@@ -739,11 +731,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Main/floor"]
+visible = false
 mesh = SubResource("BoxMesh_1udlb")
 skeleton = NodePath("../../../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Main/floor"]
-shape = SubResource("ConvexPolygonShape3D_6vrs7")
+shape = SubResource("ConvexPolygonShape3D_a6wnq")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D/Main"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7859, 0.331684, 0)
@@ -910,7 +903,7 @@ visible = false
 [node name="Fence" type="Node3D" parent="Decorations"]
 script = ExtResource("11_8tf12")
 render_mode = 2
-modifier_stack = SubResource("Resource_6tjjv")
+modifier_stack = SubResource("Resource_0dwyy")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -969,6 +962,7 @@ waves = Array[ExtResource("25_xeymk")]([SubResource("Resource_204iv")])
 [node name="Node3D" type="Node3D" parent="Path3D/PathFollow3D/Invaders_Spawner"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+visible = false
 material_override = SubResource("StandardMaterial3D_m8qxl")
 mesh = SubResource("SphereMesh_pu0it")
 
@@ -978,9 +972,11 @@ mesh = SubResource("SphereMesh_pu0it")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.3594)
 
 [node name="spawn_marker1" type="Marker3D" parent="Boss_Markers" groups=["invader_spawn_markers"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50723, 1.65092, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Safety_Teleport" type="Marker3D" parent="Boss_Markers"]
+
+[node name="Limits" parent="." instance=ExtResource("34_ixjaq")]
 
 [connection signal="easy_wave_signal" from="Enemy_spawn" to="Path3D/PathFollow3D" method="_on_enemy_spawn_easy_wave_signal"]
 [connection signal="hard_wave_signal" from="Enemy_spawn" to="Path3D/PathFollow3D" method="_on_enemy_spawn_hard_wave_signal"]

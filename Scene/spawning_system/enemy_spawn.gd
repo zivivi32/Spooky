@@ -1,14 +1,21 @@
-extends Path3D
-@export_subgroup("Spawn properties")
+extends Node3D
+@export_group("Spawn properties")
+@export_subgroup("Easy Enemies")
 @export var easy_wave: int = 1
 @export var easy_enemies: Array[PackedScene] # Easy enemies for early waves
+@export_subgroup("Medium Enemies")
 @export var medium_wave: int = 2
 @export var medium_enemies: Array[PackedScene] # Medium enemies for mid-game waves
+@export_subgroup("Hard Enemies")
 @export var hard_wave: int = 3
 @export var hard_enemies: Array[PackedScene] # Hard enemies for later waves
+@export_subgroup("Boss Configurations")
 @export var boss_wave: int = 5
 @export var boss_enemies: Array[PackedScene] # Boss enemies for special waves
-@export var spawn_pos: PathFollow3D
+@export var boss_spawn_pos: Marker3D
+
+@export_subgroup("Wave Properties")
+#@export var spawn_pos: PathFollow3D
 @export var min_number: int = 3
 @export var max_number: int = 10
 @export var spawn_timer: Timer
@@ -17,7 +24,8 @@ extends Path3D
 @export_subgroup("Wave UI")
 @export var wave_label: Label
 @export var score_label: Label
-
+@export var spawn_radius: float = 3
+@export var nav_region: NavigationRegion3D  # Reference to the NavigationRegion3D
 # Track enemies in the current wave
 var current_wave_enemies: Array = []
 var is_in_wave: bool = false
@@ -40,10 +48,8 @@ var score: int:
 
 var spawning_boss: bool = false
 
-
 signal wave_started
 signal boss_spawn
-
 
 signal easy_wave_signal
 signal medium_wave_signal
@@ -63,6 +69,7 @@ func _ready() -> void:
 # Start a new wave of enemies
 func start_new_wave() -> void:
 	if !is_in_wave:
+
 		current_wave_enemies.clear() # Clear the previous wave enemies
 		spawning_boss = is_boss_wave() # Check if the new wave is a boss wave
 		
@@ -72,7 +79,7 @@ func start_new_wave() -> void:
 			wave_started.emit()
 
 		if spawning_boss:
-			spawn_timer.start(0.1)  # Boss spawns immediately
+			spawn_timer.start(0.5)  # Boss spawns immediately
 		else:
 			spawn_timer.start(difficulty_manager.get_spawn_time())
 		is_in_wave = true
@@ -82,7 +89,6 @@ func stop_spawn() -> void:
 	spawn_timer.stop()
 	is_in_wave = false
 
-# Spawn enemies during the wave
 func spawning() -> void:
 	if spawning_boss:
 		# If it's a boss wave, spawn only one boss and stop further spawning
@@ -93,9 +99,8 @@ func spawning() -> void:
 		var enemy_scene: PackedScene = pick_enemy_type()
 
 		var spawn = enemy_scene.instantiate()
-		get_parent().add_child(spawn)
-		spawn_pos.progress_ratio = randf_range(0, 1)
-		spawn.global_position = spawn_pos.global_position
+		get_tree().root.add_child(spawn)
+		spawn.global_position = spawning_position()
 
 		# Add the spawned enemy to the current wave enemies array
 		current_wave_enemies.append(spawn)
@@ -104,6 +109,30 @@ func spawning() -> void:
 		# Restart the spawn timer based on difficulty curve
 		spawn_timer.start(difficulty_manager.get_spawn_time())
 
+
+func spawning_position() -> Vector3:
+	var valid_spawn_position = false
+	var spawn_position: Vector3
+
+	while not valid_spawn_position:
+		# Generate a random point within the spawn radius
+		var random_offset = Vector3(
+			randf_range(-spawn_radius, spawn_radius),  # X offset
+			0,                                        # Y remains the same, no vertical change
+			randf_range(-spawn_radius, spawn_radius)   # Z offset
+		)
+		
+		# Calculate tentative spawn position relative to the current position
+		var tentative_position = global_position + random_offset
+
+		# Use NavigationServer3D to get the closest point on the navigation mesh
+		spawn_position = NavigationServer3D.map_get_closest_point(nav_region.get_navigation_map(), tentative_position)
+		
+		# Check if the spawn_position is valid (on the navigation mesh)
+		if spawn_position != Vector3.ZERO:
+			valid_spawn_position = true  # Exit the loop when a valid position is found
+
+	return spawn_position 
 # Determine if this is a boss wave (every 10th wave)
 func is_boss_wave() -> bool:
 	return wave_number % boss_wave == 0
@@ -112,9 +141,9 @@ func is_boss_wave() -> bool:
 func spawn_boss() -> void:
 	var boss_scene: PackedScene = boss_enemies.pick_random()
 	var boss = boss_scene.instantiate()
-	get_parent().add_child(boss)
-	spawn_pos.progress_ratio = randf_range(0, 1)
-	boss.global_position = spawn_pos.global_position
+	get_tree().root.add_child(boss)
+
+	boss.global_position = boss_spawn_pos.global_position
 
 	# Track the boss as the only enemy in this wave
 	current_wave_enemies.append(boss)

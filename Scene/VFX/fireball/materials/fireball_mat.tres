@@ -1,28 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://d1nm3jquvgrb6"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://d1nm3jquvgrb6"]
 
-[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_shell.gdshader" id="1_0v72e"]
+[ext_resource type="Shader" uid="uid://co2f4do3n4f2e" path="res://Shaders/s_special_fire_shader.tres" id="1_sdnbj"]
 
-[sub_resource type="Gradient" id="Gradient_06tmw"]
-offsets = PackedFloat32Array(0.153061, 1)
-colors = PackedColorArray(1, 0.25098, 0, 1, 1, 0.654902, 0, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m0fl8"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0h637"]
-gradient = SubResource("Gradient_06tmw")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_m3502"]
-noise_type = 2
-frequency = 0.0007
-fractal_octaves = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_apkdg"]
-seamless = true
-noise = SubResource("FastNoiseLite_m3502")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8jt50"]
+noise = SubResource("FastNoiseLite_m0fl8")
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("1_0v72e")
-shader_parameter/def_x = 0.0
-shader_parameter/def_z = 0.0
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_apkdg")
-shader_parameter/gradient_sampler = SubResource("GradientTexture2D_0h637")
+shader = ExtResource("1_sdnbj")
+shader_parameter/ColorParameter = Color(4, 0.8, 0.143, 1)
+shader_parameter/Distortion = SubResource("NoiseTexture2D_8jt50")
+shader_parameter/FireTexture = SubResource("NoiseTexture2D_8jt50")

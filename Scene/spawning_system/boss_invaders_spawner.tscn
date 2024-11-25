@@ -29,6 +29,7 @@ pause_duration = 2.0
 [node name="Boss_Invaders_Spawner" type="Node3D" node_paths=PackedStringArray("spawn_container", "timer_movement", "stop_movement_timer")]
 script = ExtResource("1_4wger")
 spawn_container = NodePath("Container")
+delete_after_waves = true
 timer_movement = NodePath("start_movement")
 stop_movement_timer = NodePath("stop_movement")
 waves = Array[ExtResource("2_ljn8u")]([SubResource("Resource_qd5jk")])

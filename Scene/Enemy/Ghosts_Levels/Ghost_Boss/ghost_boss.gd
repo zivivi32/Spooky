@@ -124,22 +124,48 @@ func spawn_invaders():
 	invader_spawner = invaders_spawner_scene.instantiate()
 	invader_spawner.boss_wave = true
 	spawner_location.add_child(invader_spawner)
-	invader_spawner.all_waves_completed.connect(bt_wave_done)
+	invader_spawner.wave_completed.connect(bt_wave_done)
 	invader_spawner.global_position = spawner_location.global_position
-	##invader_spawner.current_wave = 0
 	invader_spawner.start_next_wave()
-	bt.blackboard.set_var(&"quarter_life", false)
-	bt.blackboard.set_var(&"wave_spawned", true)
-	bt.blackboard.set_var(&"is_wave_done", false)
-	
-func teleport():
-	global_position = teleport_location.global_position
-	bt.blackboard.set_var(&"is_wave_done", false)
-	
+
+func teleport(is_teleporting_away: bool):
+	if is_teleporting_away:
+		global_position = teleport_location.global_position
+		health.can_hurt = false
+	else: 
+		health.can_hurt = true
+		global_position = spawning_position(30)
+
 func bt_wave_done():
-	bt.blackboard.set_var(&"is_wave_done", true)
-	bt.blackboard.set_var(&"wave_spawned", false)
-	
+	health.can_hurt = true
+	teleport(false)
+	bt.restart()
+
+
+func spawning_position(position_radius) -> Vector3:
+	var valid_spawn_position = false
+	var spawn_position: Vector3
+
+	while not valid_spawn_position:
+		# Generate a random point within the spawn radius
+		var random_offset = Vector3(
+			randf_range(-position_radius, position_radius),  # X offset
+			0,                                        # Y remains the same, no vertical change
+			randf_range(-position_radius, position_radius)   # Z offset
+		)
+		
+		# Calculate tentative spawn position relative to the current position
+		var tentative_position = global_position + random_offset
+
+		# Use NavigationServer3D to get the closest point on the navigation mesh
+		spawn_position = NavigationServer3D.map_get_closest_point(nav_region.get_navigation_map(), tentative_position)
+		
+		# Check if the spawn_position is valid (on the navigation mesh)
+		if spawn_position != Vector3.ZERO:
+			valid_spawn_position = true  # Exit the loop when a valid position is found
+
+	return spawn_position 
+
 func spawn_minions() -> void:
 	navigation_agent.Speed = 0
 	velocity = Vector3.ZERO
@@ -148,31 +174,10 @@ func spawn_minions() -> void:
 	for i in range(num_spawn):
 		var spawn = minions.pick_random().instantiate()
 		
-		var valid_spawn_position = false
-		var spawn_position: Vector3
-		
-		while not valid_spawn_position:
-			# Generate a random point within the spawn radius
-			var random_offset = Vector3(
-				randf_range(-spawn_radius, spawn_radius),  # X offset
-				0,                                        # Y remains the same, no vertical change
-				randf_range(-spawn_radius, spawn_radius)   # Z offset
-			)
-			
-			# Calculate tentative spawn position relative to the current position
-			var tentative_position = global_position + random_offset
-
-			# Use NavigationServer3D to get the closest point on the navigation mesh
-			spawn_position = NavigationServer3D.map_get_closest_point(nav_region.get_navigation_map(), tentative_position)
-			
-			# Check if the spawn_position is valid (on the navigation mesh)
-			if spawn_position != Vector3.ZERO:
-				valid_spawn_position = true  # Exit the loop when a valid position is found
-
 		# Spawn the minion at the valid position
 		spawn.is_spawned = true
 		get_parent().add_child(spawn)
-		spawn.global_position = spawn_position
+		spawn.global_position = spawning_position(spawn_radius)
 
 	Events.emit_signal("fx_screen_shake", 0.1, 0.2)
 	if weapon.attack_timer.is_stopped():
@@ -194,8 +199,9 @@ func _physics_process(delta: float) -> void:
 
 	if position.y < -10:
 		## Teleport to safety
-		get_tree().reload_current_scene()
-		
+		teleport(false)
+	
+	
 func death() -> void:
 	enemy_death.emit(self)
 	
