@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=48 format=3 uid="uid://d3frpsxs8dofs"]
+[gd_resource type="BehaviorTree" load_steps=50 format=3 uid="uid://d3frpsxs8dofs"]
 
 [ext_resource type="Script" path="res://ai/tasks/idle_phase.gd" id="1_ajqsp"]
 [ext_resource type="Script" path="res://ai/tasks/teleport.gd" id="2_2qk28"]
@@ -28,13 +28,13 @@ var/quarter_life/value = false
 var/quarter_life/hint = 0
 var/quarter_life/hint_string = ""
 
-[sub_resource type="BBNode" id="BBNode_xxwou"]
-saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
-resource_name = "man-ghost-halloween/AnimationPlayer"
+[sub_resource type="BBNode" id="BBNode_3h60t"]
+saved_value = NodePath("Character_Tormented_Soul/AnimationPlayer")
+resource_name = "Character_Tormented_Soul/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_bmqjm"]
-animation_player = SubResource("BBNode_xxwou")
-animation_name = &"Idle/Idle"
+animation_player = SubResource("BBNode_3h60t")
+animation_name = &"Ghost/Idle"
 
 [sub_resource type="BTAction" id="BTAction_o68bi"]
 script = ExtResource("1_ajqsp")
@@ -50,13 +50,13 @@ run_chance = 0.1
 custom_name = "Idle"
 children = [SubResource("BTSequence_jp6ju")]
 
-[sub_resource type="BBNode" id="BBNode_b5vqn"]
-saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
-resource_name = "man-ghost-halloween/AnimationPlayer"
+[sub_resource type="BBNode" id="BBNode_icbei"]
+saved_value = NodePath("Character_Tormented_Soul/AnimationPlayer")
+resource_name = "Character_Tormented_Soul/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_6rbal"]
-animation_player = SubResource("BBNode_b5vqn")
-animation_name = &"Idle/Idle"
+animation_player = SubResource("BBNode_icbei")
+animation_name = &"Ghost/Idle"
 
 [sub_resource type="BTAction" id="BTAction_85v26"]
 script = ExtResource("2_qlvh8")
@@ -87,6 +87,16 @@ stream_0/stream = ExtResource("5_07x05")
 script = ExtResource("4_wovmk")
 soundFX = Array[AudioStream]([SubResource("AudioStreamRandomizer_hdgal")])
 
+[sub_resource type="BBNode" id="BBNode_sjtor"]
+saved_value = NodePath("Character_Tormented_Soul/AnimationPlayer")
+resource_name = "Character_Tormented_Soul/AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_i1lmn"]
+await_completion = 10.0
+animation_player = SubResource("BBNode_sjtor")
+animation_name = &"Ghost/Special_Attack"
+blend = 0.5
+
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("6_kgaa4")
 
@@ -95,7 +105,7 @@ script = ExtResource("7_7iyxq")
 
 [sub_resource type="BTSequence" id="BTSequence_c53sd"]
 custom_name = "Spawn_Minions"
-children = [SubResource("BTAction_wojhy"), SubResource("BTAction_2eea7"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
+children = [SubResource("BTAction_wojhy"), SubResource("BTAction_2eea7"), SubResource("BTPlayAnimation_i1lmn"), SubResource("BTAction_ojhm3"), SubResource("BTAction_usf3m")]
 
 [sub_resource type="BTProbability" id="BTProbability_ojjha"]
 run_chance = 0.4
@@ -103,13 +113,13 @@ custom_name = "Spawn_minion"
 children = [SubResource("BTSequence_c53sd")]
 
 [sub_resource type="BBNode" id="BBNode_4gyl8"]
-saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
-resource_name = "man-ghost-halloween/AnimationPlayer"
+saved_value = NodePath("Character_Tormented_Soul/AnimationPlayer")
+resource_name = "Character_Tormented_Soul/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_su4j1"]
-await_completion = 10.0
+await_completion = 100.0
 animation_player = SubResource("BBNode_4gyl8")
-animation_name = &"Attack"
+animation_name = &"Ghost/Attack"
 
 [sub_resource type="BTRepeat" id="BTRepeat_b5w2w"]
 times = 3
@@ -134,13 +144,13 @@ teleport_back = true
 [sub_resource type="BTAction" id="BTAction_wbtu8"]
 script = ExtResource("2_kh1gl")
 
-[sub_resource type="BBNode" id="BBNode_2t2gy"]
-saved_value = NodePath("man-ghost-halloween/AnimationPlayer")
-resource_name = "man-ghost-halloween/AnimationPlayer"
+[sub_resource type="BBNode" id="BBNode_on4sv"]
+saved_value = NodePath("Character_Tormented_Soul/AnimationPlayer")
+resource_name = "Character_Tormented_Soul/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ondk0"]
-animation_player = SubResource("BBNode_2t2gy")
-animation_name = &"Idle/Idle"
+animation_player = SubResource("BBNode_on4sv")
+animation_name = &"Ghost/Idle"
 
 [sub_resource type="BTAction" id="BTAction_50anh"]
 script = ExtResource("1_ajqsp")

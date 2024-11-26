@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var wave_spawner: WaveSpawner
+@export var wave_spawner: Node3D
 @export var wave_move_speed: float = 2
 @export var wave_move_timer: Timer
 @export var wave_move_wait: float = 2

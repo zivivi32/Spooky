@@ -132,8 +132,11 @@ func teleport(is_teleporting_away: bool):
 	if is_teleporting_away:
 		global_position = teleport_location.global_position
 		health.can_hurt = false
+		weapon.attack_timer.stop()
 	else: 
 		health.can_hurt = true
+		if weapon.attack_timer.is_stopped():
+			weapon.attack_timer.start(weapon.timer_count)
 		global_position = spawning_position(30)
 
 func bt_wave_done():
