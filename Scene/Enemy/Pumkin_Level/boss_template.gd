@@ -18,6 +18,9 @@ class_name Boss
 @export var walking_particles: GPUParticles3D
 @export var death_particles: Array[GPUParticles3D]
 @export var death_sfx: Array[AudioStream]
+@export var spawning_minions_vfx: PackedScene
+@export var teleport_vfx: PackedScene
+@export var special_attack_vfx: PackedScene
 
 @export_subgroup("default attack")
 @export var bullet_count: int = 5
@@ -93,6 +96,8 @@ func range_attack():
 	if range_attack_sfx:
 		for sfx in range_attack_sfx:
 			AudioManager.play_sound(sfx)
+	if special_attack_vfx:
+		spawn_vfx(special_attack_vfx, global_position)
 	weapon.shoot()
 	
 func switch_default_bullet():
@@ -114,7 +119,9 @@ func switch_bullet(new_bullet: PackedScene):
 	weapon.bullet_scene = new_bullet
 	
 func teleport(_is_teleporting_away: bool):
-		global_position = spawning_position()
+	if teleport_vfx:
+		spawn_vfx(teleport_vfx, global_position)
+	global_position = spawning_position()
 
 func spawning_position() -> Vector3:
 	var valid_spawn_position = false
@@ -143,6 +150,9 @@ func spawning_position() -> Vector3:
 func spawn_minions() -> void:
 	navigation_agent.Speed = 0
 	velocity = Vector3.ZERO
+	
+	if spawning_minions_vfx:
+		spawn_vfx(spawning_minions_vfx, global_position)
 	
 	var num_spawn: int = randi_range(min_spawn, max_spawn)
 	for i in range(num_spawn):
@@ -204,6 +214,12 @@ func death() -> void:
 	await get_tree().create_timer(2).timeout
 	queue_free()
 	
+func spawn_vfx(vfx_scene: PackedScene, vfx_position: Vector3):
+	var vfx  = vfx_scene.instantiate()
+	get_tree().root.add_child(vfx)
+	vfx.global_position = vfx_position
+	
+
 func validate_enemy_position(): 
 	var extended_bounds = AABB(
 		map_bounds.position - Vector3(max_distance_from_bounds, max_distance_from_bounds, max_distance_from_bounds),

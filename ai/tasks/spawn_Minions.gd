@@ -1,7 +1,8 @@
 extends BTAction
-
+@export var use_agent_function: bool = false
 func _enter() -> void:
-	#agent.spawn_minions()
+	if use_agent_function:
+		agent.spawn_minions()
 	agent.navigation_agent.ClearTarget()
 	agent.velocity = Vector3.ZERO
 	agent.navigation_agent.Speed = 0

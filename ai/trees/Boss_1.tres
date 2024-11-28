@@ -79,6 +79,7 @@ soundFX = Array[AudioStream]([SubResource("AudioStreamRandomizer_hdgal")])
 
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("3_fehff")
+use_agent_function = true
 
 [sub_resource type="BTAction" id="BTAction_usf3m"]
 script = ExtResource("7_hjmjv")
