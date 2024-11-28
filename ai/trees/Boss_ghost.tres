@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=50 format=3 uid="uid://d3frpsxs8dofs"]
+[gd_resource type="BehaviorTree" load_steps=51 format=3 uid="uid://d3frpsxs8dofs"]
 
 [ext_resource type="Script" path="res://ai/tasks/idle_phase.gd" id="1_ajqsp"]
 [ext_resource type="Script" path="res://ai/tasks/teleport.gd" id="2_2qk28"]
@@ -170,9 +170,14 @@ children = [SubResource("BTPlayAnimation_ondk0"), SubResource("BTAction_50anh"),
 [sub_resource type="BTSequence" id="BTSequence_dk1c0"]
 children = [SubResource("BTAction_gp1br"), SubResource("BTAction_wbtu8"), SubResource("BTSequence_sq8t7")]
 
-[sub_resource type="BTProbability" id="BTProbability_t7nh8"]
-custom_name = "Spawn Invader wave"
+[sub_resource type="BTCooldown" id="BTCooldown_tm5oj"]
+start_cooled = true
 children = [SubResource("BTSequence_dk1c0")]
+
+[sub_resource type="BTProbability" id="BTProbability_t7nh8"]
+run_chance = 0.15
+custom_name = "Spawn Invader wave"
+children = [SubResource("BTCooldown_tm5oj")]
 
 [sub_resource type="BTSelector" id="BTSelector_f42ow"]
 children = [SubResource("BTProbability_5eb2f"), SubResource("BTProbability_wsjr6"), SubResource("BTProbability_ojjha"), SubResource("BTProbability_c3my0"), SubResource("BTProbability_t7nh8")]

@@ -4,10 +4,16 @@ extends Area3D
 @export var death_sfx: Array[AudioStream]
 @export var death_particles: GPUParticles3D
 @export var damage_on_contact: int = 30
+@export var weapon: Gun_Weapon
 
 signal destroyed
 func _ready() -> void:
 	health.connect("death", death)
+	if weapon:
+		print_debug("Starting timer")
+		if weapon.attack_timer.is_stopped():
+			weapon.attack_timer.start(weapon.timer_count)
+
 
 func death() -> void:
 	destroyed.emit()

@@ -18,6 +18,8 @@ class_name Ghost_Boss
 @export var walking_particles: GPUParticles3D
 @export var death_particles: Array[GPUParticles3D]
 @export var death_sfx: Array[AudioStream]
+@export var spawning_minions_vfx: PackedScene
+@export var teleport_vfx: PackedScene
 
 @export_subgroup("default attack")
 @export var bullet_count: int = 5
@@ -58,7 +60,18 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var thresholds_triggered = []
 signal enemy_death
 
+
+#### Checking if Boss is still in the area
+@export_subgroup("Map Limits")
+@export var map_bounds: AABB
+@export var max_distance_from_bounds: float = 5.0 # Extra buffer beyond map bounds
+@export var timer_validation: Timer
+
 func _ready() -> void:
+	### Validations
+	timer_validation.connect("timeout", validate_enemy_position)
+	###
+	
 	health.connect("death", death)
 	weapon.bullet_count = bullet_count
 	bt.blackboard.set_var(&"is_wave_done", true)
@@ -130,6 +143,8 @@ func spawn_invaders():
 
 func teleport(is_teleporting_away: bool):
 	if is_teleporting_away:
+		if teleport_vfx:
+			spawn_vfx(teleport_vfx, global_position)
 		global_position = teleport_location.global_position
 		health.can_hurt = false
 		weapon.attack_timer.stop()
@@ -137,6 +152,8 @@ func teleport(is_teleporting_away: bool):
 		health.can_hurt = true
 		if weapon.attack_timer.is_stopped():
 			weapon.attack_timer.start(weapon.timer_count)
+		if teleport_vfx:
+			spawn_vfx(teleport_vfx, global_position)
 		global_position = spawning_position(30)
 
 func bt_wave_done():
@@ -149,6 +166,9 @@ func spawning_position(position_radius) -> Vector3:
 	var valid_spawn_position = false
 	var spawn_position: Vector3
 
+	if spawning_minions_vfx:
+		spawn_vfx(spawning_minions_vfx, global_position)
+		
 	while not valid_spawn_position:
 		# Generate a random point within the spawn radius
 		var random_offset = Vector3(
@@ -261,3 +281,17 @@ func check_health_thresholds():
 			# Set the quarter_life variable to true to trigger the behavior tree logic
 			bt.blackboard.set_var(&"quarter_life", true)
 			return
+
+func spawn_vfx(vfx_scene: PackedScene, vfx_position: Vector3):
+	var vfx  = vfx_scene.instantiate()
+	get_tree().root.add_child(vfx)
+	vfx.global_position = vfx_position
+
+func validate_enemy_position(): 
+	var extended_bounds = AABB(
+		map_bounds.position - Vector3(max_distance_from_bounds, max_distance_from_bounds, max_distance_from_bounds),
+		map_bounds.size + Vector3(max_distance_from_bounds * 2, max_distance_from_bounds * 2, max_distance_from_bounds * 2)
+	)
+	# If outside extended bounds, reset to safe position
+	if not extended_bounds.has_point(global_position):
+		teleport(false)

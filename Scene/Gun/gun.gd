@@ -28,6 +28,7 @@ var extra_damage: int = 0
 
 func _ready() -> void:
 	attack_timer.wait_time = timer_count
+	
 	if !is_ai:
 		attack_timer.connect("timeout", shoot)
 

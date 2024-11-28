@@ -66,8 +66,6 @@ func ability_used() -> void:
 
 func on_cooldown() -> void:
 	cool_down = ability.cool_down_wait
-	print_debug(cool_down)
-	print_debug(ability.cool_down_wait)
 	if timer.is_stopped():
 		timer.start(cool_down)
 	time_label.show()

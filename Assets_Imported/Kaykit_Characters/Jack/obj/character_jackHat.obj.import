@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b7ybjg41uduf7"
+path="res://.godot/imported/character_jackHat.obj-a0ee95aed5c4ad7e3c967b06e349c94a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/character_jackHat.obj-a0ee95aed5c4ad7e3c967b06e349c94a.mesh"]
+
+source_file="res://Assets_Imported/Kaykit_Characters/Jack/obj/character_jackHat.obj"
+dest_files=["res://.godot/imported/character_jackHat.obj-a0ee95aed5c4ad7e3c967b06e349c94a.mesh", "res://.godot/imported/character_jackHat.obj-a0ee95aed5c4ad7e3c967b06e349c94a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -42,6 +42,12 @@ class_name Boss
 @export var max_spawn: int = 5
 @export var spawn_position: Vector3
 
+#### Checking if Boss is still in the area
+@export_subgroup("Map Limits")
+@export var map_bounds: AABB
+@export var max_distance_from_bounds: float = 5.0 # Extra buffer beyond map bounds
+@export var timer_validation: Timer
+
 var rotation_direction = 0
 var player: Player
 var playback 
@@ -50,6 +56,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 signal enemy_death
 
 func _ready() -> void:
+	
+	### Validations
+	timer_validation.connect("timeout", validate_enemy_position)
+	###
+	
 	health.connect("death", death)
 	weapon.bullet_count = bullet_count
 
@@ -192,3 +203,12 @@ func death() -> void:
 			
 	await get_tree().create_timer(2).timeout
 	queue_free()
+	
+func validate_enemy_position(): 
+	var extended_bounds = AABB(
+		map_bounds.position - Vector3(max_distance_from_bounds, max_distance_from_bounds, max_distance_from_bounds),
+		map_bounds.size + Vector3(max_distance_from_bounds * 2, max_distance_from_bounds * 2, max_distance_from_bounds * 2)
+	)
+	# If outside extended bounds, reset to safe position
+	if not extended_bounds.has_point(global_position):
+		teleport(false)
