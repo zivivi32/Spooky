@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwyw3khjc8k8i"]
+
+[ext_resource type="Script" path="res://Scene/upgrades/Upgrades_scenes/airstrike/air_strike.gd" id="1_8aoga"]
+[ext_resource type="PackedScene" uid="uid://h6dr4xywg2gp" path="res://Scene/Gun/gun.tscn" id="1_stgsu"]
+[ext_resource type="Texture2D" uid="uid://cea4ybwiap1hp" path="res://addons/kenney_particle_pack/magic_03.png" id="1_wbv6o"]
+[ext_resource type="Script" path="res://Scripts/Animation_code/rotate.gd" id="2_c5ulx"]
+[ext_resource type="PackedScene" uid="uid://c683ibtqarr83" path="res://Scene/projectile/explosion_projectile.tscn" id="3_hxxec"]
+
+[node name="AirStrike_Bullet" type="Node3D"]
+script = ExtResource("1_8aoga")
+
+[node name="Gun" parent="." node_paths=PackedStringArray("model") instance=ExtResource("1_stgsu")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8.82986, 0)
+bullet_scene = ExtResource("3_hxxec")
+model = NodePath("..")
+auto_shooting = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, 0)
+texture = ExtResource("1_wbv6o")
+script = ExtResource("2_c5ulx")
+rotation_speed = 150.0
+
+[connection signal="shot" from="Gun" to="." method="_on_gun_shot"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs6eiklgqogpu"]
+
+[ext_resource type="Script" path="res://Scene/upgrades/Upgrades_scenes/airstrike/air_strikes_caling.gd" id="1_nadbf"]
+[ext_resource type="PackedScene" uid="uid://cwyw3khjc8k8i" path="res://Scene/upgrades/Upgrades_scenes/airstrike/air_strike_bullet.tscn" id="2_qyk70"]
+
+[node name="Air_strike" type="Node3D"]
+script = ExtResource("1_nadbf")
+air_strike_bullet_scene = ExtResource("2_qyk70")

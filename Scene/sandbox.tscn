@@ -1,13 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://b33qdb870ijou"]
+[gd_scene load_steps=26 format=3 uid="uid://b33qdb870ijou"]
 
 [ext_resource type="PackedScene" uid="uid://b62weqcdg3t3y" path="res://Scene/Player/player.tscn" id="1_7cyyn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_0o8vc"]
-[ext_resource type="PackedScene" uid="uid://drroxyebfewpq" path="res://Scene/Enemy/Test_enemy/test_wave_enemy.tscn" id="7_evurg"]
+[ext_resource type="PackedScene" uid="uid://cs6eiklgqogpu" path="res://Scene/upgrades/Upgrades_scenes/airstrike/air_strike.tscn" id="7_adk1j"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_28gmy"]
+[ext_resource type="PackedScene" uid="uid://cwyw3khjc8k8i" path="res://Scene/upgrades/Upgrades_scenes/airstrike/air_strike_bullet.tscn" id="8_gymri"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_ymjgf"]
 [ext_resource type="PackedScene" uid="uid://6853jh8vccqm" path="res://Scene/Collectibles/coin1.tscn" id="10_ha3uf"]
-[ext_resource type="PackedScene" uid="uid://c601tvwpktg0i" path="res://Scene/Enemy/Ghosts_Levels/Ghost_Boss/Ghost_Boss.tscn" id="10_q75x6"]
-[ext_resource type="PackedScene" uid="uid://cvk32pooepg37" path="res://Scene/Enemy/Ghosts_Levels/ghost_base.tscn" id="11_8hwxm"]
 [ext_resource type="AudioStream" uid="uid://csuvxktop0yin" path="res://Assets/Sound/Music/Countdown to Myocardial Infarction.ogg" id="12_m2wmy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qedyx"]
@@ -99,6 +98,10 @@ near = 0.05
 far = 4000.0
 
 [node name="Sandbox" type="Node3D" groups=["world"]]
+
+[node name="Air_strike" parent="." instance=ExtResource("7_adk1j")]
+no_air_strike = 10
+num_bullet = 10
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." groups=["navigation_region"]]
 navigation_mesh = SubResource("NavigationMesh_qedyx")
@@ -232,11 +235,5 @@ stream = ExtResource("12_m2wmy")
 volume_db = 5.0
 bus = &"Music"
 
-[node name="Test_enemy" parent="." instance=ExtResource("7_evurg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.16541, 0.6, 4.31558)
-
-[node name="Ghost_base" parent="." instance=ExtResource("11_8hwxm")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.66081, 0.1, 0.614213)
-
-[node name="Boss_Template" parent="." instance=ExtResource("10_q75x6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.91152, 0.0999985, -8.9355)
+[node name="AirStrike" parent="." instance=ExtResource("8_gymri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66693, 0.0999999, 0.0370255)

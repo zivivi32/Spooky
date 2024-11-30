@@ -1738,12 +1738,16 @@ shape = SubResource("ConvexPolygonShape3D_mek44")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Node3D/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4703, 0, 10.4801)
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/Node3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_ryp4y")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D/Node3D/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.53, 0, 10.4801)
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Node3D/Node3D/StaticBody3D2"]
 shape = SubResource("BoxShape3D_ryp4y")

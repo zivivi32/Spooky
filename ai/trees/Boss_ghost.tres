@@ -99,6 +99,7 @@ blend = 0.5
 
 [sub_resource type="BTAction" id="BTAction_ojhm3"]
 script = ExtResource("6_kgaa4")
+use_agent_function = false
 
 [sub_resource type="BTAction" id="BTAction_usf3m"]
 script = ExtResource("7_7iyxq")

@@ -162,7 +162,7 @@ size = Vector2(0.5, 0.5)
 
 [node name="projectile" type="Area3D" node_paths=PackedStringArray("life_timer")]
 collision_layer = 0
-collision_mask = 16
+collision_mask = 17
 script = ExtResource("1_71h14")
 speed = 75.0
 life_timer = NodePath("lifeTimer")

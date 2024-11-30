@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=3 uid="uid://dk5m4x08ibmyk"]
+
+[ext_resource type="Shader" path="res://Scene/VFX/fireball/materials/fireball_particles.gdshader" id="1_od0o3"]
+[ext_resource type="Script" path="res://Scene/VFX/particles_script.gd" id="2_ise1w"]
+
+[sub_resource type="Gradient" id="Gradient_e66r0"]
+offsets = PackedFloat32Array(0.418367, 1)
+colors = PackedColorArray(0.960784, 0.389706, 0.0470588, 1, 1, 0.703125, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y2nns"]
+gradient = SubResource("Gradient_e66r0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kcwya"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ju0mo"]
+seamless = true
+noise = SubResource("FastNoiseLite_kcwya")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wffom"]
+render_priority = 0
+shader = ExtResource("1_od0o3")
+shader_parameter/uv_scale = 0.3
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_ju0mo")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_y2nns")
+
+[sub_resource type="Gradient" id="Gradient_5eg44"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qb1l2"]
+gradient = SubResource("Gradient_5eg44")
+
+[sub_resource type="Curve" id="Curve_ne1lo"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xe2ot"]
+curve = SubResource("Curve_ne1lo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tgvva"]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+spread = 80.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 1, 0)
+damping_min = 0.5
+damping_max = 1.0
+scale_min = 4.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_xe2ot")
+color_ramp = SubResource("GradientTexture1D_qb1l2")
+anim_speed_min = 0.1
+anim_speed_max = 0.1
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_q00c1"]
+size = Vector2(0.5, 0.5)
+
+[node name="projectile_hit" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_wffom")
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_tgvva")
+draw_pass_1 = SubResource("QuadMesh_q00c1")
+script = ExtResource("2_ise1w")

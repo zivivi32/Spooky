@@ -11,7 +11,7 @@ class_name Gun_Weapon
 @export var spawn_pos: Marker3D
 @export_range(0, 360) var arc: float = 60
 @export var timer_count: float = 0.5
-@export var is_ai: bool = false
+@export var auto_shooting: bool = false
 var rotation_direction: float
 var can_shoot: bool = true
 var extra_damage: int = 0
@@ -26,10 +26,12 @@ var extra_damage: int = 0
 @export var sfx: Array[AudioStream]
 @export var volume: float = 0.0
 
+signal shot
+
 func _ready() -> void:
 	attack_timer.wait_time = timer_count
 	
-	if !is_ai:
+	if auto_shooting:
 		attack_timer.connect("timeout", shoot)
 
 func _process(delta: float) -> void:
@@ -62,6 +64,7 @@ func shoot() -> void:
 				# Apply rotation to the direction vector to create the spread
 				var spread_direction = global_transform.basis.z.rotated(Vector3.UP, angle_offset)
 				bullet.direction = spread_direction.normalized()
+				bullet.is_multi_shot = true
 				
 			bullet.damage += extra_damage
 			# Add the bullet to the scene
@@ -82,6 +85,7 @@ func shoot() -> void:
 				AudioManager.play_sound(sound, volume)
 
 		#await get_tree().create_timer(1/fire_rate).timeout
+		shot.emit()
 		can_shoot = true
 
 func change_bullet(new_bullet: PackedScene) -> void:

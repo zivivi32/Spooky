@@ -402,14 +402,14 @@ size = Vector2(0.5, 0.5)
 offsets = PackedFloat32Array(0.418367, 1)
 colors = PackedColorArray(0.960784, 0.389706, 0.0470588, 1, 0.453125, 1, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_c5k8f"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hmxil"]
 gradient = SubResource("Gradient_lgb6v")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_y3wbe"]
 noise_type = 2
 fractal_octaves = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3dq8l"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rbk5h"]
 seamless = true
 noise = SubResource("FastNoiseLite_y3wbe")
 
@@ -417,21 +417,21 @@ noise = SubResource("FastNoiseLite_y3wbe")
 render_priority = 0
 shader = ExtResource("9_7pit8")
 shader_parameter/uv_scale = 0.3
-shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_3dq8l")
-shader_parameter/gradient_sampler = SubResource("GradientTexture1D_c5k8f")
+shader_parameter/voronoi_sampler = SubResource("NoiseTexture2D_rbk5h")
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_hmxil")
 
 [sub_resource type="Gradient" id="Gradient_58gv0"]
 offsets = PackedFloat32Array(0, 0.2, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_as4mn"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eoirc"]
 gradient = SubResource("Gradient_58gv0")
 
 [sub_resource type="Curve" id="Curve_ablel"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_p1mfb"]
+[sub_resource type="CurveTexture" id="CurveTexture_b365n"]
 curve = SubResource("Curve_ablel")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r8qqi"]
@@ -447,8 +447,8 @@ damping_min = 0.5
 damping_max = 1.0
 scale_min = 4.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_p1mfb")
-color_ramp = SubResource("GradientTexture1D_as4mn")
+scale_curve = SubResource("CurveTexture_b365n")
+color_ramp = SubResource("GradientTexture1D_eoirc")
 anim_speed_min = 0.1
 anim_speed_max = 0.1
 anim_offset_max = 1.0
@@ -520,7 +520,6 @@ bullet_scene = ExtResource("3_fndtb")
 model = NodePath(".")
 bullet_speed = 10.0
 spawn_pos = NodePath("Marker3D")
-is_ai = true
 muzzle_flash = ExtResource("5_1pksv")
 sfx = Array[AudioStream]([ExtResource("8_efp2m")])
 volume = -5.0

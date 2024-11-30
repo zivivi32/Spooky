@@ -2839,7 +2839,7 @@ bones/60/rotation = Quaternion(-1.94289e-16, -2.35163e-30, 2.82422e-14, 1)
 bones/60/scale = Vector3(1, 1, 1)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="SK_Chr_Scarecrow_01/Root/GeneralSkeleton"]
-transform = Transform3D(0.995096, 0.0282321, -0.0947989, -0.0314786, 0.998962, -0.0329272, 0.093771, 0.0357498, 0.994952, -0.0495881, 1.46003, 0.184803)
+transform = Transform3D(0.995096, 0.0282321, -0.0947983, -0.0314786, 0.998962, -0.0329274, 0.0937703, 0.0357499, 0.994952, -0.0495881, 1.46003, 0.184803)
 bone_name = "Head"
 bone_idx = 5
 
@@ -2856,7 +2856,7 @@ mesh = SubResource("ArrayMesh_p8do1")
 skin = SubResource("Skin_1hqf5")
 
 [node name="LeftLeg" type="BoneAttachment3D" parent="SK_Chr_Scarecrow_01/Root/GeneralSkeleton"]
-transform = Transform3D(-0.977056, 0.198304, 0.0776992, 0.0779806, -0.00640244, 0.996934, 0.198194, 0.98012, -0.0092081, 0.277705, 0.0881646, 0.152441)
+transform = Transform3D(-0.977056, 0.198305, 0.0776989, 0.0779802, -0.00640204, 0.996935, 0.198194, 0.98012, -0.00920869, 0.277706, 0.0881641, 0.152442)
 bone_name = "LeftFoot"
 bone_idx = 47
 
@@ -2873,7 +2873,7 @@ process_material = SubResource("ParticleProcessMaterial_8ona0")
 draw_pass_1 = SubResource("QuadMesh_bm0iv")
 
 [node name="RightLeg" type="BoneAttachment3D" parent="SK_Chr_Scarecrow_01/Root/GeneralSkeleton"]
-transform = Transform3D(-0.675608, -0.736306, -0.0375072, -0.0371452, -0.0168142, 0.999168, -0.736325, 0.676439, -0.0159904, -0.274268, 0.0932629, -0.092998)
+transform = Transform3D(-0.675607, -0.736307, -0.0375061, -0.0371451, -0.0168126, 0.999168, -0.736326, 0.676438, -0.0159914, -0.274268, 0.0932626, -0.0929981)
 bone_name = "RightFoot"
 bone_idx = 42
 
