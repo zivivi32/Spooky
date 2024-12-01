@@ -5,4 +5,5 @@
 
 [node name="Air_strike" type="Node3D"]
 script = ExtResource("1_nadbf")
+no_air_strike = 5
 air_strike_bullet_scene = ExtResource("2_qyk70")

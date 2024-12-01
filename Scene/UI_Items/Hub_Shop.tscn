@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://drk8vyippefsq"]
+[gd_scene load_steps=21 format=3 uid="uid://drk8vyippefsq"]
 
 [ext_resource type="Script" path="res://Scene/UI_Items/hub_shop.gd" id="1_1nvjx"]
 [ext_resource type="Texture2D" uid="uid://oyuajsudnsf" path="res://Assets_Imported/Kenney-preview/character-skeleton.png" id="1_uqbep"]
@@ -17,6 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://d18t7lhbykwjy" path="res://Assets/Icons/bullets.png" id="11_nebcc"]
 [ext_resource type="Texture2D" uid="uid://bucp0xexbdlvs" path="res://Assets/Icons/scarecrow.png" id="14_ulpli"]
 [ext_resource type="Texture2D" uid="uid://ch1dqlhna6rws" path="res://Assets/Icons/magnet.png" id="16_c1ils"]
+[ext_resource type="Script" path="res://Scene/UI_Items/air_strike.gd" id="18_sjxmk"]
+[ext_resource type="PackedScene" uid="uid://ec7vv8hadb6w" path="res://Scene/Ability/Abilities_scenes/air_strike_ability.tscn" id="19_ucqhw"]
+[ext_resource type="Texture2D" uid="uid://cufbjl6wxt0o3" path="res://Assets/Icons/missile-swarm.png" id="20_ctn37"]
 
 [node name="HubShop" type="CanvasLayer" node_paths=PackedStringArray("item_icon_rect", "description_label", "cost_label", "coins_label", "upgrade_pool", "purchase_button")]
 script = ExtResource("1_1nvjx")
@@ -196,6 +199,14 @@ upgrade_name = "Bring'em to Me"
 description = "Draws the candies to the player"
 icon = ExtResource("16_c1ils")
 cost = 50
+
+[node name="AirStrike" type="Node" parent="Upgrades"]
+script = ExtResource("18_sjxmk")
+new_ability = ExtResource("19_ucqhw")
+upgrade_name = "Air Strike"
+description = "Air Strike of magic pumkins"
+icon = ExtResource("20_ctn37")
+cost = 200
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/Left/Left" to="." method="on_left_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/ITEM/VBoxContainer/ShopNavigation/HBoxContainer/right/Right" to="." method="on_right_pressed"]

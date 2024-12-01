@@ -88,6 +88,7 @@ func _ready() -> void:
 		health.health = 10000
 		coins = 1000
 		add_ability(load("res://Scene/Ability/Abilities_scenes/Explosive_gun.tscn"))
+		#add_ability(load("res://Scene/Ability/Abilities_scenes/air_strike_ability.tscn"))
 		#add_ability(load("res://Scene/Ability/Abilities_scenes/turret_ability.tscn"))
 		
 	#refresh_abilities()
